@@ -1,0 +1,76 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      <img class="nav-title" src="assets/images/nav-chillers.svg" image-cache/>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="friend-list">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list *ngIf="pendingFriends.length != 0">
+    <div class="friend-request-subtitle">{{ 'friend-list.request-subtitle' | translate}}</div>
+    <ion-item *ngFor="let pfriend of pendingFriends">
+      <ion-avatar item-left>
+        <img class="avatar" src="{{pfriend.picture || 'assets/images/default-profil.svg'}}" image-cache/>
+      </ion-avatar>
+      <div class="friend-request-container">
+        <h2 class="friend-request-chiller-name">{{pfriend.firstname}} {{pfriend.lastname}}</h2>
+        <ion-icon class="accept-friend" name="checkmark" (tap)="acceptFriend(pfriend.id)"></ion-icon>
+        <ion-icon class="refuse-friend" name="close" (tap)="deleteFriend(pfriend.id)"></ion-icon>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <div class="search-evt">
+    <ion-searchbar class="search-evt" placeholder="{{ 'global.search' | translate }}" (ionInput)="inputChange($event)"></ion-searchbar>
+  </div>
+  <div class="filter-contacts">
+    <img [src]="logoSun" class="filter-img" (tap)="toggleFilter()" image-cache/>
+  </div>
+
+  <div *ngIf="noFriends == true" class="no-events"><p>{{ 'friend-list.no-friends' | translate}}</p></div>
+
+  <ion-list>
+    <ion-item *ngIf="noResultFriends == true" class="no-result">
+      {{ 'friend-list.no-result' | translate }}
+    </ion-item>
+    <ion-item-sliding *ngFor="let friend of friends">
+      <ion-item (tap)="showChillerDetails(friend.id, friend.firstname, friend.phone, friend.have_chillter)">
+        <ion-avatar item-left>
+          <img src="{{friend.picture || 'assets/images/default-profil.svg'}}" image-cache>
+        </ion-avatar>
+        <div *ngIf="friend.have_chillter" class="have-chillter-name">
+          {{friend.firstname}} <div class="bold-chillter-name">{{friend.lastname}}</div>
+        </div>
+        <img *ngIf="friend.have_chillter" class="have-chillter-img" src="assets/images/tab-bar-chills-enabled.svg" image-cache/>
+        <h2 *ngIf="!friend.have_chillter">{{friend.firstname}}</h2>
+      </ion-item>
+      <ion-item-options *ngIf="friend.have_chillter">
+        <button ion-button outline color="white" (tap)="showDeleteAlert(friend.id)" white>
+          <img class="remove-friend" src="assets/images/close-outline.svg" height="20px"/>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list *ngIf="searchNotFriends == true">
+    <ion-item class="add-friends">
+      {{ 'friend-list.add-friends' | translate }}
+    </ion-item>
+    <ion-item *ngIf="noResultNotFriends == true" class="no-result">
+      {{ 'friend-list.no-result' | translate }}
+    </ion-item>
+    <ion-item *ngFor="let notFriend of notFriends" (tap)="addFriend(notFriend.id)">
+      <ion-avatar item-left><img src="{{notFriend.picture || 'assets/images/default-profil.svg'}}" image-cache/></ion-avatar>
+      <h2>{{notFriend.firstname}} {{notFriend.lastname}}</h2>
+      <ion-icon md="md-add" ios="md-add" class="add-friends-icon" item-right></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+

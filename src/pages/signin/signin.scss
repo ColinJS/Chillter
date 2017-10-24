@@ -1,0 +1,55 @@
+signin {
+  .toolbar-title-ios {
+    font-size: 2.2rem;
+  }
+
+  .avatar {
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .avatar img-loader {
+    background-image: url(../assets/images/camera_placeholder.png);
+    background-size: 150px 150px;
+    box-sizing: content-box;
+    border: 2px solid $chillter-col;
+    border-radius: 100%;
+    display: inline-block;
+    height: 150px;
+    width: 150px;
+  }
+
+  .subtitle-avatar {
+    margin-top: 1%;
+    margin-bottom: 2%;
+    text-align: center;
+    color: $chillter-col;
+    font-size: 1.8rem;
+  }
+
+  ion-item.input-has-focus ion-input,
+  ion-item.input-has-focus ion-input[required] {
+    border: none;
+  }
+  ion-input.ng-valid[required] {
+    border-bottom: 1px solid green;
+  }
+
+  ion-input.ng-valid {
+    border-bottom: 1px solid green;
+  }
+
+  ion-input.ng-invalid {
+    border-bottom: 1px solid red;
+  }
+
+  ion-input.ng-pristine {
+    border: none;
+  }
+
+  /* Remove the last border-bottom */
+  .list-ios>.item-block:last-child,
+  .list-ios>.item-wrapper:last-child .item-block {
+    border-bottom: 0;
+  }
+}

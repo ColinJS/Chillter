@@ -1,0 +1,163 @@
+home {
+  img {
+    max-width: 80%;
+
+    .nav-title {
+      height: 110px;
+    }
+  }
+
+  .trash-button {
+    margin: 3% 5%;
+    float: right;
+    font-size: 3rem;
+    color: $chillter-col;
+  }
+
+  .scroll-content {
+    top: -1% !important;
+  }
+
+  .chill-flex {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 0px 10px;
+  }
+
+  .chill-flex:after {
+    content: "";
+    margin-right: 31%;
+  }
+
+  .chill-contain {
+    width: calc((85vmin / 3) - 3px);
+    font-size: 1.2rem;
+    color: $chillter-col;
+    position: relative;
+  }
+
+  .shaking-chill:not(#plus) {
+    animation: shake 0.50s infinite;
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-0.5px, 0, 0);
+      transform: rotate(-1deg);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(0.5px, 0, 0);
+      transform: rotate(1deg);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-0.5px, 0, 0);
+      transform: rotate(-1deg);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(0.5px, 0, 0);
+      transform: rotate(1deg);
+    }
+  }
+
+  .delete-icon {
+    background-image: url("../assets/images/close-outline.svg");
+    background-repeat: no-repeat;
+    height: 35px;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+
+    img {
+      visibility: hidden;
+    }
+
+    img:not(#plus) {
+      visibility: visible;
+    }
+  }
+
+  .swiper-pagination {
+    top: 5px;
+    height: 20px;
+  }
+
+  .swiper-pagination-bullet {
+    background: $chillter-col;
+  }
+
+  .swiper-pagination-bullet:first-child:nth-last-child(1) {
+    visibility: hidden;
+  }
+
+  /* Drag & drop */
+  .non-ghost {
+    opacity: 0.3;
+  }
+
+  .rounded-chill-image {
+    border: 2px solid #f8973a;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    img {
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      padding: 3px 4px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      position: relative;
+      top: 1px;
+    }
+  }
+
+  /* Override rules for screen with width > 768px (iPad...) */
+  @media screen and (min-width: 768px) {
+    .nav-title {
+      margin-top: 1%;
+      height: 68px;
+    }
+
+    .chill-contain {
+      width: calc((68vmin / 2.8));
+      font-size: 2rem;
+    }
+  }
+}
+
+.bar-button-default-ios,
+.bar-button-default.bar-button-ios-default,
+.bar-button-clear-ios-default {
+  background: #fff;
+  padding: 0 0 0 3px;
+  border: 1px solid #ff862a;
+  height: auto;
+  margin-left: 5px;
+  .back-button-icon-ios {
+    font-size: 2.8rem;
+    top: 2px;
+    position: relative;
+    padding: 0 10px 0 7px;
+  }
+  .back-button-text {
+    display: none;
+  }
+}
+
+.content-ios:not([no-bounce])>.scroll-content::before {
+  bottom: 0;
+}

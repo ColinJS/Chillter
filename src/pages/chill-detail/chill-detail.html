@@ -1,0 +1,115 @@
+<ion-content>
+
+  <div class="floating-close-button" (tap)="close()"></div>
+  <div class="overlay left-pan-accept hide-left-pan {{ transformLeftPan }}"></div>
+  <div class="overlay right-pan-refuse hide-right-pan {{ transformRightPan }}"></div>
+  <div class="overlay-chill-detail top-pan-maybe hide-top-pan {{ transformTopPan }}"></div>
+
+  <div class="chills-header">
+    <div class="ch-background">
+      <img id="background" [src]="banner" *ngIf="!isEdit" image-cache/>
+      <img-loader id="background" [src]="banner" *ngIf="isEdit"></img-loader>
+    </div>
+    <div class="ch-logo">
+      <img id="logo" [src]="logo" *ngIf="!isEdit" image-cache/>
+      <img-loader id="logo" [src]="logo" *ngIf="isEdit" round></img-loader>
+    </div>
+  </div>
+
+  <div class="invite" (swipe)="swipeEvent($event)">
+    <div class="invite-header">
+      <div *ngIf="idProfile == chillCreatorId" class="edit-icon" (tap)="editInfo(isEdit)">
+        <img src="assets/images/edit.svg" *ngIf="!isEdit" image-cache/>
+        <ion-icon class="valide-icon" *ngIf="isEdit" name="checkmark-circle-outline"></ion-icon>
+      </div>
+
+      <!-- Show map icon for each platform, when there is edit-icon next to map-icon -->
+      <div *ngIf="idProfile == chillCreatorId && enableMaps && isIos">
+        <a [href]="sanitizer.bypassSecurityTrustResourceUrl('maps:q='+geoSpecSafe)">
+          <ion-icon class="map-icon" name="ios-locate-outline"></ion-icon>
+        </a>
+      </div>
+
+      <div *ngIf="idProfile == chillCreatorId && enableMaps && !isIos">
+        <ion-icon class="map-icon" name="ios-locate-outline" (tap)="openMaps()"></ion-icon>
+      </div>
+
+      <!-- Show map icon for each platform, when there is no edit-icon next to map-icon -->
+      <div *ngIf="idProfile != chillCreatorId && enableMaps && isIos">
+        <a [href]="sanitizer.bypassSecurityTrustResourceUrl('maps:q='+geoSpecSafe)">
+          <ion-icon class="map-icon-no-edit" name="ios-locate-outline"></ion-icon>
+        </a>
+      </div>
+
+      <div *ngIf="idProfile != chillCreatorId && enableMaps && !isIos">
+        <ion-icon class="map-icon-no-edit" name="ios-locate-outline" (tap)="openMaps()"></ion-icon>
+      </div>
+
+      <div>
+        <h1><input [readonly]=!isEdit type="text" class="title" [(ngModel)]="name" /></h1>
+        <h2>{{ 'chill-detail.invited-by' | translate }} <i class="creator" [style.color]="'#'+color">{{firstName}} {{lastName}}</i></h2>
+      </div>
+    </div>
+
+    <div class="invite-geo" [style.color]="'#'+color">
+      <h1><input [readonly]=!isEdit type="text" placeholder="Lieu" [(ngModel)]="geo" /></h1>
+      <h2><input [readonly]=!isEdit type="text" placeholder="Adresse" [(ngModel)]="geoSpec" (input)="autoAddress($event.target.value)" /></h2>
+    </div>
+
+    <ion-icon *ngIf="autocompleteAddress != ''" style="margin-top: 2%;" (tap)="clearAutocomplete()" name="close-circle"></ion-icon>
+      <ion-item [style.color]="'#'+color" style="font-size: 14px;" *ngFor="let address of autocompleteAddress" (click)="chooseAddress(address)">
+        {{ address.description }}
+      </ion-item>
+
+      <div class="invite-time" [style.color]="'#'+color" (tap)="showDatePicker(isEdit)">
+        <div class="invite-time-left"><i class="invite-day">{{stringDay}}</i> <i class="invite-day-number">{{numberDay}}</i> <i class="invite-day-number">{{stringMonth}}</i> <i class="invite-hours">{{hours}}</i>
+          <i class="exp">h</i><i class="invite-minutes">{{min}}</i>
+        </div>
+        <div class="invite-time-right-text" *ngIf="soonDateDisplay && !weatherDisplay"><p>{{soonDate | toNow}}</p></div>
+        <div class="invite-time-right" *ngIf="weatherDisplay"><ion-icon name="{{weatherIcon}}"></ion-icon><div class="text">{{ chillWeatherTemp }}°c</div></div>
+      </div>
+
+      <div class="invite-com" text-justify (tap)="openChat()">
+        <ion-scroll scrollY="true" *ngIf="punchline">
+          {{ punchline }}
+        </ion-scroll>
+        <div *ngIf="noPunchline == true">{{ 'chill-detail.no-chat-message' | translate }}</div>
+      </div>
+
+      <div class="invite-utils">
+        <img *ngIf="filledCarIcon" src="assets/images/tool-car-filled.svg" (tap)="showUtils(0)" image-cache/>
+        <img *ngIf="!filledCarIcon" src="assets/images/tool-car-outline.svg" (tap)="showUtils(0)" image-cache/>
+        <img *ngIf="filledListIcon" src="assets/images/tool-list-filled.svg" (tap)="showUtils(1)" image-cache/>
+        <img *ngIf="!filledListIcon" src="assets/images/tool-list-outline.svg" (tap)="showUtils(1)" image-cache/>
+        <img *ngIf="filledExpIcon" src="assets/images/tool-pig-filled.svg" (tap)="showUtils(2)" image-cache/>
+        <img *ngIf="!filledExpIcon" src="assets/images/tool-pig-outline.svg" (tap)="showUtils(2)" image-cache/>
+      </div>
+
+      <div class="friends-number">{{ friends.length }} {{ 'chill-detail.invited-number' | translate }}</div>
+
+      <div class="invite-friends">
+        <img src="assets/images/chill-plus.svg"  (tap)="showFriends()" image-cache/>
+        <div class="ion-scroll-friends">
+          <div class="ion-scroll-content">
+            <div *ngFor="let friend of friends" class="friend-list-img">
+              <img [src]="friend.picture ? friend.picture : 'assets/images/default-profil.svg'" (tap)="showChillerDetails(friend.id)" image-cache/>
+              <div class="status-icon">
+                <img [src]="friend.statut | statusImg" image-cache/>
+              </div>
+              <div *ngIf="isEdit" class="delete-friend" (tap)="deleteFriend(friend.id)" >
+                <img src="assets/images/close-outline.svg" image-cache *ngIf="idProfile == chillCreatorId && friend.id != chillCreatorId"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="invite-fixed">
+      <div class="invite-answer">
+        <div class="invite-answer-refuse" (tap)="animateTo(0)"><span class="text-answer">{{ 'chill-detail.refuse' | translate }}</span> <ion-icon name="arrow-round-back"></ion-icon></div>
+        <div class="invite-answer-maybe" (tap)="animateTo(2)"><span class="text-answer">{{ 'chill-detail.maybe' | translate }} </span></div>
+        <div class="invite-answer-accept" (tap)="animateTo(1)"><ion-icon name="arrow-round-forward"></ion-icon> <span class="text-answer">{{ 'chill-detail.accept' | translate }}</span></div>
+      </div>
+    </div>
+
+</ion-content>

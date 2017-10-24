@@ -1,0 +1,287 @@
+chiller-details {
+  overflow: hidden;
+
+  .nav-title {
+    height: 130px;
+  }
+
+  .chiller-details-content {
+    .details-header {
+      padding: 0px 5vmin;
+      text-align: left;
+      max-height: 250px;
+      overflow: auto;
+
+      .head-top {
+        overflow: auto;
+
+        .details-photo {
+          display: inline-block;
+          vertical-align: middle;
+
+          img {
+            border-radius: 50%;
+            border: 2px solid $chillter-col;
+            max-width: 10rem;
+            max-height: 10rem;
+            height: 28vw;
+            width: 28vw;
+          }
+        }
+
+        .details-info {
+          display: inline-block;
+          vertical-align: middle;
+          text-align: left;
+          margin-left: 5px;
+
+          h1 {
+            margin-top: 5px;
+            font-size: 5vw;
+            line-height: 25%;
+          }
+
+          .contact-chiller-container {
+            &::after {
+              content: '';
+              display: inline-block;
+              height: 100%;
+              width: 0;
+              vertical-align: middle;
+            }
+
+            h2 {
+              font-size: 4.5vw;
+              line-height: 10%;
+              color: grey;
+              display: inline-block;
+              vertical-align: middle;
+              margin-top: 0;
+              margin-bottom: 0;
+            }
+
+            h2.email {
+              font-size: 12px;
+            }
+
+            a {
+              display: inline-block;
+              text-decoration: none;
+              vertical-align: middle;
+            }
+          }
+
+          .contact-chiller-phone {
+            margin-top: 15px;
+          }
+
+          .contact-chiller {
+            font-size: 2.3em;
+            margin-left: 1rem;
+            color: #56a5ff;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .head-top:before {
+        content: "";
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+      }
+    }
+
+    .invite-to-chillter {
+      text-align: center;
+      margin-top: 5%;
+      border-top: 0.1rem solid #E4E4E4;
+      border-bottom: 0.1rem solid #E4E4E4;
+
+      a {
+        color: #0071fd;
+        text-decoration: none;
+      }
+    }
+
+    .btn-send-container {
+      height: 11vmax;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .btn-send-chill {
+        display: inline-block;
+        text-align: center;
+        height: 5rem;
+        line-height: 5rem;
+        border: 1px solid $chillter-col;
+        border-radius: 5rem;
+        font-size: 2.3rem;
+        color: $chillter-col;
+        width: 100%;
+        vertical-align: middle;
+        margin: auto;
+
+        ion-icon {
+          position: relative;
+          top: 5px;
+          font-size: 3rem;
+        }
+      }
+    }
+
+    .details-events {
+      height: calc(70vmax - 115px); // Removing the bottom of the searchbar
+      .searchbar-ios {
+        border-bottom: 0;
+      }
+
+      .global-infos {
+        display: inline-block;
+        float: left;
+      }
+
+      ion-scroll {
+        display: flex;
+        height: calc(70vmax - 115px);
+        .orange-border {
+          box-sizing: content-box;
+          border: 2px solid $chillter-col;
+          border-radius: 100%;
+        }
+
+        h2 {
+          font-size: 2rem;
+          font-weight: bold;
+          color: #666666;
+        }
+
+        p {
+          font-size: 1.3rem;
+          font-weight: bold;
+        }
+
+        .status-img {
+          height: 10vw;
+          width: 10vw;
+          margin-left: 10px;
+        }
+
+        .infos-events {
+          display: inline-block;
+          float: right;
+          text-align: right;
+
+          .chiller-hours {
+            font-size: 2.5rem;
+            font-style: normal;
+            color: #666666;
+            display: inline-block;
+            margin-right: -4px;
+          }
+
+          .chiller-exp {
+            font-style: normal;
+            color: #666666;
+            font-weight: bold;
+            display: inline-block;
+          }
+
+          .exp {
+            font-size: 1.2rem;
+            vertical-align: top;
+          }
+
+          .chiller-minutes {
+            font-size: 2.5rem;
+            font-style: normal;
+            color: #666666;
+            display: inline-block;
+            margin-left: -4px;
+          }
+
+          .soon {
+            vertical-align: 40%;
+            font-weight: bold;
+          }
+
+          .today {
+            color: $chillter-col !important;
+          }
+
+          .chiller-date {
+            display: block;
+            margin-top: -10px;
+            text-align: right;
+          }
+        }
+
+        .list-header-ios {
+          color: $chillter-col;
+          font-size: 1.5rem;
+          text-transform: none;
+          font-weight: bold;
+          border: none;
+        }
+      }
+    }
+  }
+  /* Override rules for screen with width > 768px (iPad...) */
+  @media screen and (min-width: 768px) {
+    .toolbar-ios {
+      min-height: 120px;
+    }
+
+    .nav-title {
+      height: 75px;
+    }
+
+    .chiller-details-content {
+      .search-chill {
+        margin-top: 11px;
+
+        .searchbar-ios {
+          height: 5rem;
+        }
+
+        .searchbar-ios .searchbar-input {
+          height: 4rem;
+          font-size: 2rem;
+          padding-left: 50px;
+        }
+
+        .searchbar-ios .searchbar-search-icon {
+          top: 12px;
+          width: 20px;
+          height: 20px;
+          background-size: 20px;
+        }
+
+        .searchbar-has-value.searchbar-has-focus .searchbar-clear-icon {
+          display: none !important;
+        }
+      }
+
+      .item-ios ion-avatar ion-img,
+      .item-ios ion-avatar img {
+        width: 10vw;
+        height: 10vw;
+      }
+
+      .global-infos {
+        margin-top: 9px;
+      }
+
+      .infos-events {
+        margin-top: 15px;
+      }
+    }
+
+    .invite-to-chillter {
+      a {
+        font-size: 2rem;
+      }
+    }
+  }
+}

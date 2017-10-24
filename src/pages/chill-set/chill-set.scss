@@ -1,0 +1,117 @@
+chill-set {
+  .nav-title {
+    height: 130px;
+  }
+
+  .toast-alert .toast-wrapper {
+    background-color: $chillter-col;
+  }
+
+  .toast-alert .toast-message {
+    color: white;
+  }
+
+  .chill-set {
+    .avatar {
+      position: relative;
+      width: 150px;
+      margin: auto;
+
+      img-loader {
+        background-image: url(../assets/images/default-profil.svg);
+        box-sizing: content-box;
+        border: 2px solid $chillter-col;
+        border-radius: 100%;
+        overflow: hidden;
+        display: inline-block;
+        height: 125px;
+        width: 125px;
+      }
+
+      .valid-picture,
+      .cancel-picture {
+        border: 2px solid $chillter-col;
+        border-radius: 100%;
+        width: 3.8rem;
+        background-color: white;
+        position: absolute;
+        font-size: 3rem;
+        right: 1px;
+        color: $chillter-col;
+      }
+
+      .valid-picture {
+        top: 5px;
+      }
+
+      .cancel-picture {
+        bottom: 5px;
+      }
+
+      .valid-picture ion-icon,
+      .cancel-picture ion-icon {
+        margin-left: 10px;
+        vertical-align: middle;
+      }
+    }
+
+    .complete-name {
+      text-align: center;
+      font-size: 2rem;
+      margin: 1rem 0px;
+    }
+
+    .change-password {
+      padding-left: 4rem;
+      color: $chillter-col;
+    }
+
+    .item-info {
+      text-align: center;
+
+      .update-info {
+        color: $chillter-col;
+        display: inline-block;
+        text-align: center;
+        margin: 0px 3rem;
+        font-size: 1.8rem;
+      }
+    }
+
+    .btn-disconnect-container {
+      text-align: center;
+
+      .btn-disconnect {
+        text-align: center;
+        height: 5rem;
+        line-height: 5rem;
+        border: 1px solid $chillter-col;
+        border-radius: 5rem;
+        font-size: 2.3rem;
+        color: $chillter-col;
+        width: 80vmin;
+        margin: auto;
+
+        ion-icon {
+          position: relative;
+          top: 5px;
+        }
+      }
+    }
+  }
+  /* Override rules for screen with width > 768px (iPad...) */
+  @media screen and (min-width: 768px) {
+    .toolbar-ios {
+      min-height: 140px !important;
+    }
+
+    .nav-title {
+      margin-top: 10%;
+      height: 110px;
+    }
+
+    .chill-set {
+      margin-top: 6rem;
+    }
+  }
+}

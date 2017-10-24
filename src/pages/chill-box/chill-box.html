@@ -1,0 +1,97 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      <img class="nav-title" src="assets/images/nav-chillbox.svg" image-cache/>
+    </ion-title>
+    <div class="history-button"(tap)="showHistory()">{{ 'history.title' | translate }}</div>
+    <div class="plus-button"><ion-icon ios="ios-add" md="md-add" (tap)="addChill()"></ion-icon></div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="chill-box">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="search-evt">
+    <ion-searchbar class="search-evt" placeholder="{{ 'global.search' | translate }}" (ionInput)="inputChange($event)"></ion-searchbar>
+  </div>
+
+  <div class="filter-evt">
+    <img [src]="yesPath" class="filter-img" (tap)="toggleFilter(1)" (press)="activeFilter(1)" image-cache/>
+    <img [src]="maybePath" class="filter-img" (tap)="toggleFilter(2)" (press)="activeFilter(2)" image-cache/>
+    <img [src]="noPath" class="filter-img" (tap)="toggleFilter(0)" (press)="activeFilter(0)" image-cache/>
+  </div>
+
+  <ion-list>
+    <div class="no-events" *ngIf="noEventSoon == true">
+      {{ 'chill-box.no-events' | translate }}
+    </div>
+
+    <div class="no-events" *ngIf="noEvent == true">
+      {{ 'chill-box.no-events-all' | translate }}
+    </div>
+
+    <ion-item-sliding *ngFor="let event of viewEvents">
+      <ion-item (tap)="showDetailEvent(event.info.id)">
+        <ion-avatar class="orange-border" item-left>
+          <div *ngIf="event.info.logo || event.info.chill.logo">
+            <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" class="logo-chill" image-cache>
+          </div>
+          <div *ngIf="!event.info.logo && !event.info.chill.logo">
+            <img src="assets/images/default-profil.svg" class="logo-chill">
+          </div>
+        </ion-avatar>
+        <div class="global-infos">
+          <h2>{{event.info.name}}</h2>
+          <p class="chiller-name" *ngIf="event.info.chillerid != profileId">{{event.info.chiller}}</p>
+          <p class="chiller-name" *ngIf="event.info.chillerid == profileId">{{ 'chill-box.me' | translate }}</p>
+          <p class="event-canceled" *ngIf="event.info.is_cancelled">{{ 'chill-box.event-cancelled' | translate }}</p>
+        </div>
+        <div *ngIf="!event.info.is_cancelled" style="display:inline-block;float:right;">
+          <i><img [src]="event.participation_status | statusImg" class="status-img-chill" image-cache/></i>
+        </div>
+        <div class="infos-events">
+          <p class="soon chill-hours">{{event.date | date: 'H'}}</p>
+          <p class="exp chill-exp">h</p>
+          <p class="soon chill-minutes">{{event.date | date: 'mm'}}</p>
+          <p *ngIf="(event.date | date:'dd') != dayNow && (event.date | date:'dd') != dayNow + 1" class="soon chill-date">{{event.date | date:'dd/MM/yy'}}</p>
+          <p *ngIf="(event.date | date:'dd') == dayNow" class="today soon chill-date">{{ 'chiller-details.is-today' | translate }}</p>
+          <p *ngIf="(event.date | date:'dd') == dayNow + 1" class="soon chill-date">{{ 'chiller-details.is-tomorrow' | translate }}</p>
+        </div>
+      </ion-item>
+
+      <ion-item-options side="left" *ngIf="event.info.chillerid == profileId || event.info.is_cancelled">
+        <button *ngIf="event.info.chillerid == profileId" ion-button outline (tap)="showCancelAlert(event.info.id)" color="white">
+          <img src="assets/images/close-outline.svg" height="20px" image-cache/>
+        </button>
+        <button *ngIf="event.info.is_cancelled" ion-button outline (tap)="showHiddingAlert(event.info.id)" color="white">
+          <img src="assets/images/close-outline.svg" height="20px" image-cache/>
+        </button>
+      </ion-item-options>
+
+      <ion-item-options *ngIf="!event.info.is_cancelled">
+        <button ion-button outline color="white" (tap)="participate(1,event.info.id)" *ngIf="event.participation_status != 1">
+          <img src="{{1 | statusImg}}" class="status-img" image-cache/>
+        </button>
+        <button ion-button outline color="white" (tap)="participate(2,event.info.id)" *ngIf="event.participation_status != 2">
+          <img src="{{2 | statusImg}}" class="status-img" image-cache/>
+        </button>
+        <button ion-button outline color="white" (tap)="participate(0,event.info.id)" *ngIf="event.participation_status != 0">
+          <img src="{{0 | statusImg}}" class="status-img" image-cache/>
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-list>
+    <span *ngFor="let contact of contactlist" >
+      <ion-item *ngIf="contact.displayName">
+          {{contact.displayName}} = {{contact.phoneNumbers[0].value}}
+      </ion-item>
+    </span>
+  </ion-list>
+
+</ion-content>

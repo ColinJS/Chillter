@@ -1,0 +1,109 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      <img class="nav-title" src="assets/images/nav-chillers.svg" image-cache/>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="chiller-details-content">
+
+  <div (swipe)="swipeEvent($event)">
+    <div class="details-header">
+      <div class="head-top">
+        <div class="details-photo">
+          <img [src]="picture" image-cache/>
+        </div>
+        <div class="details-info">
+          <h1>{{firstName}} {{lastName}}</h1>
+          <div class="contact-chiller-container contact-chiller-phone">
+            <h2>{{phone}}</h2>
+            <a [href]="sanitizer.bypassSecurityTrustResourceUrl('sms:'+phone)">
+              <ion-icon class="contact-chiller" name="ios-chatbubbles-outline"></ion-icon>
+            </a>
+            <a href="tel:{{phone}}">
+              <ion-icon class="contact-chiller" name="call-outline"></ion-icon>
+            </a>
+          </div>
+          <div *ngIf="have_chillter" class="contact-chiller-container">
+            <h2 class="email">{{email}}</h2>
+            <a href="mailto:{{email}}">
+              <ion-icon class="contact-chiller" name="ios-create-outline"></ion-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!have_chillter" class="invite-to-chillter">
+        <a [href]="sanitizer.bypassSecurityTrustResourceUrl('sms:'+phone+smsMsg)">
+          <p>{{ 'chiller-details.invite-to-chillter' | translate }}</p>
+        </a>
+      </div>
+      <div *ngIf="have_chillter" class="btn-send-container" (tap)="sendAChill()">
+        <div class="btn-send-chill">
+          {{ 'chiller-details.send-chill' | translate }}
+          <ion-icon name="chillter-icon-tab-bar-chills"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="have_chillter" class="details-events">
+      <div class="search-chill">
+        <ion-searchbar placeholder="{{ 'global.search' | translate }}" class="search-chill"></ion-searchbar>
+      </div>
+      <ion-scroll scrollY="true">
+        <ion-list>
+
+          <!-- List of events soon -->
+          <ion-list-header *ngIf="comingEvents.length != 0">
+            {{ 'chiller-details.coming-soon' | translate }}
+          </ion-list-header>
+          <ion-item *ngFor="let event of comingEvents" (tap)="showDetailEvent(event.info.id)">
+            <ion-avatar item-left class="orange-border">
+              <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" image-cache>
+            </ion-avatar>
+            <div class="global-infos">
+              <h2>{{event.info.name}}</h2>
+              <p class="chiller-name">{{event.info.chiller}}</p>
+            </div>
+            <div style="display:inline-block;float:right;">
+              <i><img src="{{event.participation_status | statusImg}}" class="status-img" image-cache/></i>
+            </div>
+            <div class="infos-events">
+              <p class="soon chiller-hours">{{event.date | date: 'H'}}</p>
+              <p class="exp chiller-exp">h</p>
+              <p class="soon chiller-minutes">{{event.date | date: 'mm'}}</p>
+              <p *ngIf="(event.date | date:'dd') != dayNow && (event.date | date:'dd') != dayNow + 1" class="soon chiller-date">{{event.date | date:'dd/MM/yy'}}</p>
+              <p *ngIf="(event.date | date:'dd') == dayNow" class="today soon chiller-date">{{ 'chiller-details.is-today' | translate }}</p>
+              <p *ngIf="(event.date | date:'dd') == dayNow + 1" class="soon chiller-date">{{ 'chiller-details.is-tomorrow' | translate }}</p>
+            </div>
+          </ion-item>
+
+          <!-- List of past events -->
+          <ion-list-header *ngIf="historyEvents.length != 0">
+            {{ 'chiller-details.history' | translate }}
+          </ion-list-header>
+          <ion-item *ngFor="let event of historyEvents" (tap)="showDetailEvent(event.info.id)">
+            <ion-avatar item-left class="orange-border">
+              <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" image-cache>
+            </ion-avatar>
+            <div class="global-infos">
+              <h2>{{event.info.name}}</h2>
+              <p class="chiller-name">{{event.info.chiller}}</p>
+            </div>
+            <div style="display:inline-block;float:right;">
+              <i><img src="{{event.participation_status | statusImg}}" class="status-img" image-cache/></i>
+            </div>
+            <div class="infos-events">
+              <p class="soon chiller-hours">{{event.date | date: 'H'}}</p>
+              <p class="exp chiller-exp">h</p>
+              <p class="soon chiller-minutes">{{event.date | date: 'mm'}}</p>
+              <p class="soon chiller-date">{{event.date | date:'dd/MM/yy'}}</p>
+            </div>
+          </ion-item>
+
+        </ion-list>
+      </ion-scroll>
+    </div>
+  </div>
+
+</ion-content>
+

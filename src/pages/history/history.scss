@@ -1,0 +1,168 @@
+history {
+  overflow: hidden;
+
+  .no-events {
+    margin-top: 2rem;
+    text-align: center;
+    color: grey;
+  }
+
+  .details-events {
+    height: calc(70vmax - 115px);
+
+    /* Removing the bottom border of the searchbar */
+    .searchbar-ios {
+      border-bottom: 0;
+    }
+
+    ion-scroll {
+      display: flex;
+      height: calc(70vmax - 10px);
+
+      .orange-border {
+        box-sizing: content-box;
+        border: 2px solid $chillter-col;
+        border-radius: 100%;
+      }
+
+      .global-infos {
+        display: inline-block;
+        float: left;
+
+        h2 {
+          font-size: 2rem;
+          color: rgba(0, 0, 0, 0.6);
+          font-weight: bold;
+          text-transform: capitalize;
+        }
+
+        .chiller-name {
+          font-size: 1.4rem;
+          font-weight: bold;
+          color: rgba(0, 0, 0, 0.4);
+          text-transform: lowercase;
+        }
+      }
+
+      .status-img {
+        height: 10vw;
+        width: 10vw;
+        margin-left: 10px;
+      }
+
+      .infos-events {
+        display: inline-block;
+        float: right;
+        text-align: right;
+
+        .chiller-hours {
+          font-size: 2.5rem;
+          font-style: normal;
+          color: #666666;
+          display: inline-block;
+          margin-right: -4px;
+        }
+
+        .chiller-exp {
+          font-style: normal;
+          color: #666666;
+          font-weight: bold;
+          display: inline-block;
+        }
+
+        .exp {
+          font-size: 1.2rem;
+          vertical-align: top;
+        }
+
+        .chiller-minutes {
+          font-size: 2.5rem;
+          font-style: normal;
+          color: #666666;
+          display: inline-block;
+          margin-left: -4px;
+        }
+
+        .soon {
+          vertical-align: 40%;
+          font-weight: bold;
+        }
+
+        .chiller-date {
+          display: block;
+          margin-top: -10px;
+          text-align: right;
+        }
+      }
+
+      .list-header-ios {
+        color: $chillter-col;
+        font-size: 1.5rem;
+        text-transform: none;
+        font-weight: bold;
+        border: none;
+      }
+    }
+  }
+
+  /* Removing the last bottom border on the list */
+  .list-ios>.item-block:last-child,
+  .list-ios>.item-wrapper:last-child .item-block {
+    border-bottom: 0;
+  }
+
+  /* Override rules for screen with width > 768px (iPad...) */
+  @media screen and (min-width: 768px) {
+    .search-chill-history {
+      margin-top: 11px;
+
+      .searchbar-ios {
+        height: 5rem;
+      }
+
+      .searchbar-ios .searchbar-input {
+        height: 4rem;
+        font-size: 2rem;
+        padding-left: 50px;
+      }
+
+      .searchbar-ios .searchbar-search-icon {
+        top: 12px;
+        width: 20px;
+        height: 20px;
+        background-size: 20px;
+      }
+    }
+
+    .details-events {
+      ion-avatar {
+        .orange-border {
+          box-sizing: content-box;
+          border: 3px solid $chillter-col;
+          border-radius: 100%;
+        }
+
+        .logo-chill {
+          height: 10vw;
+          width: 10vw;
+        }
+      }
+
+      .global-infos {
+        margin-top: 20px;
+
+        h2 {
+          font-size: 5rem;
+        }
+
+        .chiller-name {
+          font-size: 2rem;
+        }
+      }
+
+      .infos-events {
+        margin-top: 15px;
+      }
+    }
+  }
+}

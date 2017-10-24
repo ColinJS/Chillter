@@ -1,0 +1,20 @@
+page-photo-edit {
+  canvas {
+    background-color: #000;
+  }
+  .photo-edit-button {
+    background: transparent;
+    color: #fff;
+  }
+  .photo-edit-button:last-of-type {
+    float: right;
+  }
+  .toolbar-ios ion-title,
+  .content-ios {
+    background: #403f4e;
+  }
+  .toolbar-title-ios {
+    color: #fff;
+    font-weight: 300;
+  }
+}

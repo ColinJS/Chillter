@@ -1,0 +1,21 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title class="main-title">{{ 'add-friends.friends' | translate }}</ion-title>
+      <div class="floating-close-button" (tap)="close()"></div>
+      <button id="ok" class="main-title" (tap)="addFriend(arrayFriends)">OK</button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-searchbar (ionInput)="onInput($event)"></ion-searchbar>
+
+  <ion-list>
+    <ion-item *ngFor="let friend of viewFriends" >
+      <ion-avatar item-left><img class="orange-border" src="{{friend.picture || 'assets/images/default-profil.svg'}}" image-cache/></ion-avatar>
+      <ion-label>{{friend.firstname}} {{friend.lastname}}</ion-label>
+      <ion-checkbox  (ionChange)="addToArray(friend, $event)" item-right></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

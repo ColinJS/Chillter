@@ -1,0 +1,60 @@
+// http://ionicframework.com/docs/v2/theming/
+// Ionic Shared Functions
+// --------------------------------------------------
+// Makes Ionic Sass functions available to your App
+@import "globals.core";
+
+// App Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files. Setting
+// variables before Ionic's Sass will use these variables rather than
+// Ionic's default Sass variable values. App Shared Sass imports belong
+// in the app.core.scss file and not this file. Sass variables specific
+// to the mode belong in either the app.ios.scss or app.md.scss files.
+// App Shared Color Variables
+// --------------------------------------------------
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+// Both iOS and MD colors can be further customized if colors
+// are different per mode.
+$chillter-col:#ff862a;
+
+$colors: ( primary=$chillter-col,
+secondary=#32db64,
+danger=#f53d3d,
+light=#f4f4f4,
+dark=#222,
+favorite=#69BB7B,
+white=#fff);
+
+$toolbar-ios-height: 65px;
+$tabbar-ios-height: 55px;
+$toolbar-border-color: #ffffff;
+$toolbar-text-color:$chillter-col;
+$toolbar-inactive-color:$chillter-col;
+
+$searchbar-ios-background-color: #ffffff;
+$searchbar-ios-input-background-color: rgba(255, 190, 25, 0.1);
+$searchbar-ios-input-border-radius: 10px;
+$searchbar-ios-input-search-icon-color: $chillter-col;
+$searchbar-ios-input-placeholder-color: $chillter-col;
+$searchbar-ios-input-clear-icon-color: $chillter-col;
+
+$item-ios-avatar-size: 5.5rem;
+
+$toolbar-background: #ffffff;
+
+/*
+@font-face {
+    font-family: 'LemonMilk'; /*a name to be used later
+    src: url('../../../build/fonts/LemonMilk.otf'); /*URL to font
+}
+
+@font-face {
+    font-family: 'Lobster'; /*a name to be used later
+    src: url('../../../build/fonts/Lobster.otf'); /*URL to font
+}
+*/

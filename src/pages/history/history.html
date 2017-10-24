@@ -1,0 +1,46 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title class="main-title">{{ 'history.title' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="details-events">
+    <div class="search-chill-history">
+      <ion-searchbar class="search-chill-history" placeholder="{{ 'global.search' | translate }}" (ionInput)="inputChange($event)"></ion-searchbar>
+    </div>
+    <div *ngIf="nextEvents.length == 0 && previousEvents.length == 0 && noResult != true" class="no-events">{{ 'history.no-events' | translate }}</div>
+    <div *ngIf="previousEvents.length == 0 && nextEvents.length != 0 && noResult != true" class="no-events">{{ 'history.no-previous-events' | translate }}</div>
+    <div *ngIf="noResult == true" class="no-events">{{ 'history.no-result' | translate }}</div>
+    <ion-scroll scrollY="true">
+      <ion-list>
+        <!-- List of previous events -->
+        <ion-item *ngFor="let event of previousEvents" (tap)="showDetailEvent(event.info.id)">
+          <ion-avatar item-left class="orange-border">
+            <div *ngIf="event.info.logo || event.info.chill.logo">
+              <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" class="logo-chill" image-cache>
+            </div>
+            <div *ngIf="!event.info.logo && !event.info.chill.logo">
+              <img src="assets/images/default-profil.svg" class="logo-chill">
+            </div>
+          </ion-avatar>
+          <div class="global-infos">
+            <h2>{{event.info.name}}</h2>
+            <p class="chiller-name">{{event.info.chiller}}</p>
+          </div>
+          <div style="display:inline-block;float:right;">
+            <i><img src="{{event.participation_status | statusImg}}" class="status-img" image-cache/></i>
+          </div>
+          <div class="infos-events">
+            <p class="soon chiller-hours">{{event.date | date: 'H'}}</p>
+            <p class="exp chiller-exp">h</p>
+            <p class="soon chiller-minutes">{{event.date | date: 'mm'}}</p>
+            <p class="soon chiller-date">{{event.date | date:'dd/MM/yy'}}</p>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-scroll>
+  </div>
+
+</ion-content>

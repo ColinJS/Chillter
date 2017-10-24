@@ -1,0 +1,22 @@
+img-loader {
+    label {
+        display: inline-block;
+        box-sizing: content-box;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+    .img-canvas {
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+    .img-contener {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+    .img-contener img {
+        border-radius: 0px;
+    }
+}

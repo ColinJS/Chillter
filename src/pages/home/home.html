@@ -1,0 +1,34 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      <img class="nav-title" src="assets/images/nav-chills.svg" image-cache/>
+    </ion-title>
+    <div *ngIf="trashIcon" class="trash-button">
+      <ion-icon [name]="trashIconType" (tap)="toggleTrash()"></ion-icon>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-slides pager loop="false" autoplay="false">
+    <ion-slide *ngFor="let slide of slides" style="display:block;margin-top:20px;">
+      <div class="chill-flex" [sortablejs]="slides" [sortablejsOptions]="sortablejsOptChills">
+        <div class="chill-contain {{ 'chill_' + s.id }}" *ngFor="let s of slide" id="{{ 'chill_' + s.id }}">
+          <div class="{{s.id}}" id=" {{s.type}}">
+            <div [ngClass]="shakingMode ? 'shaking-chill' : null" id="{{s.id}}">
+              <div class="{{s.type != 'custom' ? '' : 'rounded-chill-image'}}">
+                <img src="{{s.logo ? s.logo : placeholderLogo }}" width="100%" (tap)="tapDistrib(s)" (press)="pressDistrib(s)" image-cache/>
+              </div>
+              {{ s.name }}
+              <div class="delete-icon" *ngIf="deleteMode" (tap)="deleteChill(s)">
+                <img src="assets/images/close-outline.svg" id="{{s.id}}" image-cache/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

@@ -1,0 +1,44 @@
+login {
+  text-align: center;
+
+  .feedback-alert {
+    border: 2px solid rgba(255, 20, 0, 0.5);
+    background-color: rgba(255, 100, 0, 0.1);
+    border-radius: 10px;
+    color: red;
+    margin: 7px 2rem;
+    padding: 5px 0px;
+  }
+
+  .logo-sun {
+    width: 40vh;
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  .logo-text {
+    width: 55vmin;
+    margin-top: 10px;
+  }
+
+  .login-list {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    padding: 0px 20px;
+  }
+
+  .login-item {
+    border: none;
+  }
+
+  .login-tab {
+    text-align: center;
+  }
+  .log-btn {
+    width: 90vmin;
+    margin: auto;
+    margin-top: 13px;
+  }
+}

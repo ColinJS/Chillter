@@ -1,0 +1,8 @@
+
+<label id="prev_label" class="img-load-label">
+    <div id="preview" class="img-canvas" (tap)="choosePicture()"  #canvas>
+        <div id="contener" class="img-contener" [style.top]="imgTop" [style.left]="imgLeft" [style.height]="imgHeight" [style.width]="imgWidth" (pan)="panAction($event)" (press)="getCropInfo()" >
+            <img [src]="imgSrc" class="img-canvas" image-cache/>
+        </div>
+    </div>
+</label>

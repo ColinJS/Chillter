@@ -1,0 +1,565 @@
+chill-detail {
+  .hide-left-pan {
+    margin-left: -100%;
+    visibility: hidden;
+  }
+  .hide-right-pan {
+    margin-left: 100%;
+    visibility: hidden;
+  }
+  .hide-top-pan {
+    margin-bottom: 100%;
+    visibility: hidden;
+  }
+  @keyframes animLeftPan {
+    0% {
+      visibility: visible;
+      margin-left: -100%;
+      opacity: 0;
+    }
+    100% {
+      visibility: visible;
+      margin-left: 0;
+      opacity: 50;
+    }
+  }
+  @keyframes animRightPan {
+    0% {
+      visibility: visible;
+      margin-left: 100%;
+      opacity: 0;
+    }
+    100% {
+      visibility: visible;
+      margin-left: 0;
+      opacity: 50;
+    }
+  }
+  @keyframes animTopPan {
+    0% {
+      visibility: visible;
+      width: 100%;
+      height: 0;
+    }
+    100% {
+      visibility: visible;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .anim-left-pan {
+    animation-name: animLeftPan;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+  }
+  .anim-right-pan {
+    animation-name: animRightPan;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+  }
+  .anim-top-pan {
+    animation-name: animTopPan;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+  }
+  .left-pan-accept {
+    background-image: url("../assets/images/pan-accept.svg");
+  }
+  .right-pan-refuse {
+    background-image: url("../assets/images/pan-refuse.svg");
+  }
+  .top-pan-maybe {
+    background-image: url("../assets/images/pan-maybe.svg");
+  }
+  .overlay {
+    z-index: 300;
+    position: fixed;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center 40%;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  .overlay-chill-detail {
+    z-index: 300;
+    position: fixed;
+    top: 0px;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center 40%;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+  .invite-com {
+    text-align: left;
+  }
+  .invite-com scroll-content {
+    padding-left: 3px;
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-bottom: 3px;
+    height: 3.5rem;
+  }
+  .invite-header .edit-icon {
+    right: 0;
+    position: absolute;
+    margin-top: -10px;
+    margin-right: 10px;
+    width: 7%;
+    height: 7%;
+  }
+  .invite-header .valide-icon {
+    font-size: 30px;
+  }
+  .invite-header .map-icon {
+    right: 35px;
+    position: absolute;
+    margin-top: -12px;
+    margin-right: 10px;
+    width: 7%;
+    height: 7%;
+    font-size: 30px;
+  }
+  .invite-header .map-icon-no-edit {
+    right: 0;
+    position: absolute;
+    margin-top: -12px;
+    margin-right: 10px;
+    width: 7%;
+    height: 7%;
+    font-size: 30px;
+  }
+  .friend-list-img {
+    position: relative;
+    display: inline-block;
+    margin: 0px;
+    color: $chillter-col;
+  }
+  .status-icon {
+    height: 25px;
+    position: absolute;
+    top: 20px;
+    left: 45px;
+  }
+  .status-icon img {
+    height: 100%;
+    width: 100%;
+  }
+  .invite-fixed {
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+  }
+  .invite-com {
+    text-align: center;
+  }
+  .invite-answer {
+    border-top: 1px solid rgb(180, 180, 180);
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    background: white;
+    .text-answer {
+      vertical-align: middle;
+      display: inline-block;
+      color: gray;
+    }
+    ion-icon {
+      font-weight: bold;
+      font-size: 2em;
+      vertical-align: middle;
+    }
+    .invite-answer-refuse {
+      position: absolute;
+      left: 20px;
+      bottom: 3px;
+      ion-icon {
+        color: #ff7477;
+        padding-left: 5px;
+      }
+    }
+    .invite-answer-accept {
+      position: absolute;
+      right: 20px;
+      bottom: 3px;
+      ion-icon {
+        color: #69cc34;
+        padding-right: 5px;
+      }
+    }
+    .invite-answer-maybe {
+      display: inline-block;
+    }
+  }
+  .floating-close-button {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: auto;
+    font-size: 1.7rem;
+    z-index: 200;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ff862a;
+    background: #fff;
+    padding: 0 10px 0 10px;
+    border: 1px solid #ff862a;
+    min-height: 3.2rem;
+    line-height: 1.7;
+    font-weight: 300;
+    &:before {
+      content: "\f3cf";
+      font-family: "Ionicons";
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      font-style: normal;
+      font-variant: normal;
+      font-weight: normal;
+      line-height: 1;
+      text-rendering: auto;
+      text-transform: none;
+      speak: none;
+      font-size: 2.8rem;
+      top: 4px;
+      position: relative;
+      padding-right: 3px;
+    }
+  }
+  .chills-header {
+    width: 100%;
+    height: 12rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .ch-background {
+    width: 100%;
+    height: 12rem;
+    position: absolute;
+    background-color: white;
+    border-bottom: 3px solid $chillter-col;
+  }
+  .ch-background img-loader,
+  .ch-background img {
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: absolute;
+  }
+  .ch-logo {
+    width: 150px;
+    height: 150px;
+    top: 20%;
+    left: calc((100% - 150px) / 2);
+    border-radius: 100%;
+    display: inline-block;
+    position: absolute;
+    border: 3px solid $chillter-col;
+    background-color: white;
+  }
+  .ch-logo img-loader,
+  .ch-logo img {
+    border-radius: 100%;
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  .ch-close {
+    position: absolute;
+    width: 30px;
+    left: 5px;
+    top: 10px;
+    margin: 5px;
+  }
+  .invite {
+    color: $chillter-col;
+    text-align: center;
+    overflow-y: auto;
+    min-height: unset;
+    display: flex;
+    flex-direction: column;
+    justify-content: initial;
+    padding: 16px 16px 0;
+  }
+  .invite input {
+    margin: auto;
+    width: 100%;
+    border: none;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .invite h1 {
+    margin: 0px;
+    font-size: 3rem;
+    text-transform: capitalize;
+    /*padding-top: 10px;*/
+  }
+  .invite-header .title {
+    font-family: LemonMilk;
+  }
+  .invite h2 {
+    margin-bottom: 1vmax;
+  }
+  .invite-header input {
+    text-transform: uppercase;
+  }
+  .invite-header h2 {
+    color: rgb(180, 180, 180);
+    font-size: 1.7rem;
+    font-family: Lobster;
+  }
+  .invite-header .creator {
+    color: gray;
+    font-size: 2rem;
+  }
+  .invite-geo {
+    height: 10vh;
+    min-height: 7rem;
+    border: 2px solid $chillter-col;
+    border-radius: 2.7rem;
+    overflow: hidden;
+    font: bold;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .invite-geo h1 {
+    font-family: MyBold!important;
+    margin: 0px;
+  }
+  .invite-geo h2 {
+    /*margin: 0px;*/
+    font-size: 2.2rem;
+    opacity: 0.6;
+    font-family: MyMedium;
+  }
+  .invite-time {
+    margin: 1vmax 0px;
+    height: 8vmax;
+    min-height: 7rem;
+    border: 2px solid $chillter-col;
+    border-radius: 4rem;
+    font-size: 1.8rem;
+    overflow: hidden;
+  }
+  .invite-time i {
+    font-style: normal;
+  }
+  .invite-time div {
+    display: inline-block;
+    height: 100%;
+  }
+  .invite-time-left {
+    position: relative;
+    padding: 3px;
+  }
+  .invite-time-right {
+    float: right;
+    background-color: rgba($chillter-col, 0.8);
+    color: white;
+    width: 12%;
+    ion-icon {
+      font-size: 3rem;
+      margin-top: 10%;
+    }
+    .text {
+      font-size: 1.3rem;
+    }
+  }
+  .invite-time-right-text {
+    height: auto;
+    min-height: 100%;
+    float: right;
+    font-size: 1.3rem;
+    background-color: rgba($chillter-col, 0.8);
+    width: 12%;
+    color: white;
+    display: flex!important;
+    justify-content: center;
+    align-items: center;
+  }
+  .invite-day,
+  .invite-day-number {
+    font-size: 24px;
+    font-family: MyBold;
+  }
+  .invite-day-number {
+    opacity: 0.7;
+  }
+  .invite-hours {
+    font-size: 52px;
+    font-family: MyMedium;
+  }
+  .invite-minutes {
+    font-size: 42px;
+    font-family: MyMedium;
+    opacity: 0.7;
+  }
+  .exp {
+    margin-left: 3px;
+    font-size: 1.2rem;
+    vertical-align: top;
+  }
+  .invite-com {
+    margin: 0px;
+    padding: 3px 0px;
+    border-top: 1px solid $chillter-col;
+    border-bottom: 1px solid $chillter-col;
+    height: 7vmax;
+    min-height: 4rem;
+    font-size: 1.5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .invite-utils {
+    margin: 0;
+    height: 7vmax;
+  }
+  .invite-utils img {
+    height: 100%;
+    margin: 0px 2vmin;
+  }
+  .friends-number {
+    margin: 0;
+    text-align: left;
+  }
+  .invite-friends {
+    margin: 3px;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    min-height: 70px;
+  }
+  .friend-contener {
+    position: relative;
+    display: inline-block;
+    height: 6.5rem;
+    width: 6.5rem;
+  }
+  .invite-friends img {
+    height: 6.5rem;
+    width: 6.5rem;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+  .ion-scroll-friends {
+    height: 6.8rem;
+    overflow-y: hidden;
+    vertical-align: middle;
+    padding-bottom: 2px;
+    flex: 1 !important;
+  }
+  .ion-scroll-content {
+    white-space: nowrap;
+    widows: 100% !important;
+    text-align: left;
+    overflow-y: hidden;
+  }
+  .delete-friend {
+    position: absolute;
+    top: 5px;
+    left: 4.5rem;
+    height: 20px;
+    vertical-align: top;
+  }
+  .delete-friend img {
+    height: 100%;
+    width: 100%;
+    vertical-align: top;
+  }
+  .invite-sending {
+    border-top: 1px solid rgb(180, 180, 180);
+    padding: 5px 20px;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    .text-sending {
+      vertical-align: middle;
+      display: inline-block;
+      color: gray;
+    }
+    ion-icon {
+      font-weight: bold;
+      font-size: 2em;
+      vertical-align: middle;
+    }
+    .invite-sending-remove {
+      display: inline-block;
+      float: left;
+      ion-icon {
+        color: #ff7477;
+        padding-left: 5px;
+      }
+    }
+    .invite-sending-send {
+      display: inline-block;
+      float: right;
+      ion-icon {
+        color: #69cc34;
+        padding-right: 5px;
+      }
+    }
+  }
+  .invite-sending-custom {
+    border-top: 1px solid rgb(180, 180, 180);
+    padding: 5px 20px;
+    position: fixed;
+    bottom: 50px;
+    width: 100%;
+    background: white;
+    .text-sending {
+      vertical-align: middle;
+      display: inline-block;
+      color: gray;
+    }
+    ion-icon {
+      font-weight: bold;
+      font-size: 2em;
+      vertical-align: middle;
+    }
+    .invite-sending-remove {
+      display: inline-block;
+      float: left;
+      ion-icon {
+        color: #ff7477;
+        padding-left: 5px;
+      }
+    }
+    .invite-sending-send {
+      display: inline-block;
+      float: right;
+      ion-icon {
+        color: #69cc34;
+        padding-right: 5px;
+      }
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .invite-header .map-icon {
+      margin-top: -14px;
+      margin-right: 20px;
+      font-size: 48px;
+    }
+    .invite-header .map-icon-no-edit {
+      margin-top: -14px;
+      margin-right: 20px;
+      font-size: 48px;
+    }
+  }
+  .invite-time-right {
+    ion-icon {
+      font-size: 3rem;
+    }
+    .text {
+      font-size: 1.4rem;
+    }
+  }
+  .invite-time-right .text {
+    display: block;
+  }
+
+  .scroll-content {
+    padding-bottom: 40px;
+  }
+}

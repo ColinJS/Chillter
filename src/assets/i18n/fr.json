@@ -1,0 +1,215 @@
+{
+    "global": {
+        "add": "Ajouter",
+        "cancel": "Annuler",
+        "update": "Modifier",
+        "save": "Enregistrer",
+        "ok": "OK",
+        "back": "Retour",
+        "date-time": "Ajouter la date et l'heure",
+        "yes": "Oui",
+        "search": "Recherche",
+        "loading": "Chargement..."
+    },
+    "login": {
+        "email": "Email",
+        "password": "Mot de passe",
+        "error": "Erreur",
+        "login-failed": "L'email ou le mot de passe ne sont pas correct",
+        "login-button": "Se connecter",
+        "notice": "Ce n'est pas la version finale, des mises à jour et des corrections sont à venir !",
+        "create-account-button": "Créer un compte"
+    },
+    "signup": {
+        "create-account": "Créer un compte",
+        "add-picture": "Ajouter une photo",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "password": "Mot de passe",
+        "password-confirm": "Confirmer le mot de passe",
+        "loader-config": "Configuration, ",
+        "loader-ready": "Prêt !",
+        "phone": "Téléphone",
+        "email": "Email",
+        "signup-button": "Créer un compte",
+        "firstname-empty": "Le prénom ne peut être vide",
+        "lastname-empty": "Le nom ne peut être vide",
+        "password-matching": "Les mots de passe ne correspondent pas",
+        "phone-empty": "Le téléphone ne peut être vide",
+        "phone-valid": "Le téléphone doit contenir des nombres",
+        "email-empty": "L'email ne peut être vide",
+        "email-valid": "L'email n'est pas valide",
+        "error1": "L'enregistrement à échoué !",
+        "error2": "Une erreur est survenue",
+        "error3": "L'email est déjà utilisé"
+    },
+    "home": {
+      "move-chill-error": "Vous ne pouvez pas mettre ce Chill ici !"
+    },
+    "add-friends": {
+        "friends": "Amis"
+    },
+    "add-expense": {
+        "expense": "Ajouter une dépense"
+    },
+    "chill-box": {
+        "me": "Moi",
+        "event-removed": "L'évenement à été retiré de votre calendrier",
+        "event-added": "L'évenement à été ajouté à votre calendrier",
+        "cancel-chill-message": "Voulez vous vraiment annuler le Chill ?",
+        "no-events": "Vous n'avez pas d'évènement prévu",
+        "no-events-all": "Vous n'avez jamais eu d'évênements",
+        "invited-you": " vous à inviter : ",
+        "event-cancelled": "annulé",
+        "confirm": "Confirmation",
+        "hide-chill-message": "Voulez vous vraiment effacer ce Chill ?"
+    },
+    "chill-detail": {
+        "invited-by": "Vous avez été invité par",
+        "date": "à",
+        "invited-number": "invités",
+        "day-sun": "Dim.",
+        "day-mon": "Lun.",
+        "day-tues": "Mar.",
+        "day-wed": "Mer.",
+        "day-thurs": "Jeu.",
+        "day-fri": "Ven.",
+        "day-sat": "Sam.",
+        "month-jan": "Jan.",
+        "month-feb": "Fev.",
+        "month-mar": "Mars.",
+        "month-apr": "Avr.",
+        "month-may": "Mai",
+        "month-jun": "Juin",
+        "month-jul": "Jui",
+        "month-aug": "Aou.",
+        "month-sep": "Sep.",
+        "month-oct": "Oct.",
+        "month-nov": "Nov.",
+        "month-dec": "Dec.",
+        "refuse": "Refuser",
+        "accept": "Accepter",
+        "maybe": "Peut-être",
+        "no-place": "Aucun lieu à été défini",
+        "no-chat-message": "Aucun message à été publié",
+        "edited-chill": "Votre Chill à été modifié !"
+    },
+    "chill-set": {
+        "change-password": "Modifier le mot de passe",
+        "signout": "Se déconnecter",
+        "inputs": {
+            "old-password": "Ancien mot de passe",
+            "new-password": "Nouveau mot de passe"
+        },
+        "error-password": "Impossible de changer le mot de passe",
+        "synchro-contacts": "Synchroniser les contacts"
+    },
+    "chill-utils": {
+        "me": "Moi",
+        "add-car": "Ajouter une voiture",
+        "already-in-car1": "Vous êtes déjà passager dans la voiture de ",
+        "already-in-car2": " sortez de celle ci avant",
+        "add-element": "Ajouter un élément",
+        "add-expense": "Ajouter une dépense",
+        "global-title": "Transport",
+        "title-transport": "Transport",
+        "transport-subtitle": "Organisez vos déplacements",
+        "list-subtitle": "Spécifiez les éléments à apporter",
+        "expense-subtitle": "Indiquez vos dépenses",
+        "list-select-name": "Séléctionner",
+        "seats-left": "places disponibles",
+        "title-list": "Liste",
+        "title-expense": "Dépenses",
+        "add-inheriter": "Pour qui ?",
+        "no-invited": "Vous devez ajouter des invités pour créer une dépense",
+        "not-sended": "Le Chill doit être envoyé avant !",
+        "no-exp-info": "Le nom et le prix doivent être spécifiés !",
+        "no-exp-inheriter": "Au moins une personne doit être séléctionner !",
+        "input-add-element": {
+            "title": "Ajouter un élément",
+            "placeholder": "Quelque chose..."
+        },
+        "input-add-car": {
+            "title": "Ajouter une voiture",
+            "placeholder": "Places disponibles"
+        },
+        "input-add-expense": {
+            "placeholder-element": "Ajouter une dépense",
+            "placeholder-price": "Prix"
+        }
+    },
+    "chiller-details": {
+        "send-chill": "Envoyer un Chill",
+        "coming-soon": "A venir",
+        "history": "Historique",
+        "is-today": "Aujourd'hui",
+        "is-tomorrow": "Demain",
+        "invite-to-chillter": "Inviter sur Chillter",
+        "sms-content-invite": "Rejoins-moi sur Chillter, une appli qui facilite la gestion d’évènement entre amis. Playstore : https://goo.gl/nAxtNb, Appstore : https://goo.gl/Jwyvzj"
+    },
+    "edit-chills": {
+        "invited-by": "Vous avez été invité par",
+        "place": "Lieu",
+        "address": "Adresse",
+        "comment": "commentaire",
+        "date": "à",
+        "invited-number": "invités",
+        "swipe-toast": {
+            "message": "Glisser pour envoyer votre Chill"
+        },
+        "remove": "Supprimer",
+        "send": "Envoyer",
+        "save": "Sauvegarder",
+        "not-sended": "Le Chill doit être envoyé avant !"
+    },
+    "friend-list": {
+        "delete-alert": {
+            "title": "Supprimer un ami",
+            "message": "Voulez vous supprimer ou bloquer cet ami ?",
+            "button-text-del-block": "Supprimer et bloquer",
+            "button-text-del": "Supprimer seulement"
+        },
+        "request-subtitle": "Demande de contact",
+        "no-result": "Pas de résultat trouvé",
+        "add-friends": "Ajouter Chillers",
+        "no-friends": "Vous n'avez pas d'ami"
+    },
+    "history": {
+        "title": "Historique",
+        "no-events": "Pas de résultat",
+        "no-previous-events": "Vous n'avez pas d'évènement passé"
+    },
+    "photo-edit": {
+        "save": "Choisir",
+        "cancel": "Annuler",
+        "title": "Recadrer"
+    },
+    "chill-list": {
+        "customize-chill": "Chill personnalisable",
+        "customized-chill": "Personnalisés"
+    },
+    "resolve-expense": {
+        "title": "Résolution",
+        "subtitle": "Soldes des comptes"
+    },
+    "chill-chat": {
+        "error-happen": "Une erreur est survenue",
+        "reload-page": "Réessayer",
+        "input-placeholder": "Message..."
+    },
+    "img-loader": {
+        "take-picture": "Prendre une photo",
+        "get-picture": "Choisir une photo",
+        "picture": "Photo"
+    },
+    "offline": {
+        "save-participate": "Sauvegardé ! Votre participation sera mise à jour quand internet sera disponible",
+        "save-add-chill": "Sauvegardé ! Votre Chill apparaîtra quand internet sera disponible",
+        "save-delete-chill": "Sauvegardé ! Votre Chill disparaîtra quand internet sera disponible",
+        "save-send-chill": "Sauvegardé ! Votre Chill sera envoyé quand internet sera disponible",
+        "blocked": "Cette fonctionnalité n'est pas disponible hors ligne",
+        "found-internet": "Connexion retrouvée",
+        "lost-internet": "Connexion perdue, certaines données peuvent ne pas être envoyées."
+    }
+}
+

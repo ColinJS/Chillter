@@ -1,0 +1,15 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>{{ 'photo-edit.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+  </div>
+  <button ion-button (tap)="dismiss()" class="photo-edit-button">{{ 'photo-edit.cancel' | translate }}</button>
+  <button ion-button (tap)="close()" class="photo-edit-button">{{ 'photo-edit.save' | translate }}</button>
+
+</ion-content>

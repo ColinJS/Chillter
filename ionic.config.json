@@ -1,0 +1,16 @@
+{
+  "name": "Chillter",
+  "app_id": "6ba6f684",
+  "v2": true,
+  "typescript": true,
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://www.chillter.fr"
+    },
+    {
+      "path": "/api-dev",
+      "proxyUrl": "http://chillter-app.publish-it.fr"
+    }
+  ]
+}

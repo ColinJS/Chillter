@@ -1,0 +1,18 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>{{ 'resolve-expense.title' | translate }}</ion-title>
+  </ion-navbar>
+
+  <div class="subtitle">{{ 'resolve-expense.subtitle' | translate}}</div>
+</ion-header>
+
+<ion-content padding>
+
+  <ul class="res-list">
+    <li *ngFor="let p of pay" class="res-li">
+      <div class="res-chiller"><i class="from">{{p.from.firstname}}</i>  <ion-icon name="ios-arrow-round-forward-outline"></ion-icon> <i class="to">{{p.to.firstname}}</i></div>
+      <div class="res-pay">{{p.sum}} €</div>
+    </li>
+  </ul>
+
+</ion-content>

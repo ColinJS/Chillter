@@ -1,0 +1,57 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      <img class="nav-title" src="assets/images/nav-chillset.svg" height="130" image-cache/>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="chill-set">
+
+  <form [formGroup]="form">
+    <ion-list padding>
+      <div class="avatar">
+        <img-loader id="avatarLoader" [src]="picture" (change)="loadChange($event)" round></img-loader>
+        <div class="valid-picture" *ngIf="pictChange" (tap)="sendPicture()">
+          <ion-icon name="checkmark" primary></ion-icon>
+        </div>
+        <div class="cancel-picture" *ngIf="pictChange" (tap)="cancelPicture()">
+          <ion-icon name="close" primary></ion-icon>
+        </div>
+      </div>
+      <div class="complete-name">
+        {{firstname}} {{lastname}}
+      </div>
+
+      <ion-item>
+        <ion-input placeholder="Phone" type="tel" formControlName="phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input placeholder="Email" type="email" formControlName="email"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="(form.controls.phone.valid &&  form.controls.email.valid) && (form.controls.phone.dirty || form.controls.email.dirty)" class="item-info">
+        <div class="update-info" (tap)="changeInfo()">
+          {{ 'global.update' | translate }}
+        </div>
+      </ion-item>
+
+      <ion-item class="change-password" (tap)="changePassword()">
+        {{ 'chill-set.change-password' | translate }}
+      </ion-item>
+
+      <ion-item class="change-password" (tap)="synchronizeContacts()">
+        {{ 'chill-set.synchro-contacts' | translate }} <ion-icon *ngIf="synchronizeFinished" name="ios-checkmark"></ion-icon>
+      </ion-item>
+
+    </ion-list>
+  </form>
+
+  <div class="btn-disconnect-container">
+    <div class="btn-disconnect" (tap)="logout()">
+      {{ 'chill-set.signout' | translate }}
+    </div>
+  </div>
+
+</ion-content>

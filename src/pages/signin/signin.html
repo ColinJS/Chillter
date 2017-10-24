@@ -1,0 +1,70 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title class="main-title">{{ 'signup.create-account' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <form [formGroup]="form" novalidate>
+      <ion-list padding>
+        <div class="avatar">
+          <img-loader id="avatarLoader" round></img-loader>
+        </div>
+        <div class="subtitle-avatar">{{ 'signup.add-picture' | translate }}</div>
+
+        <ion-item>
+          <ion-input placeholder="{{ 'signup.firstname' | translate }}" type="text" formControlName="firstname"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!form.controls.firstname.valid && (form.controls.firstname.dirty || submitted)">
+          <p ion-text color="danger">{{ 'signup.firstname-empty' | translate }}</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-input placeholder="{{ 'signup.lastname' | translate }}" type="text" formControlName="lastname"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!form.controls.lastname.valid && (form.controls.lastname.dirty || submitted)">
+          <p ion-text color="danger">{{ 'signup.lastname-empty' | translate }}</p>
+        </ion-item>
+
+        <div formGroupName="passwords">
+          <ion-item>
+            <ion-input placeholder="{{ 'signup.password' | translate }}" type="password" formControlName="password"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input placeholder="{{ 'signup.password-confirm' | translate }}" type="password" formControlName="confirmPassword"></ion-input>
+          </ion-item>
+        </div>
+
+        <ion-item *ngIf="!form.controls.passwords.valid && (form.controls.passwords.dirty || submitted)">
+          <p ion-text color="danger">{{ 'signup.password-matching' | translate }}</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-input placeholder="{{ 'signup.phone' | translate }}" type="tel" formControlName="phone"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!form.controls.phone.valid && (form.controls.phone.dirty || submitted)">
+          <p ion-text color="danger" *ngIf="form.controls.phone.hasError('required')">{{ 'signup.phone-empty' | translate }}</p>
+          <p ion-text color="danger" *ngIf="form.controls.phone.hasError('number')">{{ 'signup.phone-valid' | translate }}</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-input placeholder="{{ 'signup.email' | translate }}" type="email" formControlName="email"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!form.controls.email.valid && (form.controls.email.dirty || submitted)">
+          <p ion-text color="danger" *ngIf="form.controls.email.hasError('required')">{{ 'signup.email-empty' | translate }}</p>
+          <p ion-text color="danger" *ngIf="form.controls.email.hasError('email')">{{ 'signup.email-valid' | translate }}</p>
+        </ion-item>
+
+        <ion-item>
+          <button (tap)="onSubmit()" ion-button outline block round large>{{ 'signup.signup-button' | translate }}</button>
+        </ion-item>
+      </ion-list>
+    </form>
+
+</ion-content>

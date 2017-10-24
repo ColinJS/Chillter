@@ -1,0 +1,783 @@
+chill-utils {
+  .fix-nav {
+    margin-top: -90px;
+  }
+
+  .floating-close-button {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: auto;
+    font-size: 1.7rem;
+    z-index: 200;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #ff862a;
+    background: #fff;
+    padding: 0 10px 0 10px;
+    border: 1px solid #ff862a;
+    min-height: 3.2rem;
+    line-height: 1.7;
+    font-weight: 300;
+    &:before {
+      content: "\f3cf";
+      font-family: "Ionicons";
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      font-style: normal;
+      font-variant: normal;
+      font-weight: normal;
+      line-height: 1;
+      text-rendering: auto;
+      text-transform: none;
+      speak: none;
+      font-size: 2.8rem;
+      top: 4px;
+      position: relative;
+      padding-right: 3px;
+    }
+  }
+
+  .bottom-button {
+    position: absolute;
+    bottom: 0px;
+    padding: 2rem;
+    width: 100%;
+    background-color: white;
+    color: $chillter-col;
+  }
+
+  .toolbar-title-ios {
+    color: $chillter-col;
+    font-size: 1.7rem;
+  }
+
+  .slide-car {
+    margin-top: 0;
+
+    .subtitle-car {
+      font-size: 1.5rem;
+      color: grey; //position: fixed;
+    }
+
+    h1 {
+      font-weight: bold;
+    }
+
+    .car-class {
+      position: relative;
+      height: 20rem;
+      margin: 1rem;
+      background-color: white;
+      color: $chillter-col;
+
+      .suppr-car {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        height: 2rem;
+      }
+
+      .seats-left {
+        color: grey;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  .slide-list {
+    margin-top: 0;
+
+    .subtitle-list {
+      font-size: 1.5rem;
+      color: grey;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0px;
+      margin: 3rem 1rem;
+
+      .element-list {
+        text-align: left;
+        margin: 1rem 3rem;
+
+        .list-suppr {
+          display: inline-block;
+          height: 1.5rem;
+          width: 1.5rem;
+          margin-right: 1rem;
+        }
+
+        .list-bullet {
+          display: inline-block;
+          background-color: #A1A1A1;
+          height: 1.2rem;
+          width: 1.2rem;
+          margin-right: 1rem;
+          border-radius: 50%;
+        }
+
+        .element {
+          display: inline;
+          text-align: left;
+          font-size: 2rem;
+        }
+
+        .no-taker {
+          float: right;
+          color: #A1A1A1;
+          display: inline-block;
+          font-size: 2rem;
+          font-style: italic;
+        }
+
+        .taker {
+          float: right;
+          color: $chillter-col;
+          display: inline-block;
+          margin-right: 3rem;
+          font-size: 2rem;
+        }
+      }
+    }
+  }
+
+  .slide-expense {
+    margin-top: 0;
+
+    .subtitle-expense {
+      font-size: 1.5rem;
+      color: grey;
+    }
+
+    .expense {
+      text-align: left;
+      margin: 2rem 3rem;
+
+      .exps-title div,
+      .exp div {
+        display: inline-block;
+      }
+
+      .exps-name,
+      .exp-title {
+        color: $chillter-col;
+      }
+
+      .exps-name {
+        margin-left: -1.5rem;
+      }
+
+      .exp {
+        font-size: 1.7rem;
+        display: flex;
+        align-items: center;
+        margin-top: 4%;
+
+        .exp-suppr {
+          height: 1.5rem;
+          width: 1.5rem;
+          margin: 0 1rem 0 -2rem;
+        }
+
+        .exp-title {
+          font-size: 1.5rem;
+          width: 60%;
+        }
+
+        .exp-price {
+          font-size: 1.5rem;
+          margin-left: 1.2rem;
+        }
+      }
+
+      .exps-title {
+        font-size: 2.2rem;
+        font-weight: bold;
+      }
+
+      .exps-details {
+        margin-left: 30%;
+        border-top: 1px solid $chillter-col;
+
+        .exps-list {
+          list-style: none;
+          padding: 0px;
+        }
+      }
+
+      .exps-sum,
+      .exp-price {
+        float: right;
+        color: rgba(0, 0, 0, 0.7);
+      }
+    }
+
+    .resolve-div {
+      margin: 5rem;
+      text-align: right;
+      font-size: 3rem;
+      color: $chillter-col;
+    } // Rewrite back button style
+    .bar-button-default-ios,
+    .bar-button-default.bar-button-ios-default,
+    .bar-button-clear-ios-default {
+      height: 20px;
+    }
+  }
+
+  .slide-car,
+  .slide-list,
+  .slide-expense {
+    .slide-zoom {
+      height: 100%;
+    }
+    .wrapper-list {
+      -webkit-overflow-scrolling: touch;
+      overflow-y: scroll;
+      height: -moz-calc(100% - 120px);
+      height: -webkit-calc(100% - 120px);
+      height: calc(100% - 120px);
+      top: 0;
+      align-items: flex-start;
+      padding-top: 90px;
+      padding-top: 90px;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      display: block;
+    }
+    &.slide-full {
+      .wrapper-list {
+        height: 100%;
+      }
+    }
+  } // iphone5
+  @media only screen and (min-device-width:320px) {
+    .place-av-driver {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -138px;
+      margin-left: 210px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .place-av-passenger {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -78px;
+      margin-left: 210px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-one {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -138px;
+      margin-left: 145px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-two {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -78px;
+      margin-left: 145px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-three {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -138px;
+      margin-left: 85px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-four {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -78px;
+      margin-left: 85px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-five {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -138px;
+      margin-left: 20px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-six {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 55px;
+      height: 55px;
+      position: absolute;
+      margin-top: -78px;
+      margin-left: 20px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+  }
+  .swiper-wrapper {
+    -webkit-transform: none;
+    transform: none;
+    .swiper-slide {
+      -webkit-transform: none;
+      transform: none;
+    }
+  } // 360 x 640
+  @media only screen and (min-device-width:360px) {
+    .place-av-driver {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 230px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-av-passenger {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -90px;
+      margin-left: 230px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-one {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 160px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-two {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -90px;
+      margin-left: 160px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-three {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 90px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-four {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -90px;
+      margin-left: 90px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-five {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 20px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-six {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -89px;
+      margin-left: 20px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+  } // iphone 6
+  @media only screen and (min-device-width:375px) {
+    .place-av-driver {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 230px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-av-passenger {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -90px;
+      margin-left: 230px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-one {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 160px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-two {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -90px;
+      margin-left: 160px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-three {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 90px;
+      img {
+
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-four {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -90px;
+      margin-left: 90px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-five {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -155px;
+      margin-left: 20px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-six {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      margin-top: -89px;
+      margin-left: 20px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+  } //iphone 6 plus
+  @media (min-device-width: 410px) {
+    .place-av-driver {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -170px;
+      margin-left: 245px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-av-passenger {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -95px;
+      margin-left: 245px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-one {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -170px;
+      margin-left: 175px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-two {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -95px;
+      margin-left: 175px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-three {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -170px;
+      margin-left: 105px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-four {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -95px;
+      margin-left: 105px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-five {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -170px;
+      margin-left: 35px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+
+    .place-ar-six {
+      border: 1px solid gray;
+      border-radius: 100%;
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      margin-top: -95px;
+      margin-left: 35px;
+
+      img {
+        width: 15vw;
+        height: 15vw;
+        border-radius: 50%;
+      }
+    }
+  }
+}

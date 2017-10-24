@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="2048px" height="2048px" viewBox="0 0 2048 2048" enable-background="new 0 0 2048 2048" xml:space="preserve">
+<g id="Voiture_1_">
+	<path fill="none" stroke="#F5852F" stroke-width="120" stroke-miterlimit="10" d="M158.5,1354.5c132.001,0,1622.5,1,1756,1
+		c26-186-59-295-155.949-337.462c-75.948-33.264-110.087-24.053-284.051-25.538c-144.925-636.376-1026.881-613.877-1148,17
+		C123.5,1093.5,134.5,1296.5,158.5,1354.5z"/>
+	<path fill="#FFFFFF" d="M158.5,1354.5c132.001,0,1622.5,1,1756,1c26-186-59-295-155.949-337.462
+		c-75.948-33.264-110.087-24.053-284.051-25.538c-144.925-636.376-1026.881-613.877-1148,17C123.5,1093.5,134.5,1296.5,158.5,1354.5
+		z"/>
+</g>
+<g id="Roue_Arriere_1_">
+	<circle fill="none" stroke="#F5852F" stroke-width="100" stroke-miterlimit="10" cx="590.687" cy="1364.99" r="160.575"/>
+	<circle fill="#FFFFFF" cx="590.687" cy="1364.99" r="160.575"/>
+</g>
+<g id="Roue_Avant_1_">
+	<circle fill="none" stroke="#F5852F" stroke-width="100" stroke-miterlimit="10" cx="1412.646" cy="1364.99" r="160.576"/>
+	<circle fill="#FFFFFF" cx="1412.646" cy="1364.99" r="160.576"/>
+</g>
+</svg>

@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'LemonMilk';
+  src: url('../assets/fonts/LemonMilk.otf');
+}
+
+@font-face {
+  font-family: 'Lobster';
+  src: url('../assets/fonts/Lobster.otf');
+}
+
+@font-face {
+  font-family: 'MyBold';
+  src: url('../assets/fonts/MYRIADAB.TTF');
+}
+
+@font-face {
+  font-family: 'MyMedium';
+  src: url('../assets/fonts/MyriadMedium.ttf');
+}
+
+@font-face {
+  font-family: 'chillter-font';
+  src: url('../assets/icons/chillter-font.eot?67flqu');
+  src: url('../assets/icons/chillter-font.eot?67flqu#iefix') format('embedded-opentype'), url('../assets/icons/chillter-font.ttf?67flqu') format('truetype'), url('../assets/icons/chillter-font.woff?67flqu') format('woff'), url('../assets/icons/chillter-font.svg?67flqu#chillter-font') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="ion-ios-chillter-icon-"],
+[class*=" ion-ios-chillter-icon-"] {
+  font-family: 'chillter-font' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ion-ios-chillter-icon-tab-bar-chillbox-outline:before,
+.ion-md-chillter-icon-tab-bar-chillbox-outline:before {
+  content: "\e900";
+}
+
+.ion-ios-chillter-icon-tab-bar-chillbox:before,
+.ion-md-chillter-icon-tab-bar-chillbox:before {
+  content: "\e901";
+}
+
+.ion-ios-chillter-icon-tab-bar-chillers-outline:before,
+.ion-md-chillter-icon-tab-bar-chillers-outline:before {
+  content: "\e902";
+}
+
+.ion-ios-chillter-icon-tab-bar-chillers:before,
+.ion-md-chillter-icon-tab-bar-chillers:before {
+  content: "\e903";
+}
+
+.ion-ios-chillter-icon-tab-bar-chills-outline:before,
+.ion-md-chillter-icon-tab-bar-chills-outline:before {
+  content: "\e904";
+}
+
+.ion-ios-chillter-icon-tab-bar-chills:before,
+.ion-md-chillter-icon-tab-bar-chills:before {
+  content: "\e905";
+}
+
+.ion-ios-chillter-icon-tab-bar-chillset-outline:before,
+.ion-md-chillter-icon-tab-bar-chillset-outline:before {
+  content: "\e906";
+}
+
+.ion-ios-chillter-icon-tab-bar-chillset:before,
+.ion-md-chillter-icon-tab-bar-chillset:before {
+  content: "\e907";
+}
+
+.has-refresher .scroll-content {
+  border-top: none;
+}
+
+ion-item-options button.activated {
+  background-color: rgba(0, 0, 0, 0.1)!important;
+}
+
+.tabbar,
+.toolbar-background {
+  border: 0px!important;
+  background: white!important;
+}

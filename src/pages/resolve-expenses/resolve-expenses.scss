@@ -1,0 +1,51 @@
+resolve-expenses {
+  ion-header {
+    .subtitle {
+      text-align: center;
+      font-size: 1.5rem;
+      color: grey;
+    }
+  }
+
+  .res-list {
+    list-style: none;
+    padding: 0px;
+    margin: 20px 1.5rem;
+
+    .res-li div {
+      display: inline-block;
+    }
+
+    .res-li {
+      margin: 1rem 0px;
+
+      .res-chiller {
+        color: $chillter-col;
+        font-size: 1.8rem;
+        font-weight: bold;
+
+        ion-icon {
+          color: rgba(0, 0, 0, 0.7);
+          font-weight: bold;
+        }
+
+        .from {
+          margin-right: 0.7rem;
+          text-transform: capitalize;
+        }
+
+        .to {
+          margin-left: 0.7rem;
+          text-transform: capitalize;
+        }
+      }
+
+      .res-pay {
+        float: right;
+        color: rgba(0, 0, 0, 0.7);
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+    }
+  }
+}

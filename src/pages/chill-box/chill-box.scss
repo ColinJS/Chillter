@@ -1,0 +1,254 @@
+chill-box {
+  .nav-title {
+    height: 130px;
+  }
+
+  .history-button {
+    margin: 8% 2%;
+    float: left;
+    color: $chillter-col;
+  }
+
+  .plus-button {
+    margin: 3% 5%;
+    float: right;
+    font-size: 3rem;
+    color: $chillter-col;
+  }
+
+  .no-events {
+    margin-top: 7rem;
+    text-align: center;
+    color: grey;
+  }
+
+  .status-img {
+    height: 3.7rem;
+    margin-left: 20px;
+  }
+
+  .right-info {
+    height: 100%;
+    display: inline-box;
+    float: right;
+    line-height: 100%;
+  }
+
+  .orange-border {
+    box-sizing: content-box;
+    border: 2px solid $chillter-col;
+    border-radius: 100%;
+  }
+
+  .chill-box {
+    .scroll-content {
+      border: none;
+    }
+
+    .search-evt {
+      margin-top: 5px;
+      float: left;
+      display: inline-block;
+      width: 61vw;
+      overflow: hidden;
+
+      .searchbar-ios {
+        border: none;
+      }
+    }
+
+    .global-infos {
+      display: inline-block;
+      float: left;
+
+      h2 {
+        font-size: 2rem;
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+
+      .chiller-name {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.4);
+        text-transform: lowercase;
+      }
+
+      .event-canceled {
+        font-weight: bold;
+        color: rgba(255, 26, 26, 0.7);
+      }
+    }
+
+    .filter-evt {
+      //width: 35vw;
+      margin-top: 10px;
+      float: right;
+      display: inline-block;
+      margin-right: 2.5vw;
+      padding: 0px 2px;
+
+      .filter-img {
+        height: 7.5vw;
+        display: inline-block;
+        max-height: 30px;
+        margin: 0px 0.6vw;
+      }
+    }
+    /* Remove last border to the bottom of the list */
+    .list-ios>.item-block:last-child,
+    .list-ios>.item-wrapper:last-child .item-block {
+      border-bottom: 0;
+    }
+
+    .status-img-chill {
+      height: 10vw;
+      width: 10vw;
+      margin-left: 10px;
+    }
+
+    .infos-events {
+      display: inline-block;
+      float: right;
+      text-align: right;
+
+      .chill-hours {
+        font-size: 2.5rem;
+        font-style: normal;
+        color: #666666;
+        display: inline-block;
+        margin-right: -4px;
+      }
+
+      .chill-exp {
+        font-style: normal;
+        color: #666666;
+        font-weight: bold;
+        display: inline-block;
+      }
+
+      .exp {
+        font-size: 1.2rem;
+        vertical-align: top;
+      }
+
+      .chill-minutes {
+        font-size: 2.5rem;
+        font-style: normal;
+        color: #666666;
+        display: inline-block;
+        margin-left: -4px;
+      }
+
+      .soon {
+        vertical-align: 40%;
+        font-weight: bold;
+      }
+
+      .today {
+        color: $chillter-col !important;
+      }
+
+      .chill-date {
+        display: block;
+        margin-top: -10px;
+        text-align: right;
+      }
+
+      img {
+        width: 50px;
+        float: right;
+      }
+    }
+  }
+
+  /* Override rules for screen with width > 768px (iPad...) */
+  @media screen and (min-width: 768px) {
+    .nav-title {
+      margin-top: 10%;
+      height: 110px;
+    }
+
+    .history-button {
+      margin: 8% 3%;
+      font-size: 2.3rem;
+    }
+
+    .plus-button {
+      margin: 4% 8%;
+      font-size: 6rem;
+    }
+
+    ion-avatar {
+      .orange-border {
+        box-sizing: content-box;
+        border: 3px solid $chillter-col;
+        border-radius: 100%;
+      }
+
+      .logo-chill {
+        height: 10vw;
+        width: 10vw;
+      }
+    }
+
+    .chill-box {
+      .search-evt {
+        margin-top: 11px;
+        width: 70vw;
+
+        .searchbar-ios {
+          height: 5rem;
+        }
+
+        .searchbar-ios .searchbar-input {
+          height: 4rem;
+          font-size: 2rem;
+          padding-left: 50px;
+        }
+
+        .searchbar-ios .searchbar-search-icon {
+          top: 12px;
+          width: 20px;
+          height: 20px;
+          background-size: 20px;
+        }
+      }
+
+      .no-events {
+        margin-top: 100px;
+      }
+
+      .global-infos {
+        margin-top: 9px;
+
+        h2 {
+          font-size: 3rem;
+        }
+
+        .chiller-name {
+          font-size: 2rem;
+        }
+      }
+
+      .filter-evt {
+        margin-top: 15px;
+
+        .filter-img {
+          height: 8vw;
+          max-height: 50px;
+        }
+      }
+    }
+
+    .infos-events {
+      margin-top: 15px;
+    }
+
+    .status-img {
+      height: 5rem;
+      margin-left: 10px;
+    }
+  }
+}

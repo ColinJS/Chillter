@@ -1,0 +1,30 @@
+.chill-list {
+  ion-slides {
+    height: initial;
+
+    .swiper-pagination-bullet-active {
+      background: $chillter-col;
+    }
+  }
+
+  ion-label {
+    flex: initial;
+  }
+
+  .top-space {
+    margin-top: 1rem;
+  }
+
+  .swiper-pagination {
+    top: 0;
+  }
+
+  .orange-border {
+    border: 1px solid $chillter-col;
+    border-radius: 100%;
+
+    img {
+      padding: 2%;
+    }
+  }
+}

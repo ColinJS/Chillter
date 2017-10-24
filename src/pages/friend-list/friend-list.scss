@@ -1,0 +1,210 @@
+friend-list {
+  .nav-title {
+    height: 130px;
+  }
+
+  .friend-list {
+    .no-events {
+      margin-top: 6rem;
+      text-align: center;
+      color: grey;
+    }
+
+    .search-evt {
+      margin-top: 5px;
+      float: left;
+      display: inline-block;
+      width: 80vw;
+      overflow: hidden;
+
+      .searchbar-ios {
+        border: none;
+      }
+    }
+
+    .filter-contacts {
+      margin-top: 10px;
+      float: right;
+      display: inline-block;
+      margin-right: 2.5vw;
+      padding: 0px 2px;
+
+      .filter-img {
+        height: 9vw;
+        display: inline-block;
+        max-height: 35px;
+        margin: 0px 0.6vw;
+      }
+    }
+
+    .friend-request-subtitle {
+      color: grey;
+      margin-top: 5px;
+      padding-left: 16px;
+    }
+
+    .friend-request-container {
+      line-height: 33px;
+
+      &::after {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        width: 0;
+        vertical-align: middle;
+      }
+
+      h2.friend-request-chiller-name {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        color: $chillter-col;
+      }
+
+      .refuse-friend {
+        color: #f25d61;
+        font-size: 2.5em;
+        font-weight: bold;
+        margin-right: 15px;
+        float: right
+      }
+
+      .accept-friend {
+        margin-right: 10px;
+        color: #51b43f;
+        font-size: 2.5em;
+        font-weight: bold;
+        float: right;
+      }
+    }
+
+    ion-avatar {
+      img {
+        border: 1px solid $chillter-col;
+      }
+    }
+
+    .have-chillter-name {
+      color: $chillter-col;
+      display: inline-block;
+      margin: 0;
+      line-height: 2.6rem;
+      max-width: -moz-calc(100% - 2.7rem);
+      max-width: -webkit-calc(100% - 2.7rem);
+      max-width: calc(100% - 2.7rem);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      .bold-chillter-name {
+        font-weight: bold;
+        display: inline-block;
+      }
+    }
+
+    img.have-chillter-img {
+      width: 2.6rem;
+      height: 2.6rem;
+      float: right;
+    }
+
+    .friends-head-list {
+      vertical-align: middle;
+      line-height: 3rem;
+    }
+
+    .add-friends {
+      font-size: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .add-friends-icon {
+      color: #3FC147;
+      margin-right: 50%;
+      font-weight: 600;
+    }
+
+    .no-result {
+      margin-top: 2rem;
+      text-align: center;
+      color: grey;
+    }
+
+    /* Rewrite margin for list */
+    .list-ios {
+      margin: 0;
+    }
+
+    /* Removing the last bottom border */
+    .list-ios>.item-block:last-child,
+    .list-ios>.item-wrapper:last-child .item-block {
+      border-bottom: 0;
+    }
+
+    .list-ios>.item-block:first-child {
+      border-top: 0;
+    }
+
+    /* Rewrite item-right */
+    .item-ios [item-right] {
+      margin-right: 12%;
+    }
+
+    .searchbar-clear-icon {
+      display: none !important;
+    }
+  }
+
+  /* Override rules for screen with width > 768px (iPad...) */
+  @media screen and (min-width: 768px) {
+    .toolbar-ios {
+      min-height: 120px;
+    }
+
+    .nav-title {
+      height: 75px;
+    }
+
+    .search-friends {
+      margin-top: 11px;
+
+      .searchbar-ios {
+        height: 5rem;
+      }
+
+      .searchbar-ios .searchbar-input {
+        height: 4rem;
+        font-size: 2rem;
+        padding-left: 50px;
+      }
+
+      .searchbar-ios .searchbar-search-icon {
+        top: 12px;
+        width: 20px;
+        height: 20px;
+        background-size: 20px;
+      }
+
+      .searchbar-has-value.searchbar-has-focus .searchbar-clear-icon {
+        display: none !important;
+      }
+    }
+
+    /* Rewrite avatar size (iPad only) */
+    .item-ios ion-avatar ion-img,
+    .item-ios ion-avatar img {
+      width: 8rem;
+      height: 8rem;
+    }
+
+    .item-ios h2 {
+      font-size: 2.5rem;
+    }
+
+    ion-item-sliding {
+      .remove-friend {
+        height: 45px;
+      }
+    }
+  }
+}

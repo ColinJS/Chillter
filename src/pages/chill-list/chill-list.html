@@ -1,0 +1,55 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title class="main-title">Chills</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="chill-list">
+
+  <ion-slides pager loop="false" autoplay="false" color="primary" (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <ion-item no-lines class="top-space" (tap)="addPersonalized()">
+        <ion-avatar item-left>
+          <img src="assets/images/chill-plus.svg" image-cache>
+        </ion-avatar>
+        <h2 ion-text color="primary">{{ 'chill-list.customize-chill' | translate }}</h2>
+      </ion-item>
+
+      <ion-list *ngFor="let cat of chills">
+        <ion-list-header>
+          {{cat.name}}
+        </ion-list-header>
+
+        <ion-item *ngFor="let chill of cat.chills" (tap)="close(chill)">
+          <ion-avatar item-left>
+            <img src="{{ baseUrl + '/api/images/chills/' + chill.info.logo + '.svg' }}" image-cache>
+          </ion-avatar>
+          <h2>{{chill.info.name}}</h2>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-item no-lines class="top-space" (tap)="addPersonalized()">
+        <ion-avatar item-left>
+          <img src="assets/images/chill-plus.svg" image-cache>
+        </ion-avatar>
+        <h2 ion-text color="primary">{{ 'chill-list.customize-chill' | translate }}</h2>
+      </ion-item>
+
+      <ion-list>
+        <ion-list-header>
+          {{ 'chill-list.customize-chill' | translate }}
+        </ion-list-header>
+
+        <ion-item *ngFor="let customChill of customChills" (tap)="close(customChill)">
+          <ion-avatar item-left class="orange-border">
+            <img src="{{ customChill.logo ? customChill.logo : placeholderLogo }}" image-cache>
+          </ion-avatar>
+          <h2>{{ customChill.name }}</h2>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
