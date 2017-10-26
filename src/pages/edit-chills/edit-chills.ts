@@ -130,6 +130,20 @@ export class EditChills {
     }
   }
 
+  ngAfterViewInit() {
+    let hammerElement = document.getElementById("swipeer");
+    console.log(hammerElement);
+
+    if(hammerElement){
+      let hammer = new window['Hammer'](hammerElement);
+      hammer.get('swipe').set({direction: window['Hammer'].DIRECTION_ALL});
+
+      hammer.on('swipe', (ev)=>{
+        this.swipeEvent(ev);
+      });  
+    }
+  }
+
   formatDate() {
     let dayName = [this.transaltions['chill-detail.day-sun'],
     this.transaltions['chill-detail.day-mon'],
@@ -580,6 +594,12 @@ export class EditChills {
     if (evt.angle >= 150 && evt.angle <= 180 || evt.angle >= -180 && evt.angle <= -150) {
       if (evt.direction == 2 && evt.direction == evt.offsetDirection) {
         this.animateTo("refuse");
+      }
+    }
+
+    if (evt.angle >= 60 && evt.angle <= 120) {
+      if (evt.direction == 16 && evt.direction == evt.offsetDirection) {
+        console.log("Vertical swipe works");
       }
     }
   }
