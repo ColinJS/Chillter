@@ -131,7 +131,7 @@ export class EditChills {
   }
 
   ngAfterViewInit() {
-    let hammerElement = document.getElementById("swipeer");
+    let hammerElement = document.getElementById("vertical-swipe");
     console.log(hammerElement);
 
     if(hammerElement){
