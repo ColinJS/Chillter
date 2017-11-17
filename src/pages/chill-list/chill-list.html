@@ -15,18 +15,48 @@
         <h2 ion-text color="primary">{{ 'chill-list.customize-chill' | translate }}</h2>
       </ion-item>
 
-      <ion-list *ngFor="let cat of chills">
-        <ion-list-header>
-          {{cat.name}}
-        </ion-list-header>
+      <!-- Fake data, used for content placeholder -->
+      <div *ngIf="chills.length == 0">
+        <ion-list>
+          <ion-list-header>
+            <div class="content-pl-5">&nbsp;</div>
+          </ion-list-header>
 
-        <ion-item *ngFor="let chill of cat.chills" (tap)="close(chill)">
-          <ion-avatar item-left>
-            <img src="{{ baseUrl + '/api/images/chills/' + chill.info.logo + '.svg' }}" image-cache>
-          </ion-avatar>
-          <h2>{{chill.info.name}}</h2>
-        </ion-item>
-      </ion-list>
+          <ion-item *ngFor="let fake of fakeArray4">
+            <ion-avatar item-left>
+              <img class="content-pl-img" src="assets/images/logo-sun.svg" image-cache>
+            </ion-avatar>
+            <div class="content-pl-3">&nbsp;</div>
+          </ion-item>
+
+          <ion-list-header>
+            <div class="content-pl-5">&nbsp;</div>
+          </ion-list-header>
+
+          <ion-item *ngFor="let fake of fakeArray5">
+            <ion-avatar item-left>
+              <img class="content-pl-img" src="assets/images/logo-sun.svg" image-cache>
+            </ion-avatar>
+            <div class="content-pl-3">&nbsp;</div>
+          </ion-item>
+        </ion-list>
+      </div>
+      <!-- End of fake data -->
+
+      <div *ngIf="chills">
+        <ion-list *ngFor="let cat of chills">
+          <ion-list-header>
+            {{cat.name}}
+          </ion-list-header>
+
+          <ion-item *ngFor="let chill of cat.chills" (tap)="close(chill)">
+            <ion-avatar item-left>
+              <img src="{{ baseUrl + '/api/images/chills/' + chill.info.logo + '.svg' }}" image-cache>
+            </ion-avatar>
+            <h2>{{chill.info.name}}</h2>
+          </ion-item>
+        </ion-list>
+      </div>
     </ion-slide>
 
     <ion-slide>

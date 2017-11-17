@@ -15,37 +15,40 @@
           <img [src]="picture" image-cache/>
         </div>
         <div class="details-info">
+          <div *ngIf="!firstName && !lastName" class="content-pl-7">&nbsp;</div>
           <h1>{{firstName}} {{lastName}}</h1>
           <div class="contact-chiller-container contact-chiller-phone">
+            <div *ngIf="!phone" class="content-pl-5">&nbsp;</div>
             <h2>{{phone}}</h2>
             <a [href]="sanitizer.bypassSecurityTrustResourceUrl('sms:'+phone)">
-              <ion-icon class="contact-chiller" name="ios-chatbubbles-outline"></ion-icon>
+              <ion-icon *ngIf="phone" class="contact-chiller" name="ios-chatbubbles-outline"></ion-icon>
             </a>
             <a href="tel:{{phone}}">
-              <ion-icon class="contact-chiller" name="call-outline"></ion-icon>
+              <ion-icon *ngIf="phone" class="contact-chiller" name="call-outline"></ion-icon>
             </a>
           </div>
+          <div *ngIf="!email && have_chillter" class="content-pl-8">&nbsp;</div>
           <div *ngIf="have_chillter" class="contact-chiller-container">
             <h2 class="email">{{email}}</h2>
             <a href="mailto:{{email}}">
-              <ion-icon class="contact-chiller" name="ios-create-outline"></ion-icon>
+              <ion-icon *ngIf="have_chillter && email && phone" class="contact-chiller" name="ios-create-outline"></ion-icon>
             </a>
           </div>
         </div>
       </div>
-      <div *ngIf="!have_chillter" class="invite-to-chillter">
+      <div *ngIf="!have_chillter && phone" class="invite-to-chillter">
         <a [href]="sanitizer.bypassSecurityTrustResourceUrl('sms:'+phone+smsMsg)">
           <p>{{ 'chiller-details.invite-to-chillter' | translate }}</p>
         </a>
       </div>
-      <div *ngIf="have_chillter" class="btn-send-container" (tap)="sendAChill()">
+      <div *ngIf="have_chillter && firstName" class="btn-send-container" (tap)="sendAChill()">
         <div class="btn-send-chill">
           {{ 'chiller-details.send-chill' | translate }}
           <ion-icon name="chillter-icon-tab-bar-chills"></ion-icon>
         </div>
       </div>
     </div>
-    <div *ngIf="have_chillter" class="details-events">
+    <div *ngIf="have_chillter && firstName" class="details-events">
       <div class="search-chill">
         <ion-searchbar placeholder="{{ 'global.search' | translate }}" class="search-chill"></ion-searchbar>
       </div>

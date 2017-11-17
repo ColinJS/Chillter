@@ -20,7 +20,9 @@ import { TranslateService } from 'ng2-translate';
 export class ChillList {
   @ViewChild(Content) content: Content;
 
-  placeholderLogo: string = "assets/images/default-profil.svg"
+  placeholderLogo: string = "assets/images/default-profil.svg";
+  fakeArray4: any = new Array(2); // Used for content placeholder
+  fakeArray5: any = new Array(3); // Used for content placeholder
 
   private transaltions: any;
   private chills: any = [];
@@ -61,7 +63,11 @@ export class ChillList {
 
   getAllChills() {
     this.api.getAllChills().subscribe((data) => this.addChills(data));
-    this.api.getCustomChills().subscribe((data) => this.customChills = data);
+    this.api.getCustomChills().subscribe(
+      (data) => {
+        console.log(data);
+        this.customChills = data;
+      });
   }
 
   addChills(chills: any) {
@@ -157,9 +163,11 @@ export class ChillList {
             let currentView = this.navCtrl.getActive().name;
 
             if (currentView == "ChillBox" || currentView == undefined) {
-              this.navCtrl.setRoot(Home).then(() =>
-                this.navCtrl.parent.select(0)
-              );
+              // This wil generate an error, like cannot read property 'then' of undefined, and it's normal. This is the only solution to set tab and reload selected tab view.
+              this.navCtrl.parent.select(0).then(() => {
+                console.log('Regular error');
+              })
+
             }
           }
         });

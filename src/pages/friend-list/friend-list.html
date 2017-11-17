@@ -24,13 +24,26 @@
         <ion-icon class="refuse-friend" name="close" (tap)="deleteFriend(pfriend.id)"></ion-icon>
       </div>
     </ion-item>
+    <div *ngIf="sentInvitation.length != 0">
+      <ion-item *ngFor="let invitation of sentInvitation">
+        <ion-avatar item-left>
+          <img class="avatar" src="{{invitation.picture || 'assets/images/default-profil.svg'}}" image-cache/>
+        </ion-avatar>
+        <div class="friend-request-container">
+          <h2 class="friend-request-chiller-name">{{invitation.firstname}} {{invitation.lastname}}</h2>
+          <span class="pending-request">en attente...</span>
+        </div>
+      </ion-item>
+    </div>
   </ion-list>
 
-  <div class="search-evt">
-    <ion-searchbar class="search-evt" placeholder="{{ 'global.search' | translate }}" (ionInput)="inputChange($event)"></ion-searchbar>
-  </div>
-  <div class="filter-contacts">
-    <img [src]="logoSun" class="filter-img" (tap)="toggleFilter()" image-cache/>
+  <div class="search-wrapper">
+    <div class="search-evt">
+      <ion-searchbar class="search-evt" placeholder="{{ 'global.search' | translate }}" (ionInput)="inputChange($event)"></ion-searchbar>
+    </div>
+    <div class="filter-contacts">
+      <ion-icon class="filter-icon" [name]="iconSun" (tap)="toggleFilter()"></ion-icon>
+    </div>
   </div>
 
   <div *ngIf="noFriends == true" class="no-events"><p>{{ 'friend-list.no-friends' | translate}}</p></div>
@@ -47,7 +60,7 @@
         <div *ngIf="friend.have_chillter" class="have-chillter-name">
           {{friend.firstname}} <div class="bold-chillter-name">{{friend.lastname}}</div>
         </div>
-        <img *ngIf="friend.have_chillter" class="have-chillter-img" src="assets/images/tab-bar-chills-enabled.svg" image-cache/>
+        <ion-icon *ngIf="friend.have_chillter" class="have-chillter-icon" name="chillter-icon-tab-bar-chills"></ion-icon>
         <h2 *ngIf="!friend.have_chillter">{{friend.firstname}}</h2>
       </ion-item>
       <ion-item-options *ngIf="friend.have_chillter">

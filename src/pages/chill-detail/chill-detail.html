@@ -1,18 +1,24 @@
 <ion-content>
 
   <div class="floating-close-button" (tap)="close()"></div>
-  <div class="overlay left-pan-accept hide-left-pan {{ transformLeftPan }}"></div>
-  <div class="overlay right-pan-refuse hide-right-pan {{ transformRightPan }}"></div>
-  <div class="overlay-chill-detail top-pan-maybe hide-top-pan {{ transformTopPan }}"></div>
+  <div class="overlay left-pan-accept hide-left-pan {{transformLeftPan}}">
+    <p class="overlay-text">{{overlayTextAccept}}</p>
+  </div>
+  <div class="overlay right-pan-refuse hide-right-pan {{transformRightPan}}">
+    <p class="overlay-text">{{overlayTextRefuse}}</p>
+  </div>
+  <div class="overlay-chill-detail top-pan-maybe hide-top-pan {{transformTopPan}}">
+    <p class="overlay-text">{{overlayTextMaybe}}</p>
+  </div>
 
   <div class="chills-header">
     <div class="ch-background">
       <img id="background" [src]="banner" *ngIf="!isEdit" image-cache/>
-      <img-loader id="background" [src]="banner" *ngIf="isEdit"></img-loader>
+      <img-picker-banner id="background" [src]="banner" *ngIf="isEdit"></img-picker-banner>
     </div>
     <div class="ch-logo">
       <img id="logo" [src]="logo" *ngIf="!isEdit" image-cache/>
-      <img-loader id="logo" [src]="logo" *ngIf="isEdit" round></img-loader>
+      <img-picker-logo id="logo" [src]="logo" *ngIf="isEdit"></img-picker-logo>
     </div>
   </div>
 
@@ -23,37 +29,51 @@
         <ion-icon class="valide-icon" *ngIf="isEdit" name="checkmark-circle-outline"></ion-icon>
       </div>
 
-      <!-- Show map icon for each platform, when there is edit-icon next to map-icon -->
-      <div *ngIf="idProfile == chillCreatorId && enableMaps && isIos">
-        <a [href]="sanitizer.bypassSecurityTrustResourceUrl('maps:q='+geoSpecSafe)">
-          <ion-icon class="map-icon" name="ios-locate-outline"></ion-icon>
-        </a>
-      </div>
-
-      <div *ngIf="idProfile == chillCreatorId && enableMaps && !isIos">
-        <ion-icon class="map-icon" name="ios-locate-outline" (tap)="openMaps()"></ion-icon>
-      </div>
-
-      <!-- Show map icon for each platform, when there is no edit-icon next to map-icon -->
-      <div *ngIf="idProfile != chillCreatorId && enableMaps && isIos">
-        <a [href]="sanitizer.bypassSecurityTrustResourceUrl('maps:q='+geoSpecSafe)">
-          <ion-icon class="map-icon-no-edit" name="ios-locate-outline"></ion-icon>
-        </a>
-      </div>
-
-      <div *ngIf="idProfile != chillCreatorId && enableMaps && !isIos">
-        <ion-icon class="map-icon-no-edit" name="ios-locate-outline" (tap)="openMaps()"></ion-icon>
-      </div>
-
       <div>
-        <h1><input [readonly]=!isEdit type="text" class="title" [(ngModel)]="name" /></h1>
+        <h1>
+          <input *ngIf="isEdit" type="text" class="title" [(ngModel)]="name" />
+          <div *ngIf="!isEdit" class="title">{{name}}</div>
+        </h1>
         <h2>{{ 'chill-detail.invited-by' | translate }} <i class="creator" [style.color]="'#'+color">{{firstName}} {{lastName}}</i></h2>
       </div>
     </div>
 
     <div class="invite-geo" [style.color]="'#'+color">
-      <h1><input [readonly]=!isEdit type="text" placeholder="Lieu" [(ngModel)]="geo" /></h1>
-      <h2><input [readonly]=!isEdit type="text" placeholder="Adresse" [(ngModel)]="geoSpec" (input)="autoAddress($event.target.value)" /></h2>
+      <h1>
+        <input *ngIf="isEdit" type="text" placeholder="{{ 'chill-detail.place' | translate }}" [(ngModel)]="geo" />
+        <div *ngIf="!isEdit && !geo">{{ 'chill-detail.place' | translate }}</div>
+        <div *ngIf="!isEdit && geo">{{geo}}</div>
+      </h1>
+
+      <!-- ANDROID GEOSPEC TAP TO OPEN MAP -->
+      <h2 *ngIf="enableMaps && !isIos">
+        <input *ngIf="isEdit" type="text" placeholder="{{ 'chill-detail.address' | translate }}" [(ngModel)]="geoSpec" (input)="autoAddress($event.target.value)" />
+        <div *ngIf="!isEdit && geoSpec" (tap)="openMaps()">{{geoSpec}}</div>
+      </h2>
+
+      <h2 *ngIf="!enableMaps && !isIos">
+        <input *ngIf="isEdit" type="text" placeholder="{{ 'chill-detail.address' | translate }}" [(ngModel)]="geoSpec" (input)="autoAddress($event.target.value)" />
+        <div *ngIf="!isEdit" (tap)="openMaps()">{{ 'chill-detail.address' | translate }}</div>
+      </h2>
+      <!-- END ANDROID PART -->
+
+      <!-- IOS GEOSPEC TAP TO OPEN MAP -->
+      <h2 *ngIf="enableMaps && isIos">
+        <input *ngIf="isEdit" type="text" placeholder="{{ 'chill-detail.address' | translate }}" [(ngModel)]="geoSpec" (input)="autoAddress($event.target.value)" />
+        <div class="no-decoration" *ngIf="!isEdit && geoSpec">
+          <a [href]="sanitizer.bypassSecurityTrustResourceUrl('maps:q='+geoSpecSafe)">
+            {{geoSpec}}
+          </a>
+        </div>
+      </h2>
+
+      <h2 *ngIf="!enableMaps && isIos">
+        <input *ngIf="isEdit" type="text" placeholder="{{ 'chill-detail.address' | translate }}" [(ngModel)]="geoSpec" (input)="autoAddress($event.target.value)" />
+        <div *ngIf="!isEdit">
+          {{ 'chill-detail.address' | translate }}
+        </div>
+      </h2>
+      <!-- END IOS PART -->
     </div>
 
     <ion-icon *ngIf="autocompleteAddress != ''" style="margin-top: 2%;" (tap)="clearAutocomplete()" name="close-circle"></ion-icon>
@@ -89,18 +109,18 @@
 
       <div class="invite-friends">
         <img src="assets/images/chill-plus.svg"  (tap)="showFriends()" image-cache/>
-        <div class="ion-scroll-friends">
-          <div class="ion-scroll-content">
-            <div *ngFor="let friend of friends" class="friend-list-img">
-              <img [src]="friend.picture ? friend.picture : 'assets/images/default-profil.svg'" (tap)="showChillerDetails(friend.id)" image-cache/>
-              <div class="status-icon">
-                <img [src]="friend.statut | statusImg" image-cache/>
-              </div>
-              <div *ngIf="isEdit" class="delete-friend" (tap)="deleteFriend(friend.id)" >
-                <img src="assets/images/close-outline.svg" image-cache *ngIf="idProfile == chillCreatorId && friend.id != chillCreatorId"/>
-              </div>
-            </div>
+        <div *ngFor="let friend of shownFriends" class="friend-list-img">
+          <img class="friend-picture" *ngIf="idProfile == friend.id" [src]="friend.picture ? friend.picture : 'assets/images/default-profil.svg'" image-cache/>
+          <img class="friend-picture" *ngIf="idProfile != friend.id" [src]="friend.picture ? friend.picture : 'assets/images/default-profil.svg'" (tap)="showChillerDetails(friend.id)" image-cache/>
+          <div class="status-icon">
+            <img [src]="friend.statut | statusImg" image-cache/>
           </div>
+          <div *ngIf="isEdit" class="delete-friend" (tap)="deleteFriend(friend.id)" >
+            <img src="assets/images/close-outline.svg" image-cache *ngIf="idProfile == chillCreatorId && friend.id != chillCreatorId"/>
+          </div>
+        </div>
+        <div *ngIf="showMoreFriends" class="show-more-friends" (tap)="showMoreFriendsPage()">
+          {{ 'edit-chills.more-friends' | translate }}
         </div>
       </div>
     </div>

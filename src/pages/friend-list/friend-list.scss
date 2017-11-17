@@ -14,7 +14,7 @@ friend-list {
       margin-top: 5px;
       float: left;
       display: inline-block;
-      width: 80vw;
+      width: 82vw;
       overflow: hidden;
 
       .searchbar-ios {
@@ -29,10 +29,10 @@ friend-list {
       margin-right: 2.5vw;
       padding: 0px 2px;
 
-      .filter-img {
-        height: 9vw;
+      .filter-icon {
+        color: $chillter-col;
+        font-size: 3rem;
         display: inline-block;
-        max-height: 35px;
         margin: 0px 0.6vw;
       }
     }
@@ -76,6 +76,12 @@ friend-list {
         font-weight: bold;
         float: right;
       }
+
+      .pending-request {
+        color: grey;
+        font-size: 0.8em;
+        float: right;
+      }
     }
 
     ion-avatar {
@@ -102,9 +108,9 @@ friend-list {
       }
     }
 
-    img.have-chillter-img {
-      width: 2.6rem;
-      height: 2.6rem;
+    ion-icon.have-chillter-icon {
+      color: $chillter-col;
+      font-size: 2.6rem;
       float: right;
     }
 
@@ -205,6 +211,21 @@ friend-list {
       .remove-friend {
         height: 45px;
       }
+    }
+  }
+  .search-wrapper {
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: #fff;
+    position: -webkit-sticky;
+    position: sticky;
+    &:after {
+      display: block;
+      content: "";
+      clear: both;
     }
   }
 }

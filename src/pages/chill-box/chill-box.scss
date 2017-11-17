@@ -24,7 +24,6 @@ chill-box {
 
   .status-img {
     height: 3.7rem;
-    margin-left: 20px;
   }
 
   .right-info {
@@ -148,6 +147,10 @@ chill-box {
 
       .today {
         color: $chillter-col !important;
+      }
+      
+      .ongoing {
+        color: #43a1eb !important;
       }
 
       .chill-date {

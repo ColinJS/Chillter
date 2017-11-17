@@ -17,7 +17,7 @@ chill-set {
       width: 150px;
       margin: auto;
 
-      img-loader {
+      img-picker-logo {
         background-image: url(../assets/images/default-profil.svg);
         box-sizing: content-box;
         border: 2px solid $chillter-col;
@@ -26,32 +26,6 @@ chill-set {
         display: inline-block;
         height: 125px;
         width: 125px;
-      }
-
-      .valid-picture,
-      .cancel-picture {
-        border: 2px solid $chillter-col;
-        border-radius: 100%;
-        width: 3.8rem;
-        background-color: white;
-        position: absolute;
-        font-size: 3rem;
-        right: 1px;
-        color: $chillter-col;
-      }
-
-      .valid-picture {
-        top: 5px;
-      }
-
-      .cancel-picture {
-        bottom: 5px;
-      }
-
-      .valid-picture ion-icon,
-      .cancel-picture ion-icon {
-        margin-left: 10px;
-        vertical-align: middle;
       }
     }
 

@@ -18,7 +18,7 @@ export class ConfigService {
     //return this.devMode ? '/api-dev' : '/api';
 
     // Fixed URL while not on chillter.fr
-    return 'http://chillter-app.publish-it.fr';
+    return 'http://chillter'; // old : http://chillter-app.publish-it.fr
   }
 
   getApiUrl(): string {
@@ -32,7 +32,7 @@ export class ConfigService {
   }
 
   getUrl(): string {
-    return 'http://chillter-app.publish-it.fr';
+    return 'http://chillter';
   }
 
   getWeatherApiUrl(): string {

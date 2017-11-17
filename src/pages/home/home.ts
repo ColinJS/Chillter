@@ -172,7 +172,11 @@ export class Home {
           }
         )
 
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        this.trashIcon = false;
+        let lastIndex = this.slides.lastIndexOf(undefined);
+        if (this.slides[lastIndex] == undefined) {
+          this.slides.pop();
+        }
       }
     } else {
       this.showToast(0);
@@ -280,9 +284,16 @@ export class Home {
         filter: ".chill_plus",
         disabled: false,
         animation: 100,
-        dragClass: "non-ghost",
+        dragClass: "sortable-drag",
+        ghostClass: "sortable-ghost",
+        chosenClass: "sortable-chosen",
         onStart: ((evt) => {
           this.slider.lockSwipes(true);
+        }),
+        onMove: ((evt)=> {
+          if (evt.related) {
+            return !evt.related.classList.contains('chill_plus');
+          }
         }),
         onEnd: ((evt) => {
           if (evt.oldIndex != evt.newIndex) {
@@ -292,6 +303,12 @@ export class Home {
               disabled: true
             }
             this.moveChill(evt);
+          }
+        }),
+        onMove: ((evt)=>{
+          if (evt.related)
+          {
+              return !evt.related.classList.contains('chill_plus');
           }
         })
       };

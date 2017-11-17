@@ -1,214 +1,256 @@
 {
-    "global": {
-        "add": "Add",
-        "cancel": "Cancel",
-        "update": "Update",
-        "save": "Save",
-        "ok": "OK",
-        "back": "Back",
-        "date-time": "Provide date and time",
-        "yes": "Yes",
-        "search": "Search",
-        "loading": "Loading..."
+  "global": {
+    "add": "Add",
+    "cancel": "Cancel",
+    "update": "Update",
+    "save": "Save",
+    "ok": "OK",
+    "back": "Back",
+    "date-time": "Provide date and time",
+    "yes": "Yes",
+    "search": "Search",
+    "loading": "Loading..."
+  },
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "error": "Error",
+    "login-failed": "Email or password seems to be wrong !",
+    "login-button": "Log in",
+    "notice": "This is not the final version, some updates and fixing are coming !",
+    "create-account-button": "Create an account",
+    "email-empty": "Email cannot be empty",
+    "password-empty": "Password cannot be empty",
+    "forgot-password": "Forgot password ?"
+  },
+  "forgot-password": {
+    "title": "Forgot password",
+    "email-placeholder": "Email",
+    "email-wrong": "Enter a valid email",
+    "confirm": "Confirm",
+    "verify-token": "Verify token",
+    "placeholder-passwd": "Password",
+    "placeholder-passwd-c": "Confirm password",
+    "passwd-matching": "Passwords does not match",
+    "verification": "Verification",
+    "sent-email1": "We sent an email with a token to ",
+    "sent-email2": ", copy the token from email and top on 'Verify'.",
+    "token-placeholder": "Token (case sensitive)",
+    "verify-token-alert": "Verify",
+    "enter-new-password-title": "Enter your new password",
+    "set-new-password-title": "Success",
+    "set-new-password": "Your password has been changed, you can use it now to connect to your account.",
+    "email-invalid": "This email is invalid",
+    "token-expired": "This token have expired",
+    "token-invalid": "This token is invalid",
+    "error": "Error"
+  },
+  "signup": {
+    "create-account": "Create an account",
+    "add-picture": "Tap to add a photo",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "password": "Password",
+    "password-confirm": "Confirm password",
+    "loader-config": "Configuration, ",
+    "loader-ready": "Ready !",
+    "phone": "Phone",
+    "email": "Email",
+    "signup-button": "Sign Up",
+    "firstname-empty": "First name cannot be empty",
+    "lastname-empty": "Last name cannot be empty",
+    "password-matching": "Passwords does not match",
+    "phone-empty": "Phone cannot be empty",
+    "phone-valid": "Phone can contain only numbers",
+    "email-empty": "Email cannot be empty",
+    "email-valid": "Email is not valid",
+    "error1": "Registration failed !",
+    "error2": "An error occured",
+    "error3": "Email already exist"
+  },
+  "home": {
+    "move-chill-error": "You cannot move this Chill here !"
+  },
+  "add-friends": {
+    "friends": "Friends"
+  },
+  "add-expense": {
+    "expense": "Add an expense"
+  },
+  "chill-box": {
+    "me": "Me",
+    "event-removed": "The event was removed from your calendar",
+    "event-added": "The event was added to your calendar",
+    "cancel-chill-message": "Do you really want to cancel this Chill ?",
+    "no-events": "You do not have events scheduled",
+    "no-events-all": "You never had any event",
+    "invited-you": " invited you : ",
+    "event-cancelled": "cancelled",
+    "confirm": "Confirm",
+    "hide-event-message": "Do you really want to hide this Chill ?"
+  },
+  "chill-detail": {
+    "invited-by": "You're invited by",
+    "date": "at",
+    "invited-number": "invited",
+    "day-sun": "Sun.",
+    "day-mon": "Mon.",
+    "day-tues": "Tues.",
+    "day-wed": "Wed.",
+    "day-thurs": "Thurs.",
+    "day-fri": "Fri.",
+    "day-sat": "Sat.",
+    "month-jan": "Jan.",
+    "month-feb": "Feb.",
+    "month-mar": "Mar.",
+    "month-apr": "Apr.",
+    "month-may": "May",
+    "month-jun": "June",
+    "month-jul": "July",
+    "month-aug": "Aug.",
+    "month-sep": "Sep.",
+    "month-oct": "Oct.",
+    "month-nov": "Nov.",
+    "month-dec": "Dec.",
+    "refuse": "Refuse",
+    "accept": "Accept",
+    "maybe": "Maybe",
+    "no-place": "No place has be defined",
+    "no-chat-message": "No message has been published",
+    "edited-chill": "You chill have been edtied !",
+    "place": "Place",
+    "address": "Address"
+  },
+  "chill-set": {
+    "change-password": "Change the password",
+    "signout": "Sign out",
+    "inputs": {
+      "old-password": "Old password",
+      "new-password": "New password"
     },
-    "login": {
-        "email": "Email",
-        "password": "Password",
-        "error": "Error",
-        "login-failed": "Email or password seems to be wrong !",
-        "login-button": "Log in",
-        "notice": "This is not the final version, some updates and fixing are coming !",
-        "create-account-button": "Create an account"
+    "error-password": "Cannot change password",
+    "synchro-contacts": "Synchronize contacts"
+  },
+  "chill-utils": {
+    "me": "Me",
+    "add-car": "Add a car",
+    "already-in-car1": "You are already a passenger in the car of ",
+    "already-in-car2": ", get out of it first",
+    "add-element": "Add an element",
+    "add-expense": "Add an expense",
+    "global-title": "Transport",
+    "title-transport": "Transport",
+    "transport-subtitle": "Organize your transport",
+    "list-subtitle": "Specify the items to bring",
+    "expense-subtitle": "Provide your expenses",
+    "list-select-name": "Select",
+    "seats-left": "seats left",
+    "title-list": "List",
+    "title-expense": "Expenses",
+    "add-inheriter": "For who ?",
+    "no-invited": "You need to invite someone to create an expense",
+    "not-sended": "You need to send the Chill first !",
+    "no-exp-info": "The name and the price need to be specified !",
+    "no-exp-inheriter": "At least one person need to be selected !",
+    "input-add-element": {
+      "title": "Add an element",
+      "placeholder": "Something..."
     },
-    "signup": {
-        "create-account": "Create an account",
-        "add-picture": "Tap to add a photo",
-        "firstname": "Firstname",
-        "lastname": "Lastname",
-        "password": "Password",
-        "password-confirm": "Confirm password",
-        "loader-config": "Configuration, ",
-        "loader-ready": "Ready !",
-        "phone": "Phone",
-        "email": "Email",
-        "signup-button": "Sign Up",
-        "firstname-empty": "First name cannot be empty",
-        "lastname-empty": "Last name cannot be empty",
-        "password-matching": "Passwords does not match",
-        "phone-empty": "Phone cannot be empty",
-        "phone-valid": "Phone can contain only numbers",
-        "email-empty": "Email cannot be empty",
-        "email-valid": "Email is not valid",
-        "error1": "Registration failed !",
-        "error2": "An error occured",
-        "error3": "Email already exist"
+    "input-add-car": {
+      "title": "Add a car",
+      "placeholder": "Seats available"
     },
-    "home": {
-      "move-chill-error": "You cannot move this Chill here !"
-    },
-    "add-friends": {
-        "friends": "Friends"
-    },
-    "add-expense": {
-        "expense": "Add an expense"
-    },
-    "chill-box": {
-        "me": "Me",
-        "event-removed": "The event was removed from your calendar",
-        "event-added": "The event was added to your calendar",
-        "cancel-chill-message": "Do you really want to cancel this Chill ?",
-        "no-events": "You do not have events scheduled",
-        "no-events-all": "You never had any event",
-        "invited-you": " invited you : ",
-        "event-cancelled": "cancelled",
-        "confirm": "Confirm",
-        "hide-event-message": "Do you really want to hide this Chill ?"
-    },
-    "chill-detail": {
-        "invited-by": "You're invited by",
-        "date": "at",
-        "invited-number": "invited",
-        "day-sun": "Sun.",
-        "day-mon": "Mon.",
-        "day-tues": "Tues.",
-        "day-wed": "Wed.",
-        "day-thurs": "Thurs.",
-        "day-fri": "Fri.",
-        "day-sat": "Sat.",
-        "month-jan": "Jan.",
-        "month-feb": "Feb.",
-        "month-mar": "Mar.",
-        "month-apr": "Apr.",
-        "month-may": "May",
-        "month-jun": "June",
-        "month-jul": "July",
-        "month-aug": "Aug.",
-        "month-sep": "Sep.",
-        "month-oct": "Oct.",
-        "month-nov": "Nov.",
-        "month-dec": "Dec.",
-        "refuse": "Refuse",
-        "accept": "Accept",
-        "maybe": "Maybe",
-        "no-place": "No place has be defined",
-        "no-chat-message": "No message has been published",
-        "edited-chill": "You chill have been edtied !"
-    },
-    "chill-set": {
-        "change-password": "Change the password",
-        "signout": "Sign out",
-        "inputs": {
-            "old-password": "Old password",
-            "new-password": "New password"
-        },
-        "error-password": "Cannot change password",
-        "synchro-contacts": "Synchronize contacts"
-    },
-    "chill-utils": {
-        "me": "Me",
-        "add-car": "Add a car",
-        "already-in-car1": "You are already a passenger in the car of ",
-        "already-in-car2": ", get out of it first",
-        "add-element": "Add an element",
-        "add-expense": "Add an expense",
-        "global-title": "Transport",
-        "title-transport": "Transport",
-        "transport-subtitle": "Organize your transport",
-        "list-subtitle": "Specify the items to bring",
-        "expense-subtitle": "Provide your expenses",
-        "list-select-name": "Select",
-        "seats-left": "seats left",
-        "title-list": "List",
-        "title-expense": "Expenses",
-        "add-inheriter": "For who ?",
-        "no-invited": "You need to invite someone to create an expense",
-        "not-sended": "You need to send the Chill first !",
-        "no-exp-info": "The name and the price need to be specified !",
-        "no-exp-inheriter": "At least one person need to be selected !",
-        "input-add-element": {
-            "title": "Add an element",
-            "placeholder": "Something..."
-        },
-        "input-add-car": {
-            "title": "Add a car",
-            "placeholder": "Seats available"
-        },
-        "input-add-expense": {
-            "placeholder-element": "Add an expense",
-            "placeholder-price": "Price"
-        }
-    },
-    "chiller-details": {
-        "send-chill": "Send a Chill",
-        "coming-soon": "Coming soon",
-        "history": "History",
-        "is-today": "Today",
-        "is-tomorrow": "Tomorrow",
-        "invite-to-chillter": "Invite to Chillter",
-        "sms-content-invite": "Join me on Chillter, an app that manage events between friends easier. Playstore : https://goo.gl/nAxtNb, Appstore : https://goo.gl/Jwyvzj"
-    },
-    "edit-chills": {
-        "invited-by": "You're invited by",
-        "place": "Place",
-        "address": "Address",
-        "comment": "comment",
-        "date": "at",
-        "invited-number": "invited",
-        "swipe-toast": {
-            "message": "Swipe to send your Chill"
-        },
-        "remove": "Remove",
-        "send": "Send",
-        "save": "Save",
-        "not-sended": "You need to send the Chill first !"
-    },
-    "friend-list": {
-        "delete-alert": {
-            "title": "Delete a friend",
-            "message": "Do you want to delete or block a friend ?",
-            "button-text-del-block": "Delete and block",
-            "button-text-del": "Delete only"
-        },
-        "request-subtitle": "Contact request",
-        "no-result": "No result found",
-        "add-friends": "Add Chillers",
-        "no-friends": "You don't have any friend"
-    },
-    "history": {
-        "title": "History",
-        "no-events": "No result found",
-        "no-previous-events": "You haven't done any events"
-    },
-    "photo-edit": {
-        "save": "Save",
-        "cancel": "Cancel",
-        "title": "Photo edit"
-    },
-    "chill-list": {
-        "customize-chill": "Customize Chill",
-        "customized-chill": "Customized"
-    },
-    "resolve-expense": {
-        "title": "Resolve",
-        "subtitle": "Account balancing"
-    },
-    "chill-chat": {
-        "error-happen": "An error happened",
-        "reload-page": "Retry",
-        "input-placeholder": "Message..."
-    },
-    "img-loader": {
-        "take-picture": "Take a picture",
-        "get-picture": "Get a picture",
-        "picture": "Picture"
-    },
-    "offline": {
-        "save-participate": "Saved ! Your participation will be updated when internet become reachable",
-        "save-add-chill": "Saved ! Your chill will appear when internet become reachable",
-        "save-delete-chill": "Saved ! Your chill will disappear when internet become reachable",
-        "save-send-chill": "Saved ! Your chill will be send when internet become reachable",
-        "blocked": "This feature is not available offline",
-        "found-internet": "Internet found",
-        "lost-internet": "Internet lost, some data could not be send"
+    "input-add-expense": {
+      "placeholder-element": "Add an expense",
+      "placeholder-price": "Price"
     }
+  },
+  "chiller-details": {
+    "send-chill": "Send a Chill",
+    "coming-soon": "Coming soon",
+    "history": "History",
+    "is-ongoing": "Happening now",
+    "is-today": "Today",
+    "is-tomorrow": "Tomorrow",
+    "invite-to-chillter": "Invite to Chillter",
+    "sms-content-invite": "Join me on Chillter, an app that manage events between friends easier. Playstore : https://goo.gl/nAxtNb, Appstore : https://goo.gl/Jwyvzj"
+  },
+  "edit-chills": {
+    "invited-by": "You're invited by",
+    "place": "Place",
+    "address": "Address",
+    "comment": "comment",
+    "date": "at",
+    "invited-number": "invited",
+    "swipe-toast": {
+      "message": "Swipe to send your Chill"
+    },
+    "remove": "Remove",
+    "send": "Send",
+    "save": "Save",
+    "not-sended": "You need to send the Chill first !",
+    "more-friends": "more",
+    "punchline-title": "Punchline !",
+    "punchline-placeholder": "Provide a punchline"
+  },
+  "friend-list": {
+    "delete-alert": {
+      "title": "Delete a friend",
+      "message": "Do you want to delete or block a friend ?",
+      "button-text-del-block": "Delete and block",
+      "button-text-del": "Delete only"
+    },
+    "request-subtitle": "Contact request",
+    "no-result": "No result found",
+    "add-friends": "Add Chillers",
+    "no-friends": "You don't have any friend"
+  },
+  "history": {
+    "title": "History",
+    "no-events": "No result found",
+    "no-previous-events": "You haven't done any events"
+  },
+  "photo-edit": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "title": "Photo edit"
+  },
+  "chill-list": {
+    "customize-chill": "Customize Chill",
+    "customized-chill": "Customized"
+  },
+  "resolve-expense": {
+    "title": "Resolve",
+    "subtitle": "Account balancing"
+  },
+  "chill-chat": {
+    "error-happen": "An error happened",
+    "reload-page": "Retry",
+    "input-placeholder": "Message..."
+  },
+  "img-loader": {
+    "take-picture": "Take a picture",
+    "get-picture": "Get a picture",
+    "picture": "Picture"
+  },
+  "offline": {
+    "save-participate": "Saved ! Your participation will be updated when internet become reachable",
+    "save-add-chill": "Saved ! Your chill will appear when internet become reachable",
+    "save-delete-chill": "Saved ! Your chill will disappear when internet become reachable",
+    "save-send-chill": "Saved ! Your chill will be send when internet become reachable",
+    "blocked": "This feature is not available offline",
+    "found-internet": "Internet found",
+    "lost-internet": "Internet lost, some data could not be send"
+  },
+  "overlay": {
+    "sended": "Sent !",
+    "deleted": "Deleted",
+    "saved": "Saved !",
+    "accept": "I'm participating !",
+    "refuse": "I'm not participating",
+    "maybe": "I participate maybe !"
+  },
+  "more-friends": {
+    "friends": "Invited friends"
+  }
 }

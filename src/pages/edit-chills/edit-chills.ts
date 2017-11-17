@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   NavController,
   App,
@@ -10,13 +10,15 @@ import {
 } from 'ionic-angular';
 import { Keyboard } from 'ionic-native';
 import { TranslateService } from 'ng2-translate';
-import { ImgLoader } from '../../components/img-loader/img-loader';
+import { ImgPickerService } from '../../providers/img-picker';
 import { ApiService } from '../../providers/api';
 import { SyncService } from '../../providers/sync';
 import { DatePicker } from 'ionic-native';
 import { ViewChildren } from '@angular/core';
 import { AskFriends } from '../ask-friends/ask-friends';
 import { ChillUtils } from "../chill-utils/chill-utils";
+import { MoreFriendsPage } from '../more-friends/more-friends';
+import { StorageService } from '../../providers/storage';
 
 declare var google: any;
 
@@ -31,6 +33,8 @@ export class EditChills {
   // Handle swipe
   transformLeftPan: string;
   transformRightPan: string;
+  overlayTextSend: string;
+  overlayTextDelete: string;
 
   swiping: boolean = false;
 
@@ -45,8 +49,6 @@ export class EditChills {
   expenses: any = [];
   apiExpenses: any = [];
   parentChill: any;
-
-  @ViewChildren(ImgLoader) imgPicker: any; //_results[0] => background; _results[1] => logo
 
   chillId: string = "";
   name: string = "";
@@ -69,7 +71,12 @@ export class EditChills {
   lastName: string = "";
 
   friends: any = [];
+  shownFriends: any = [];
   utils: any = { "cars": [], "list": [], "exps": [] };
+  showMoreFriends: boolean = false;
+  formattedList: boolean = false;
+  formattedExps: boolean = false;
+  formattedCars: boolean = false;
 
   color: string = "ff862a";
 
@@ -81,6 +88,9 @@ export class EditChills {
 
   pictChange: boolean = false;
 
+  textH1Tapped: boolean = false;
+  @ViewChild('inputName') inputName ;
+
   constructor(
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
@@ -91,7 +101,9 @@ export class EditChills {
     private navParams: NavParams,
     private api: ApiService,
     private sync: SyncService,
-    private app: App
+    private app: App,
+    private storage: StorageService,
+    private imgPickerService: ImgPickerService
   ) {
     translate.get(['chill-detail.day-sun',
       'chill-detail.day-mon',
@@ -114,33 +126,27 @@ export class EditChills {
       'chill-detail.month-dec',
       'edit-chills.swipe-toast.message',
       'edit-chills.not-sended',
+      'edit-chills.punchline-title',
+      'edit-chills.punchline-placeholder',
       'offline.save-send-chill',
+      'overlay.sended',
+      'overlay.deleted',
+      'overlay.saved',
       'global.ok',
       'global.cancel',
       'global.date-time']).subscribe(value => this.transaltions = value);
 
+    this.overlayTextDelete = this.transaltions['overlay.deleted'];
+
     this.formatDate();
 
-    this.getChill();
     this.getChillerInfo();
+    this.getChill();
+
 
     let myFriends = this.navParams.get("friends");
     if (myFriends) {
       this.friends.push(myFriends);
-    }
-  }
-
-  ngAfterViewInit() {
-    let hammerElement = document.getElementById("vertical-swiper");
-    console.log(hammerElement);
-
-    if(hammerElement){
-      let hammer = new window['Hammer'](hammerElement);
-      hammer.get('swipe').set({direction: window['Hammer'].DIRECTION_ALL});
-
-      hammer.on('swipe', (ev)=>{
-        this.swipeEvent(ev);
-      });  
     }
   }
 
@@ -186,6 +192,8 @@ export class EditChills {
 
     // Create new from schema
     if (chill) {
+      this.overlayTextSend = this.transaltions['overlay.sended'];
+
       if (chill.type == 'chill') {
         this.api.getChill(chill.chill_id).subscribe(
           (data) => {
@@ -215,14 +223,27 @@ export class EditChills {
             this.geo = data.place;
             this.geoSpec = data.address;
             this.chillType = "custom";
+            data.comment != "" ? this.comment = data.comment : this.comment = "";
+            if (data.participants) {
+              for (let p of data.participants) {
+                !p.picture ? p.picture = "assets/images/default-profil.svg" : null;
+              }
+              this.friends = data.participants;
+              this.sliceFriends();
+            }
+            data.elements ? this.formatUtils(data.elements, "elements") : null;
+            data.expenses ? this.formatUtils(data.expenses, "expenses") : null;
+            data.car_seats ? this.formatUtils(data.car_seats, "cars") : null;
           }
         )
       }
     } else {
+      this.overlayTextSend = this.transaltions['overlay.saved'];
+
       // Create new custom chill
       this.api.getMyProfile().subscribe(data => {
         this.parentChill = null;
-        this.name = '';
+        this.name = 'Chill';
         !data.picture ? data.picture = "assets/images/default-profil.svg" : null;
         this.logo = data.picture;
         this.banner = null;
@@ -240,6 +261,7 @@ export class EditChills {
           this.creator = data;
           this.firstName = data.firstname;
           this.lastName = data.lastname;
+          !this.creator.picture ? this.creator.picture = "assets/images/default-profil.svg" : null;
         }
       },
       res => {
@@ -263,6 +285,87 @@ export class EditChills {
     )
   }
 
+  // When getting chill utils from custom chills by API, data is formatted to follow same path as regular
+  formatUtils(data, type) {
+    if (type == "elements" && !this.formattedList) {
+      this.formattedList = true;
+      let objFormat = {};
+
+      for (let d of data) {
+        objFormat = {
+          assigned_to: {
+            id: null,
+            firstname: null
+          },
+          content: d.name,
+          created_by: {
+            id: null,
+            firstname: null
+          },
+          id: data.indexOf(d) + 1,
+          mine: true
+        };
+
+        this.utils.list.push(objFormat);
+      }
+    } else if (type == "expenses" && !this.formattedExps) {
+      this.formattedExps = true;
+      this.storage.getValue('id').subscribe(
+        id => {
+          if (id) {
+            this.creatorId = id;
+            let objFormat = [{
+              expenses: [],
+              payer: {
+                id: null,
+                firstname: null
+              },
+              sum: null
+            }];
+            let objExpFormat;
+            let arrayInheritors;
+            let sum = 0;
+
+            for (let d of data) {
+              objExpFormat = {
+                id: null,
+                element: d.name,
+                price: d.price,
+                inheriters: null
+              };
+              arrayInheritors = [];
+              sum = sum + d.price
+
+              for (let i of d.inheritors) {
+                arrayInheritors.push(i.id);
+              }
+
+              objExpFormat.inheriters = arrayInheritors;
+              objFormat[0].expenses.push(objExpFormat);
+              objFormat[0].payer.id = this.creatorId;
+              objFormat[0].payer.firstname = this.creator.firstname;
+              objFormat[0].sum = sum;
+            }
+
+            this.utils.expenses = objFormat;
+          }
+        }
+      )
+    } else if (type == "cars" && !this.formattedCars) {
+      this.formattedCars = true;
+      let objFormat = [{
+        driver: {
+          firstname: this.creator.firstname,
+          id: undefined,
+          picture: this.creator.picture
+        },
+        passengers: [],
+        seats: data
+      }];
+      this.utils.cars = objFormat;
+    }
+  }
+
   deleteFriend(id: any) {
     this.friends = this.friends.filter((v) => {
       if (v.id != id) {
@@ -271,42 +374,109 @@ export class EditChills {
         return false;
       }
     });
+
+    this.sliceFriends();
   }
 
   sendInvitation() {
     // this.custom is here when create a custom chill from chillist
     if (this.custom) {
+      let chillersId: any = [];
       let body = {
         name: this.name,
         address: this.geoSpec,
         place: this.geo,
-        comment: this.comment
+        comment: this.comment,
+        take_logo: false
       };
+      let bodyImg = {
+        image: null
+      };
+
+      this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner()
+
+      if (this.imgPickerService.getFirstImgSrcLogo == this.imgPickerService.getFirstImgSrcLogo && this.logo != "assets/images/default-profil.svg") {
+        body.take_logo = true;
+      }
+
+      for (let f of this.friends) {
+        f.id != this.creatorId ? chillersId.push(f.id) : null;
+      }
+
+      body.name == "" ? body.name = "Chill" : null;
 
       this.sync.status ? null : this.showToast(1);
 
       this.api.createChill(body).subscribe(
         data => {
           let customChillId = JSON.parse(data._body);
-          let loader = this.imgPicker._results[1];
-          let loaderBan = this.imgPicker._results[0];
 
-          if (this.imgPicker._results[0].file != this.imgPicker._results[0].firstSrc || this.imgPicker._results[1].file != this.imgPicker._results[1].firstSrc) {
-            if (this.imgPicker._results[1].file != this.imgPicker._results[1].firstSrc) {
-              this.api.updateLogoCustom(customChillId.id, loader.file, loader).subscribe();
+          if (this.cars) {
+            let body = {
+              seats: this.cars
+            };
+
+            this.api.addCarCustomChill(customChillId.id, body).subscribe();
+          }
+
+          if (this.elements.length > 0) {
+            let body;
+
+            for (let element of this.elements) {
+              body = {
+                element: element
+              };
+
+              this.api.addElementCustomChill(customChillId.id, body).subscribe();
             }
-            if (this.imgPicker._results[0].file != this.imgPicker._results[0].firstSrc) {
-              this.api.updateBannerCustom(customChillId.id, loaderBan.file, loaderBan).subscribe();
+          }
+
+          if (this.expenses != undefined) {
+            if (this.expenses.length > 0) {
+              let body;
+
+              for (let expense of this.apiExpenses[0].expenses) {
+                body = {
+                  name: expense.element,
+                  inheritors: expense.inheriters,
+                  price: expense.price
+                };
+
+                this.api.addExpenseCustomChill(customChillId.id, body).subscribe();
+              }
+            }
+          }
+
+          if (chillersId.length > 0) {
+            let body;
+
+            for (let chillerId of chillersId) {
+              body = chillerId;
+
+              this.api.addParticipantToCustomChill(customChillId.id, body).subscribe();
+            }
+          }
+
+          if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() || this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo()) {
+            if (this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo() && this.imgPickerService.getFirstImgSrcLogo() != "default-profil.svg") {
+              bodyImg.image = this.imgPickerService.getImgResultLogo();
+              this.api.sendCustomChillLogo(customChillId.id, bodyImg).subscribe();
+            }
+
+            if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() && this.imgPickerService.getImgResultBanner()) {
+              bodyImg.image = this.imgPickerService.getImgResultBanner();
+              this.api.sendCustomChillBanner(customChillId.id, bodyImg).subscribe();
             }
           }
         });
-      // Else when not creating a custom chill from chillist, simply create an event
+
+      // Else when not creating a custom chill from chillist, simply create an event, chillType = chill when regular chill, = custom when create event from custom chill
     } else {
       let chillersId: any = [];
       let body;
 
       for (let f of this.friends) {
-        chillersId.push(f.id);
+        f.id != this.creatorId ? chillersId.push(f.id) : null;
       }
 
       if (this.chillType == "chill") {
@@ -353,24 +523,24 @@ export class EditChills {
         !body.event.category ? body.event.category = 2 : null;
         !body.event.banner ? body.event.banner = null : null;
 
-        if (this.imgPicker._results[1].file != this.imgPicker._results[1].firstSrc) {
+        if (this.imgPickerService.getFirstImgSrcLogo() != this.imgPickerService.getImgResultLogo()  && this.imgPickerService.getFirstImgSrcLogo() != "default-profil.svg") {
           body.event.chill.logo_changed = true;
         } else {
           body.event.chill.logo_changed = false;
         }
 
-        if (this.imgPicker._results[0].file != this.imgPicker._results[0].firstSrc) {
+        if (this.imgPickerService.getFirstImgSrcBanner() != this.imgPickerService.getImgResultBanner() && this.imgPickerService.getImgResultBanner()) {
           body.event.chill.banner_changed = true;
         } else {
           body.event.chill.banner_changed = false;
         }
 
-        if (this.imgPicker._results[0].file == "") {
-          body.event.chill.banner_changed = null;
+        if (this.imgPickerService.getFirstImgSrcLogo() == "default-profil.svg") {
+          body.event.chill.logo_changed = null;
         }
 
-        if (this.imgPicker._results[1].file == "../../assets/images/default-profil.svg") {
-          body.event.chill.logo_changed = null;
+        if (this.imgPickerService.getFirstImgSrcBanner() == "") {
+          body.event.chill.banner_changed = null;
         }
 
       }
@@ -405,41 +575,58 @@ export class EditChills {
   }
 
   uploadEventLogoBanner(eventId, body) {
-    let loader = this.imgPicker._results[1];
-    let loaderBan = this.imgPicker._results[0];
+    let bodyImg = {
+      image: null
+    };
 
     if (this.chillType == "chill") {
-      if (this.imgPicker._results[0].file != this.imgPicker._results[0].firstSrc || this.imgPicker._results[1].file != this.imgPicker._results[1].firstSrc) {
-        if (this.imgPicker._results[1].file != this.imgPicker._results[1].firstSrc) {
-          this.api.updateLogo(eventId, loader.file, loader).subscribe();
+      if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() || this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo()) {
+        if (this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo()  && this.imgPickerService.getFirstImgSrcLogo() != "default-profil.svg") {
+          bodyImg.image = this.imgPickerService.getImgResultLogo();
+          this.api.sendEventLogo(eventId, bodyImg).subscribe();
         }
-        if (this.imgPicker._results[0].file != this.imgPicker._results[0].firstSrc) {
-          this.api.updateBanner(eventId, loaderBan.file, loaderBan).subscribe();
+
+        if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() && this.imgPickerService.getImgResultBanner()) {
+          bodyImg.image = this.imgPickerService.getImgResultBanner();
+          this.api.sendEventBanner(eventId, bodyImg).subscribe();
         }
       }
     } else if (this.chillType == "custom") {
       if (body.event.chill.banner_changed) {
-        this.api.updateBanner(eventId, loaderBan.file, loaderBan).subscribe(
+        bodyImg.image = this.imgPickerService.getImgResultBanner();
+        this.api.sendEventBanner(eventId, bodyImg).subscribe(
           data => {
-            data ? console.log('banner 200') : console.log('banner error');
+            data ? console.log("banner 200") : console.log("banner error");
           }
         );
       }
 
       if (body.event.chill.logo_changed) {
-        this.api.updateLogo(eventId, loader.file, loader).subscribe(
+        bodyImg.image = this.imgPickerService.getImgResultLogo();
+        this.api.sendEventLogo(eventId, bodyImg).subscribe(
           data => {
-            data ? console.log('logo 200') : console.log('logo error');
+            data ? console.log("logo 200") : console.log("logo error");
           }
-        );
+        )
       }
     }
   }
 
   showUtils(init: number) {
-    let modal = this.mod.create(ChillUtils, { "init": init, "utils": this.utils, "creator": this.creator, "creatorId": this.creatorId, "newMode": true, "friends": this.friends, "eventId": this.parentChill.id });
+    let modal;
+
+    // A custom chill does not have a parentChill, so if custom don't send it has nav params
+    if (this.parentChill) {
+      modal = this.mod.create(ChillUtils, { "init": init, "utils": this.utils, "creator": this.creator, "creatorId": this.creatorId, "newMode": true, "friends": this.friends, "eventId": this.parentChill.id });
+    } else {
+      modal = this.mod.create(ChillUtils, { "init": init, "utils": this.utils, "creator": this.creator, "creatorId": this.creatorId, "newMode": true, "friends": this.friends });
+    }
 
     modal.onDidDismiss((utilsObj) => {
+      for (let friend in this.friends) {
+        this.friends[friend].id == this.creatorId ? this.friends.splice(friend, 1) : null;
+      }
+
       this.utils = utilsObj;
 
       if (utilsObj.cars.length > 0) {
@@ -496,9 +683,10 @@ export class EditChills {
       if (data) {
         for (let d in data) {
           !data[d].picture ? data[d].picture = "assets/images/default-profil.svg" : null;
+          this.friends.push(data[d]);
         }
-        this.friends.push(data);
-        this.friends = this.friends[0];
+
+        this.sliceFriends();
 
         if (this.name != "" && this.geo != "" && !this.swipeToastDone) {
           this.presentSwipeToast();
@@ -510,6 +698,28 @@ export class EditChills {
     modal.present();
   }
 
+  showMoreFriendsPage() {
+    let modal = this.mod.create(MoreFriendsPage, { friends: this.friends });
+
+    modal.onDidDismiss((data) => {
+      if (data) {
+        this.friends = data;
+        this.sliceFriends();
+      }
+    });
+
+    modal.present();
+  }
+
+  sliceFriends() {
+    if (this.friends.length > 3) {
+      this.shownFriends = this.friends.slice(0, 3);
+      this.showMoreFriends = true;
+    } else {
+      this.shownFriends = this.friends;
+      this.showMoreFriends = false;
+    }
+  }
 
   showDatePicker() {
     DatePicker.show({
@@ -533,13 +743,15 @@ export class EditChills {
   }
 
   presentSwipeToast() {
-    let toast = this.toastCtrl.create({
-      message: this.transaltions['edit-chills.swipe-toast.message'],
-      duration: 3000,
-      position: 'top'
-    });
+    if (!this.custom) {
+      let toast = this.toastCtrl.create({
+        message: this.transaltions['edit-chills.swipe-toast.message'],
+        duration: 3000,
+        position: 'top'
+      });
 
-    toast.present();
+      toast.present();
+    }
   }
 
   // Autocomplete address
@@ -596,12 +808,6 @@ export class EditChills {
         this.animateTo("refuse");
       }
     }
-
-    if (evt.angle >= 60 && evt.angle <= 120) {
-      if (evt.direction == 16 && evt.direction == evt.offsetDirection) {
-        console.log("Vertical swipe works");
-      }
-    }
   }
 
   animateTo(obj: any) {
@@ -622,11 +828,27 @@ export class EditChills {
   }
 
   openChat() {
-    let prompt = this.alertCtrl.create();
-    prompt.setTitle(this.transaltions['edit-chills.not-sended']);
+    let prompt = this.alertCtrl.create({
+      title: this.transaltions['edit-chills.punchline-title'],
+      inputs: [
+        {
+          name: 'punchline',
+          placeholder: this.transaltions['edit-chills.punchline-placeholder'],
+          type: 'string'
 
-    prompt.addButton({
-      text: this.transaltions['global.ok']
+        }
+      ],
+      buttons: [
+        {
+          text: this.transaltions['global.cancel']
+        },
+        {
+          text: this.transaltions['global.ok'],
+          handler: data => {
+            data != "" ? this.comment = data.punchline : null;
+          }
+        }
+      ]
     });
 
     prompt.present();
@@ -635,6 +857,15 @@ export class EditChills {
   close() {
     this.viewCtrl.dismiss();
   }
+
+  setTextH1Tapped() {
+    this.textH1Tapped = true;
+
+   setTimeout(() => {
+      this.inputName.setFocus();
+    },150);
+
+ }
 
   showToast(type) {
     if (type == 1) {

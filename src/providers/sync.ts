@@ -21,40 +21,15 @@ export class SyncService {
     private toastCtrl: ToastController,
     private translate: TranslateService,
   ) {
-    this.enLgnTxt = {
-      "lost_internet": "Internet lost, some data could not be send",
-      "found_internet": "Internet found"
-    }
-
-    this.frLgnTxt = {
-      "lost_internet": "Connexion perdue, certaines données peuvent ne pas être envoyées.",
-      "found_internet": "Connexion retrouvée"
-    }
-
-    this.lgnDetected = translate.getBrowserLang();
-    this.lgnDetected == "en" ? this.lgnUsed = this.enLgnTxt : this.lgnUsed = this.frLgnTxt;
-    this.lgnDetected != "en" && this.lgnDetected != "fr" ? this.lgnUsed = this.enLgnTxt : null;
-
     this.status = network.type !== 'none';
 
     this.status ? this.sync() : null;
 
     network.onDisconnect().subscribe(() => {
       this.status = false;
-      const toast = this.toastCtrl.create({
-        message: this.lgnUsed.lost_internet,
-        duration: 2500
-      });
-      toast.present();
     });
 
     network.onConnect().subscribe(() => {
-      const toast = this.toastCtrl.create({
-        message: this.lgnUsed.found_internet,
-        duration: 2500
-      });
-      toast.present();
-
       this.status = true;
       this.sync();
       this.notif.publish("notif:update");

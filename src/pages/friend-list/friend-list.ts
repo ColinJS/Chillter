@@ -21,6 +21,7 @@ export class FriendList {
   friendsUnfilter: any = [];
   notFriends: any = [];
   unsortFriends: any = [];
+  sentInvitation: any = [];
   noFriends: boolean = false;
   profileId: number;
 
@@ -28,9 +29,9 @@ export class FriendList {
   noResultNotFriends: boolean = false;
   searchNotFriends: boolean = false;
   resultFound: boolean = false;
-  logoSunWhite: string = "assets/images/logo-sun-white.png";
-  logoSunColor: string = "assets/images/logo-sun.svg";
-  logoSun: string;
+  iconSunOutline: string = "chillter-icon-tab-bar-chills-outline";
+  iconSunFill: string = "chillter-icon-tab-bar-chills";
+  iconSun: string;
 
   contactPermState: boolean = false;
 
@@ -54,7 +55,7 @@ export class FriendList {
       'friend-list.request-subtitle',
       'offline.blocked']).subscribe(value => this.transaltions = value);
 
-    this.logoSun = this.logoSunWhite;
+    this.iconSun = this.iconSunOutline;
 
     this.storage.getValue('id').subscribe(
       res => {
@@ -75,6 +76,7 @@ export class FriendList {
         data == undefined ? this.contactPermState = false : null;
         this.contactPermState ? this.getCacheFriends() : this.getFriends();
         this.getPendingFriends();
+        this.getSentInvitation();
       }
     )
   }
@@ -84,19 +86,22 @@ export class FriendList {
       this.friends = [];
       this.contacts.resetAll();
       this.getPendingFriends();
+      this.getSentInvitation();
       setTimeout(() => {
         this.notif.publish("notif:update");
         this.getCacheFriends();
         this.filterFriends();
       }, 3000)
       this.friendsUnfilter = [];
-      !(this.logoSun != this.logoSunColor) ? this.logoSun = this.logoSunWhite : null;
+      !(this.iconSun != this.iconSunFill) ? this.iconSun = this.iconSunOutline : null;
     } else {
       this.getPendingFriends()
+      this.getSentInvitation();
       this.getFriends()
       this.filterFriends()
     }
     this.getPendingFriends(refresher);
+    this.getSentInvitation(refresher);
   }
 
   getFriends() {
@@ -140,6 +145,21 @@ export class FriendList {
     )
   }
 
+  getSentInvitation(ref: any = false) {
+    this.api.getSentInvitation().subscribe(
+      res => {
+        if (res) {
+          this.sentInvitation = res;
+        } else {
+          this.sentInvitation = [];
+        }
+        if (ref) {
+          ref.complete();
+        }
+      }
+    )
+  }
+
   getCacheFriends() {
     this.cache.getCache('MERGED_CONTACTS_FRIENDS').subscribe(
       data => {
@@ -172,7 +192,7 @@ export class FriendList {
             this.filterFriends();
           }, 2000)
           this.friendsUnfilter = [];
-          !(this.logoSun != this.logoSunColor) ? this.logoSun = this.logoSunWhite : null;
+          !(this.iconSun != this.iconSunFill) ? this.iconSun = this.iconSunOutline : null;
         } else {
           this.getPendingFriends()
           this.getFriends()
@@ -231,7 +251,7 @@ export class FriendList {
             this.filterFriends();
           }, 3000)
           this.friendsUnfilter = [];
-          !(this.logoSun != this.logoSunColor) ? this.logoSun = this.logoSunWhite : null;
+          !(this.iconSun != this.iconSunFill) ? this.iconSun = this.iconSunOutline : null;
         } else {
           this.getPendingFriends()
           this.getFriends()
@@ -264,7 +284,7 @@ export class FriendList {
             this.filterFriends();
           }, 3000)
           this.friendsUnfilter = [];
-          !(this.logoSun != this.logoSunColor) ? this.logoSun = this.logoSunWhite : null;
+          !(this.iconSun != this.iconSunFill) ? this.iconSun = this.iconSunOutline : null;
         } else {
           this.getPendingFriends()
           this.getFriends()
@@ -289,7 +309,7 @@ export class FriendList {
       this.searchNotFriends = false;
       this.noResultFriends = false;
       this.notFriends = [];
-      !(this.logoSun != this.logoSunColor) ? this.logoSun = this.logoSunWhite : null;
+      !(this.iconSun != this.iconSunFill) ? this.iconSun = this.iconSunOutline : null;
       return;
     }
 
@@ -402,10 +422,10 @@ export class FriendList {
   }
 
   toggleFilter() {
-    this.logoSun != this.logoSunColor ? this.logoSun = this.logoSunColor : this.logoSun = this.logoSunWhite;
+    this.iconSun != this.iconSunFill ? this.iconSun = this.iconSunFill : this.iconSun = this.iconSunOutline;
     this.friendsUnfilter.length == 0 ? this.friendsUnfilter = this.friends : null;
 
-    if (!(this.logoSun != this.logoSunColor)) {
+    if (!(this.iconSun != this.iconSunFill)) {
       this.friends = this.friendsUnfilter.filter(itm => {
         return itm.have_chillter == true;
       });

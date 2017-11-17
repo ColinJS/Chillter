@@ -11,13 +11,7 @@
   <form [formGroup]="form">
     <ion-list padding>
       <div class="avatar">
-        <img-loader id="avatarLoader" [src]="picture" (change)="loadChange($event)" round></img-loader>
-        <div class="valid-picture" *ngIf="pictChange" (tap)="sendPicture()">
-          <ion-icon name="checkmark" primary></ion-icon>
-        </div>
-        <div class="cancel-picture" *ngIf="pictChange" (tap)="cancelPicture()">
-          <ion-icon name="close" primary></ion-icon>
-        </div>
+        <img-picker-logo id="avatarLoader" [src]="picture" (change)="loadChange($event)"></img-picker-logo>
       </div>
       <div class="complete-name">
         {{firstname}} {{lastname}}

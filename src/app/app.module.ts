@@ -37,13 +37,17 @@ import { SignIn } from '../pages/signin/signin';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PhotoEditPage } from '../pages/photo-edit/photo-edit';
 import { ChillChatPage } from '../pages/chill-chat/chill-chat';
+import { MoreFriendsPage } from '../pages/more-friends/more-friends';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
-import { ImgLoader } from '../components/img-loader/img-loader';
+import { ImgPickerLogo } from '../components/img-picker-logo/img-picker-logo';
+import { ImgPickerBanner } from '../components/img-picker-banner/img-picker-banner';
 import { StatusImg } from '../pipes/statusImg'
 import { ToNow } from '../pipes/toNow'
 
 import { ApiService } from '../providers/api';
 import { ConfigService } from '../providers/config';
+import { ImgPickerService } from '../providers/img-picker'
 import { StorageService } from '../providers/storage';
 import { HttpService } from '../providers/http';
 import { TransferService } from '../providers/transfer';
@@ -80,8 +84,11 @@ import {
     ResolveExpenses,
     TabsPage,
     ChillChatPage,
+    MoreFriendsPage,
+    ForgotPasswordPage,
     PhotoEditPage,
-    ImgLoader,
+    ImgPickerLogo,
+    ImgPickerBanner,
     StatusImg,
     ToNow,
     ImageCacheDirective,
@@ -124,6 +131,8 @@ import {
     ResolveExpenses,
     TabsPage,
     ChillChatPage,
+    MoreFriendsPage,
+    ForgotPasswordPage,
     PhotoEditPage,
     ImageCropperComponent
   ],
@@ -131,6 +140,7 @@ import {
     Network,
     ApiService,
     ConfigService,
+    ImgPickerService,
     StorageService,
     HttpService,
     TransferService,

@@ -11,7 +11,6 @@ import {
   LoadingController
 } from 'ionic-angular';
 import { TranslateService } from 'ng2-translate';
-import { ImgLoader } from '../../components/img-loader/img-loader';
 import { ApiService } from '../../providers/api';
 import { SyncService } from '../../providers/sync';
 import {
@@ -22,6 +21,7 @@ import {
 import { CustomValidators } from 'ng2-validation';
 import { ContactsService } from '../../providers/contacts'
 import { CacheService } from '../../providers/cache'
+import { ImgPickerService } from '../../providers/img-picker';
 
 @Component({
   selector: 'chill-set',
@@ -29,13 +29,9 @@ import { CacheService } from '../../providers/cache'
 })
 export class ChillSet {
   private form: FormGroup;
-
   private transaltions: any;
 
-  @ViewChild(ImgLoader) loader: any;
-
   picture: string = "";
-  pictChange: boolean = false;
   synchronizeFinished: boolean = false;
 
   constructor(
@@ -50,7 +46,8 @@ export class ChillSet {
     private sync: SyncService,
     private contacts: ContactsService,
     private loadingCtrl: LoadingController,
-    private cache: CacheService
+    private cache: CacheService,
+    private imgPickerService: ImgPickerService
   ) {
     this.api.getMyProfile().subscribe(data => {
       this.picture = data.picture ? data.picture : null;
@@ -77,25 +74,22 @@ export class ChillSet {
   }
 
   sendPicture() {
+    let imgResult = this.imgPickerService.getImgResultLogo();
+    let firstSrc = this.imgPickerService.getFirstImgSrcLogo();
+    let body = {
+      image: undefined
+    }
+
     if (!this.sync.status) {
       this.showOfflineToast(1);
       return;
     }
-    this.pictChange = false;
-    if (this.loader) {
-      this.api.sendPicture(this.loader.file, this.loader)
-        .subscribe((data: any) => {
-          this.picture = data.url;
-        });
+
+    if (imgResult && imgResult != firstSrc) {
+      body.image = imgResult;
+      console.log("SENDING PROFILEPICTURE")
+      this.api.sendProfilePicture(body).subscribe();
     }
-  }
-
-  cancelPicture() {
-    this.loader.drawPreview(this.picture);
-
-    setTimeout(() => {
-      this.pictChange = false;
-    }, 1);
   }
 
   changeInfo() {
@@ -161,8 +155,11 @@ export class ChillSet {
       this.showOfflineToast(1);
       return;
     }
-
-    this.pictChange = true;
+    console.log("HERE");
+    // Use timeout to give time to the imgloader to set the picture
+    setTimeout(() => {
+      this.sendPicture();
+    }, 400)
   }
 
   logout() {

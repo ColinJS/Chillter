@@ -64,6 +64,21 @@ export class ChillChatPage {
     this.form = formBuilder.group({
       message: ['', Validators.compose([Validators.required])]
     });
+
+    // Fix keyboard overlapping inputs
+    if (plt.is('ios')) {
+      let 
+        appEl = <HTMLElement>(document.getElementsByTagName('ION-APP')[0]),
+        appElHeight = appEl.clientHeight;
+    
+      window.addEventListener('native.keyboardshow', (e) => {
+        appEl.style.height = (appElHeight - (<any>e).keyboardHeight) + 'px';
+      });
+    
+      window.addEventListener('native.keyboardhide', () => {
+        appEl.style.height = '100%';
+      });
+    }
   }
 
   ionViewDidEnter() {

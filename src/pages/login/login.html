@@ -1,6 +1,6 @@
 <ion-content>
 
-  <img src="assets/images/logo-sun.svg" class="logo-sun" image-cache/>
+  <img src="assets/images/logo-sun-1000.png" class="logo-sun" image-cache/>
   <img src="assets/images/logo-text.svg" class="logo-text" image-cache/>
 
   <form [formGroup]="form" novalidate>
@@ -11,7 +11,7 @@
       </ion-item>
 
       <ion-item *ngIf="!form.controls.email.valid  && (form.controls.email.dirty || submitted)">
-        <p ion-text color="danger">Email can not be empty!</p>
+        <p ion-text color="danger">{{ 'login.email-empty' | translate }}</p>
       </ion-item>
 
       <ion-item class="login-item">
@@ -19,12 +19,13 @@
       </ion-item>
 
       <ion-item *ngIf="!form.controls.pass.valid  && (form.controls.pass.dirty || submitted)">
-        <p ion-text color="danger">Password can not be empty!</p>
+        <p ion-text color="danger">{{ 'login.password-empty' | translate }}</p>
       </ion-item>
     </ion-list>
 
     <button ion-button outline (tap)="onSubmit()" class="log-btn" block round large>{{ 'login.login-button' | translate }}</button>
   </form>
+  <p class="forgot-password" (tap)="openForgotPage()">{{ 'login.forgot-password' | translate }}</p>
 
 </ion-content>
 

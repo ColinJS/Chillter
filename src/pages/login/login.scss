@@ -11,7 +11,7 @@ login {
   }
 
   .logo-sun {
-    width: 40vh;
+    width: 35vh;
     display: block;
     margin: auto;
     margin-top: 15px;
@@ -36,9 +36,14 @@ login {
   .login-tab {
     text-align: center;
   }
+
   .log-btn {
     width: 90vmin;
     margin: auto;
     margin-top: 13px;
+  }
+
+  .forgot-password {
+    color: $chillter-col;
   }
 }

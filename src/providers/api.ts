@@ -247,6 +247,26 @@ export class ApiService {
       .filter(res => res);
   }
 
+  getSentInvitation(): Observable<any> {
+    const cacheKey: string = 'sent_invitations';
+
+    let cacheStream = this.cache.getCache(cacheKey);
+
+    let webStream = this.storage.getValue('id').switchMap(id => {
+      return this.http.get(this.baseUrl + '/chillers/' + id + '/friends/invitation_sent')
+        .map(res => res.json())
+        .filter(res => res)
+        .map(res => {
+          this.cache.setCache(cacheKey, res);
+
+          return res;
+        });
+    });
+
+    return Observable.merge(cacheStream, webStream)
+      .filter(res => res);
+  }
+
   /**
    *
    * @param friendId string
@@ -559,6 +579,19 @@ export class ApiService {
 
   /**
    *
+   * @param customChillId string
+   * @param body object
+   * Add car to the custom chill, body is {seats: number}
+   */
+  addCarCustomChill(customChillId, body): Observable<any> {
+    return this.storage.getValue('id').switchMap(id => {
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/cars', body)
+        .map(res => res.json());
+    });
+  }
+
+  /**
+   *
    * @param evtId string
    * @param carId string
    * Delete a car from an event, only the creator of the car can do it
@@ -605,6 +638,19 @@ export class ApiService {
   addElement(evtId, body): Observable<any> {
     return this.storage.getValue('id').switchMap(id => {
       return this.http.post(this.baseUrl + '/chillers/' + id + '/events/' + evtId + '/elements', body)
+        .map(res => res.json());
+    });
+  }
+
+  /**
+   *
+   * @param customChillId string
+   * @param body string
+   * Add an element to the list of the custom chill
+   */
+  addElementCustomChill(customChillId, body): Observable<any> {
+    return this.storage.getValue('id').switchMap(id => {
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/elements', body)
         .map(res => res.json());
     });
   }
@@ -677,6 +723,32 @@ export class ApiService {
 
   /**
    *
+   * @param customChillId string
+   * @param body string
+   * Add an expense to the custom chill
+   */
+  addExpenseCustomChill(customChillId, body): Observable<any> {
+    return this.storage.getValue('id').switchMap(id => {
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/expenses', body)
+        .map(res => res.json());
+    });
+  }
+
+  /**
+   *
+   * @param customChillId string
+   * @param participantId string
+   * Add participant to custom chill
+   */
+  addParticipantToCustomChill(customChillId, participantId): Observable<any> {
+    return this.storage.getValue('id').switchMap(id => {
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/participants/' + participantId, null)
+      /*.map(res => res.json());*/
+    });
+  }
+
+  /**
+   *
    * @param eventId string
    * @param friendId string
    * Delete a chiller from the event, only the creator of the event can do it
@@ -718,7 +790,7 @@ export class ApiService {
   signUp(body: RegisterRequest): Observable<any> {
     return this.http.post(this.baseUrl + '/chillers', body)
       .map(res => res.json())
-      .switchMap(() => this.login({ email: body.info.email, pass: body.info.pass }));
+      .switchMap(() => this.login({ email: body.email, pass: body.pass }));
   }
 
   /**
@@ -895,193 +967,60 @@ export class ApiService {
 
   /**
    *
-   * @param file
-   * @param loader
+   * @param body contain base64 of picture
    */
-  sendPicture(file, loader): Observable<any> {
+  sendProfilePicture(body): Observable<any> {
     return this.storage.getValue('id').switchMap(id => {
-      const url = this.baseUrl + '/chillers/' + id + '/photos';
-
-      const fileExtension = file.substr(file.lastIndexOf('.') + 1);
-      const firstDirectory = file.substr(0, file.indexOf('/'));
-
-      file = (fileExtension == 'svg' || firstDirectory == 'images') ? null : file;
-
-      if (!loader.file) {
-        return this.http.post(url, {}, []);
-      }
-
-      const uri = encodeURI(url + '?crop=' + JSON.stringify(loader.getCropInfo()));
-      return Observable.fromPromise(this.transfer.upload(file, uri))
-        .map(res => JSON.parse(res.response));
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/photos', body)
+        .map(res => res.json());
     });
   }
 
   /**
    *
-   * @param file
-   * @param loader
-   * @param cId
-   * @param logo
-   */
-  sendChillterPicture(file, loader, cId, logo): Observable<any> {
-    return this.storage.getValue('id').switchMap(id => {
-      const url = this.baseUrl + '/chillers/' + id + '/events' + cId + '/logo';
-
-      const fileExtension = file.substr(file.lastIndexOf('.') + 1);
-      const firstDirectory = file.substr(0, file.indexOf('/'));
-
-      let params = new URLSearchParams();
-      params.set('crop', JSON.stringify(loader.getCropInfo()));
-      params.set('chill', logo);
-
-      file = (fileExtension == 'svg' || firstDirectory == 'images') ? null : file;
-
-      if (!loader.file) {
-        return this.http.post(url, {}, params);
-      }
-
-      const uri = encodeURI(url + '?crop=' + JSON.stringify(loader.getCropInfo() + '&chill=' + logo));
-
-      return Observable.fromPromise(this.transfer.upload(file, uri))
-        .map(res => JSON.parse(res.response));
-    });
-  }
-
-  /**
-   *
-   * @param file
-   * @param loader
-   * @param cId
-   * @param category
-   */
-  sendBanner(file, loader, cId, category): Observable<any> {
-    return this.storage.getValue('id').switchMap(id => {
-      const url = this.baseUrl + '/chillers/' + id + '/events' + cId + '/banners';
-
-      const fileExtension = file.substr(file.lastIndexOf('.') + 1);
-      const firstDirectory = file.substr(0, file.indexOf('/'));
-
-      let params = new URLSearchParams();
-      params.set('crop', JSON.stringify(loader.getCropInfo()));
-      params.set('cat', category);
-
-      file = (fileExtension == 'svg' || firstDirectory == 'images') ? null : file;
-
-      if (!loader.file) {
-        return this.http.post(url, {}, params);
-      }
-
-      const uri = encodeURI(url + '?crop=' + JSON.stringify(loader.getCropInfo()) + '&chill=' + category);
-
-      return Observable.fromPromise(this.transfer.upload(file, uri))
-        .map(res => JSON.parse(res.response));
-    });
-  }
-
-  /**
-   *
+   * @param body contain base64 of picture
    * @param eventId
-   * @param file
-   * @param loader
    */
-  updateLogo(eventId, file, loader): Observable<any> {
+  sendEventLogo(eventId, body): Observable<any> {
     return this.storage.getValue('id').switchMap(id => {
-      const url = this.baseUrl + '/chillers/' + id + '/events/' + eventId + '/logo';
-
-      const fileExtension = file.substr(file.lastIndexOf('.') + 1);
-      const firstDirectory = file.substr(0, file.indexOf('/'));
-
-      file = (fileExtension == 'svg' || firstDirectory == 'images') ? null : file;
-
-      if (!loader.file) {
-        return this.http.post(url, {}, []);
-      }
-
-      const uri = encodeURI(url + '?crop=' + JSON.stringify(loader.getCropInfo()));
-
-      return Observable.fromPromise(this.transfer.upload(file, uri))
-        .map(res => JSON.parse(res.response));
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/events/' + eventId + '/logo', body)
+        .map(res => res.json());
     });
   }
 
   /**
    *
+   * @param body contain base64 of picture
    * @param eventId
-   * @param file
-   * @param loader
    */
-  updateBanner(eventId, file, loader): Observable<any> {
+  sendEventBanner(eventId, body): Observable<any> {
     return this.storage.getValue('id').switchMap(id => {
-      const url = this.baseUrl + '/chillers/' + id + '/events/' + eventId + '/banner';
-
-      const fileExtension = file.substr(file.lastIndexOf('.') + 1);
-      const firstDirectory = file.substr(0, file.indexOf('/'));
-
-      file = (fileExtension == 'svg' || firstDirectory == 'images') ? null : file;
-
-      if (!loader.file) {
-        return this.http.post(url, {}, []);
-      }
-
-      const uri = encodeURI(url + '?crop=' + JSON.stringify(loader.getCropInfo()));
-
-      return Observable.fromPromise(this.transfer.upload(file, uri))
-        .map(res => JSON.parse(res.response));
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/events/' + eventId + '/banner', body)
+        .map(res => res.json());
     });
   }
 
   /**
    *
-   * @param customChillId string
-   * @param file object
-   * @param loader object
-   * Upload a logo for a custom chill
+   * @param body contain base64 of picture
+   * @param customChillId
    */
-  updateLogoCustom(customChillId, file, loader): Observable<any> {
+  sendCustomChillLogo(customChillId, body): Observable<any> {
     return this.storage.getValue('id').switchMap(id => {
-      const url = this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/logo';
-
-      const fileExtension = file.substr(file.lastIndexOf('.') + 1);
-      const firstDirectory = file.substr(0, file.indexOf('/'));
-
-      file = (fileExtension == 'svg' || firstDirectory == 'images') ? null : file;
-
-      if (!loader.file) {
-        return this.http.post(url, {}, []);
-      }
-
-      const uri = encodeURI(url + '?crop=' + JSON.stringify(loader.getCropInfo()));
-
-      return Observable.fromPromise(this.transfer.upload(file, uri))
-        .map(res => JSON.parse(res.response));
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/logo', body)
+        .map(res => res.json());
     });
   }
 
   /**
    *
-   * @param customChillId string
-   * @param file object
-   * @param loader object
-   * Upload a banner for a custom chill
+   * @param body contain base64 of picture
+   * @param customChillId
    */
-  updateBannerCustom(customChillId, file, loader): Observable<any> {
+  sendCustomChillBanner(customChillId, body): Observable<any> {
     return this.storage.getValue('id').switchMap(id => {
-      const url = this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/banner';
-
-      const fileExtension = file.substr(file.lastIndexOf('.') + 1);
-      const firstDirectory = file.substr(0, file.indexOf('/'));
-
-      file = (fileExtension == 'svg' || firstDirectory == 'images') ? null : file;
-
-      if (!loader.file) {
-        return this.http.post(url, {}, []);
-      }
-
-      const uri = encodeURI(url + '?crop=' + JSON.stringify(loader.getCropInfo()));
-
-      return Observable.fromPromise(this.transfer.upload(file, uri))
-        .map(res => JSON.parse(res.response));
+      return this.http.post(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId + '/banner', body)
+        .map(res => res.json());
     });
   }
 
@@ -1104,5 +1043,35 @@ export class ApiService {
       return this.http.post(this.baseUrl + '/chillers/' + id + '/phone_book', body)
         .map(res => res.json());
     });
+  }
+
+  /**
+   *
+   * @param body
+   * Send a token to permit password reset to provided email
+   */
+  sendResetPasswordToken(body): Observable<any> {
+    return this.http.post(this.baseUrl + '/reset_password/obtain_token', body)
+      .map(res => res.json());
+  }
+
+  /**
+   *
+   * @param body
+   * Verify token before get to the change password page
+   */
+  verifyResetPasswordToken(body): Observable<any> {
+    return this.http.post(this.baseUrl + '/reset_password/verify', body)
+      .map(res => res.json());
+  }
+
+  /**
+ *
+ * @param body
+ * Set a new password for the user
+ */
+  setNewPassword(body): Observable<any> {
+    return this.http.post(this.baseUrl + '/reset_password/set', body)
+      .map(res => res.json());
   }
 }

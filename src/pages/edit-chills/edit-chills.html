@@ -1,19 +1,25 @@
 <ion-content class="edit-chills" scroll="false">
 
   <div class="floating-close-button" (tap)="close(2)"></div>
-  <div class="overlay left-pan-accept hide-left-pan {{ transformLeftPan }}"></div>
-  <div class="overlay right-pan-refuse hide-right-pan {{ transformRightPan }}"></div>
+  <div class="overlay left-pan-accept hide-left-pan {{transformLeftPan}}">
+    <p class="overlay-text">{{overlayTextSend}}</p>
+  </div>
+  <div class="overlay right-pan-refuse hide-right-pan {{transformRightPan}}">
+    <p class="overlay-text">{{overlayTextDelete}}</p>
+  </div>
+
   <div class="chills-header">
     <div class="ch-background">
-      <img-loader [src]="banner" id="background"></img-loader>
+      <img-picker-banner id="background" [src]="banner"></img-picker-banner>
     </div>
     <div class="ch-logo">
-      <img-loader id="logo" [src]="logo" round></img-loader>
+      <img-picker-logo id="logo" [src]="logo"></img-picker-logo>
     </div>
   </div>
-  <div class="invite" id="vertical-swiper">
+  <div class="invite" (swipe)="swipeEvent($event)">
     <div class="invite-header flex-first">
-      <h1><input type="text" class="title" [(ngModel)]="name" placeholder="Chill" /></h1>
+      <h1 *ngIf="!textH1Tapped" (tap)="setTextH1Tapped()" class="title">{{name}}</h1>
+      <h1 *ngIf="textH1Tapped"><input type="text" class="title" [(ngModel)]="name" #inputName /></h1>
       <h2> {{ 'edit-chills.invited-by' | translate }} <i class="creator" [style.color]="'#'+color">{{firstName}} {{lastName}}</i></h2>
     </div>
 
@@ -36,26 +42,30 @@
       <div class="flex-third">
         <div class="invite-com" text-justify (tap)="openChat()">
           <ion-scroll scrollY="true">
-            Conversation
+            <div *ngIf="!comment">
+              Conversation
+            </div>
+            <div *ngIf="comment">
+              {{comment}}
+            </div>
           </ion-scroll>
         </div>
-        <div class="invite-utils" *ngIf="!custom">
+        <div class="invite-utils">
           <img src="assets/images/tool-car-outline.svg" (tap)="showUtils(0)" image-cache/>
           <img src="assets/images/tool-list-outline.svg" (tap)="showUtils(1)" image-cache/>
           <img src="assets/images/tool-pig-outline.svg" (tap)="showUtils(2)" image-cache/>
         </div>
       </div>
-      <div class="flex-fourth" *ngIf="!custom">
+      <div class="flex-fourth">
         <div class="friends-number">{{friends.length}} {{ 'edit-chills.invited-number' | translate }}</div>
         <div class="invite-friends">
           <img src="assets/images/chill-plus.svg" (tap)="showFriends()" image-cache/>
-            <div class="ion-scroll-friends">
-              <div class="ion-scroll-content">
-                <div class="friend-contener" *ngFor="let friend of friends">
-                  <img src="{{friend.picture}}" image-cache/>
-                  <div class="delete-friend" (tap)="deleteFriend(friend.id)"><img src="assets/images/close-outline.svg" image-cache/></div>
-                </div>
-              </div>
+            <div class="friend-contener" *ngFor="let friend of shownFriends">
+              <img class="friend-picture" src="{{friend.picture}}" image-cache/>
+              <div class="delete-friend" (tap)="deleteFriend(friend.id)"><img src="assets/images/close-outline.svg" image-cache/></div>
+            </div>
+            <div *ngIf="showMoreFriends" class="show-more-friends" (tap)="showMoreFriendsPage()">
+              {{ 'edit-chills.more-friends' | translate }}
             </div>
           </div>
         </div>

@@ -2,17 +2,20 @@ import { Component } from '@angular/core';
 import {
   NavController,
   ViewController,
-  AlertController
+  AlertController,
+  ToastController
 } from 'ionic-angular';
 import { ApiService } from '../../providers/api';
 import { TabsPage } from '../tabs/tabs';
 import { SignIn } from '../signin/signin';
+import { SyncService } from '../../providers/sync';
 import {
   FormBuilder,
   FormGroup,
   Validators
 } from '@angular/forms';
 import { TranslateService } from 'ng2-translate';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 @Component({
   selector: 'login',
@@ -30,11 +33,14 @@ export class LogIn {
     private nav: NavController,
     private api: ApiService,
     private alertCtrl: AlertController,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private sync: SyncService,
+    private toastCtrl: ToastController
   ) {
     translate.get(['login.login-failed',
       'login.error',
       'login.notice',
+      'offline.blocked',
       'global.ok']).subscribe(value => this.transaltions = value);
 
     this.form = formBuilder.group({
@@ -43,22 +49,16 @@ export class LogIn {
     });
   }
 
-  ionViewDidEnter() {
-    let prompt = this.alertCtrl.create({
-      subTitle: this.transaltions['login.notice'],
-      buttons: [{
-        text: this.transaltions['global.ok']
-      }]
-    });
-
-    prompt.present();
-  }
-
   showSignUp() {
     this.nav.push(SignIn, {}, { animate: true, direction: 'back' });
   }
 
   onSubmit() {
+    if (!this.sync.status) {
+      this.showToast(1);
+      return;
+    }
+
     this.submitted = true;
 
     if (this.form.valid) {
@@ -85,5 +85,24 @@ export class LogIn {
         }
       );
     }
+  }
+
+  showToast(type) {
+    if (type == 1) {
+      const toast = this.toastCtrl.create({
+        message: this.transaltions['offline.blocked'],
+        duration: 3000
+      });
+      toast.present();
+    }
+  }
+
+  openForgotPage() {
+    if (!this.sync.status) {
+      this.showToast(1);
+      return;
+    }
+
+    this.nav.push(ForgotPasswordPage);
   }
 }

@@ -8,8 +8,7 @@ signin {
     overflow: hidden;
   }
 
-  .avatar img-loader {
-    background-image: url(../assets/images/camera_placeholder.png);
+  .avatar img-picker-logo img {
     background-size: 150px 150px;
     box-sizing: content-box;
     border: 2px solid $chillter-col;

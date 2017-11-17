@@ -102,8 +102,17 @@ home {
   }
 
   /* Drag & drop */
-  .non-ghost {
-    opacity: 0.3;
+  .sortable-drag {
+    opacity: 1.0;
+    margin-top: -10%;
+  }
+
+  .sortable-ghost {
+    visibility: hidden;
+  }
+
+  .sortable-chosen {
+    opacity: 1.0;
   }
 
   .rounded-chill-image {

@@ -41,6 +41,12 @@ edit-chills {
     animation-duration: .4s;
     animation-fill-mode: forwards;
   }
+  .overlay-text {
+    text-align: center;
+    margin-top: 110%;
+    font-size: 2.2rem;
+    font-weight: bold;
+  }
   .left-pan-accept {
     background-image: url("../assets/images/pan-send.svg");
   }
@@ -109,12 +115,15 @@ edit-chills {
     background-color: white;
     border-bottom: 3px solid $chillter-col;
   }
-  .ch-background img-loader,
+  .ch-background img-picker-logo,
   .ch-background img {
     height: 100%;
     width: 100%;
     display: block;
     position: absolute;
+  }
+  .ch-background img {
+    object-fit: cover;
   }
   .ch-logo {
     width: 150px;
@@ -127,7 +136,7 @@ edit-chills {
     border: 3px solid $chillter-col;
     background-color: white;
   }
-  .ch-logo img-loader,
+  .ch-logo img-picker-logo,
   .ch-logo img {
     border-radius: 100%;
     display: block;
@@ -291,16 +300,20 @@ edit-chills {
     text-align: left;
   }
   .invite-friends {
-    margin: 3px;
+    margin: 3px 3px 3px 0;
     width: auto;
     display: flex;
     flex-direction: row;
   }
-  .friend-contener {
+  .friend-contener,
+  .show-more-friends {
     position: relative;
     display: inline-block;
     height: 6.5rem;
     width: 6.5rem;
+  }
+  .show-more-friends {
+    line-height: 6.5rem;
   }
   .invite-friends img {
     height: 6.5rem;
@@ -416,6 +429,19 @@ edit-chills {
     }
     .invite-time-right .text {
       display: block;
+    }
+  }
+
+  /* Reduce friends image size at < 325px */
+  @media screen and (max-width: 325px) {
+    .invite-friends .friend-picture,
+    .invite-friends .show-more-friends {
+      height: 5.8rem;
+      width: 5.8rem;
+    }
+    .invite-friends .show-more-friends {
+      line-height: 5.8rem;
+      width: 4rem;
     }
   }
 }

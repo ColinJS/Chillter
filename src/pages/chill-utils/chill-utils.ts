@@ -110,17 +110,16 @@ export class ChillUtils {
       this.exps = this.utilsObj.expenses;
     }
 
-    if (this.newMode && this.navParams.get("creator")) {
-      this.creator = this.navParams.get("creator");
-    }
+    this.creator = this.navParams.get("creator");
+
 
     this.changeSlide({ activeIndex: this.slideInit });
 
     if (this.newMode) {
       this.fixNav = false;
+      this.creatorId = this.navParams.get("creatorId");
       if (this.utilsObj.expenses != undefined) {
         this.tmpList = this.utilsObj.expenses;
-        this.creatorId = this.navParams.get("creatorId");
         this.formatExps();
       }
     } else {
@@ -764,23 +763,40 @@ export class ChillUtils {
     let prompt = this.alertCtrl.create();
 
     for (let friend in friends) {
+      friends[friend].id == this.creatorId ? friends.splice(friend, 1) : null;
+    }
+
+    this.creator.id = this.creatorId;
+    this.creator.have_chillter = true;
+    friends.push(this.creator);
+
+    /*for (let friend in friends) {
       for (let f of friend) {
         if (friends[f].id == this.creatorId) {
           let indexOf = friends.indexOf(friends[f]);
           friends.splice(indexOf, 1);
         }
       }
-    }
+    }*/
 
     prompt.setTitle(this.transaltions['chill-utils.add-inheriter']);
 
     for (let i = 0; i < friends.length; i++) {
-      prompt.addInput({
-        type: 'checkbox',
-        label: (friends[i].firstname + " " + friends[i].lastname),
-        value: ("value" + i.toString()),
-        checked: false
-      });
+      if (friends[i].id == this.creatorId) {
+        prompt.addInput({
+          type: 'checkbox',
+          label: (friends[i].firstname + " " + friends[i].lastname),
+          value: ("value" + i.toString()),
+          checked: true
+        });
+      } else {
+        prompt.addInput({
+          type: 'checkbox',
+          label: (friends[i].firstname + " " + friends[i].lastname),
+          value: ("value" + i.toString()),
+          checked: false
+        });
+      }
     }
 
     prompt.addButton({

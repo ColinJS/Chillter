@@ -20,7 +20,7 @@ export class ChillBox {
   events: any[] = [];
   viewEvents: any[] = [];
   searchWord: string = "";
-  dayNow: number = 0;
+  timeNow: Date = new Date();
   profileId: number;
 
   slides: any[] = [];
@@ -137,9 +137,7 @@ export class ChillBox {
     });
 
     let startDate = new Date(currentEvent.date);
-
-    startDate = new Date(startDate.getTime());
-    // Prepare creating event reminder in phone calendar (Google by default)
+    let endDate = new Date(startDate.getTime() + 30*60000);
     let title = this.capitalizeFirstLetter(currentEvent.info.name);
     let notes = this.capitalizeFirstLetter(currentEvent.info.chiller) + this.transaltions['chill-box.invited-you'] + this.capitalizeFirstLetter(currentEvent.info.name);
     let calendarOptions = Calendar.getCalendarOptions();
@@ -165,22 +163,22 @@ export class ChillBox {
     );
 
     if (window.hasOwnProperty('cordova') && (ind == 0 || ind == 2)) {
-      Calendar.findEvent(title, "", notes, startDate, startDate).then((data) => {
+      Calendar.findEvent(title, "", notes, startDate, endDate).then((data) => {
         if (data.length > 0) {
-          Calendar.deleteEvent(title, "", notes, startDate, startDate).then((d) => {
+          Calendar.deleteEvent(title, "", notes, startDate, endDate).then((d) => {
             this.showToast(this.transaltions['chill-box.event-removed']);
           });
         }
       })
     } else if (window.hasOwnProperty('cordova') && ind == 1) {
-      Calendar.createEventWithOptions(title, "", notes, startDate, startDate, calendarOptions).then((d) => {
+      Calendar.createEventWithOptions(title, "", notes, startDate, endDate, calendarOptions).then((d) => {
         this.showToast(this.transaltions['chill-box.event-added']);
       });
     }
   }
 
   getEvents(ref: any = false) {
-    this.dayNow = new Date().getDate();
+    this.timeNow = new Date();
     this.noEvent = false;
     this.noEventSoon = false;
 
@@ -193,8 +191,8 @@ export class ChillBox {
             if (isNaN(tmpDate.getTime())) {
               return false;
             }
-            let time = tmpDate.getTime() - now.getTime();
 
+            let time = tmpDate.getTime() + (12 * 3600 * 1000) - now.getTime();
             return time > 0;
           });
 
@@ -203,7 +201,9 @@ export class ChillBox {
             let nowPlusOne = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 24);
             let d = new Date(index.date);
 
+
             index.soon = (d < nowPlusOne ? "today" : "later");
+            index.soon = (d < now ? "ongoing" : index.soon);
           })
 
           // If data (all events) && events (coming event) == 0, show "never had any events"
@@ -347,18 +347,11 @@ export class ChillBox {
   showDetailEvent(eventId: string) {
     let modal = this.mod.create(ChillDetail, { "eventId": eventId });
 
-    modal.onDidDismiss((participate) => {
-      if (participate == 0) {
-        this.participate(0, eventId);
-      }
-
-      if (participate == 1) {
-        this.participate(1, eventId);
-      }
-
-      if (participate == 2) {
-        this.participate(2, eventId);
-      }
+    modal.onDidDismiss((participate, updateLogo) => {
+      participate == 0 ? this.participate(0, eventId) : null;
+      participate == 1 ? this.participate(1, eventId) : null;
+      participate == 2 ? this.participate(2, eventId) : null;
+      updateLogo ? this.navCtrl.setRoot(ChillBox) : null;
     });
 
     modal.present(modal);

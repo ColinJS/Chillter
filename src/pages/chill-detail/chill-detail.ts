@@ -13,14 +13,16 @@ import { TranslateService } from 'ng2-translate';
 import { ChillUtils } from "../chill-utils/chill-utils";
 import { ChillerDetails } from "../chiller-details/chiller-details";
 import { AskFriends } from '../ask-friends/ask-friends';
+import { ImgPickerService } from '../../providers/img-picker';
 import { ApiService } from '../../providers/api';
 import { SyncService } from '../../providers/sync';
 import { DatePicker, Keyboard } from 'ionic-native';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ImgLoader } from '../../components/img-loader/img-loader';
 import { WeatherService } from '../../providers/weather';
 import { Calendar } from 'ionic-native';
 import { ChillChatPage } from '../chill-chat/chill-chat';
+import { MoreFriendsPage } from '../more-friends/more-friends';
+
 declare var google: any;
 
 @Component({
@@ -33,6 +35,9 @@ export class ChillDetail {
   transformLeftPan: string;
   transformRightPan: string;
   transformTopPan: string;
+  overlayTextAccept: string;
+  overlayTextRefuse: string;
+  overlayTextMaybe: string;
 
   event: any;
   name: string;
@@ -60,8 +65,9 @@ export class ChillDetail {
   lastNameCreator: string;
   firstNameCreator: string;
   friends: any[] = [];
+  shownFriends: any = [];
+  showMoreFriends: boolean = false;
   allFriends: any[] = [];
-  @ViewChildren(ImgLoader) imgPicker: any;
   @ViewChild(List) list: List;
   stringDay: string = "";
   numberDay: string = "";
@@ -104,6 +110,7 @@ export class ChillDetail {
   noEventSoon: boolean = false;
   idProfile: string;
   chillCreatorId: string;
+  creator: any;
 
   viewEvents: any[] = [];
   searchWord: string = "";
@@ -121,6 +128,7 @@ export class ChillDetail {
     private platform: Platform,
     public sanitizer: DomSanitizer,
     private notif: Events,
+    private imgPickerService: ImgPickerService
   ) {
     if (this.platform.is('ios')) {
       this.isIos = true;
@@ -168,11 +176,18 @@ export class ChillDetail {
       'chill-detail.month-dec',
       'chill-detail.edited-chill',
       'offline.blocked',
+      'overlay.accept',
+      'overlay.refuse',
+      'overlay.maybe',
       'global.date-time']).subscribe(value => this.transaltions = value);
 
+    this.overlayTextAccept = this.transaltions['overlay.accept'];
+    this.overlayTextRefuse = this.transaltions['overlay.refuse'];
+    this.overlayTextMaybe = this.transaltions['overlay.maybe'];
     this.isPastEvent = this.navParams.get("pastEvent");
 
     this.api.getMyProfile().subscribe(data => {
+      this.creator = data;
       this.lastNameCreator = data.lastname;
       this.firstNameCreator = data.firstname;
     });
@@ -187,8 +202,6 @@ export class ChillDetail {
     this.notif.subscribe("notif:update", () => {
       this.getEventDetail();
     });
-
-
   }
 
   ionViewDidEnter() {
@@ -446,17 +459,19 @@ export class ChillDetail {
   getNames() {
     this.friends = [];
     let id = localStorage.getItem("_id");
-    let i = 0;
+
     for (let f of this.allFriends) {
       if (f.id == this.event.chillerid) {
         this.firstName = f.firstname;
         this.lastName = f.lastname
       }
       if (id != f.id) {
+        f.picture ? null : f.picture = "assets/images/default-profil.svg";
+        f.statut ? null : f.statut = "3"
         this.friends.push(f)
       }
-      i++
     }
+    this.sliceFriends();
   }
 
   addFriends(friendId: string) {
@@ -504,12 +519,10 @@ export class ChillDetail {
 
   showUtils(init: number) {
     let eventId = this.navParams.get("eventId");
-    this.navCtrl.push(ChillUtils, { "init": init, "eventId": eventId, "creatorId": this.idProfile, "friends": this.allFriends, "newMode": false });
+    this.navCtrl.push(ChillUtils, { "init": init, "eventId": eventId, "creatorId": this.idProfile, "friends": this.allFriends, "newMode": false, "creator": this.creator });
   }
 
   updateEvent() {
-    let loader = this.imgPicker._results[1];
-    let loaderBan = this.imgPicker._results[0];
     let body = {
       event: {
         name: this.name,
@@ -518,14 +531,26 @@ export class ChillDetail {
         date: this.eventDate,
       },
     };
-    if (this.imgPicker._results[0].file != this.imgPicker._results[0].firstSrc || this.imgPicker._results[1].file != this.imgPicker._results[1].firstSrc) {
-      if (this.imgPicker._results[1].file != this.imgPicker._results[1].firstSrc) {
-        this.api.updateLogo(this.eventId, loader.file, loader).subscribe();
+    let bodyImg = {
+      image: null
+    };
+
+    if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() || this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo()) {
+      if (this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo()  && this.imgPickerService.getFirstImgSrcLogo() != "default-profil.svg") {
+        bodyImg.image = this.imgPickerService.getImgResultLogo();
+        console.log("SEND LOGO");
+        console.log(bodyImg.image);
+        bodyImg.image ? this.api.sendEventLogo(this.eventId, bodyImg).subscribe() : null;
+        this.viewCtrl.dismiss(undefined, true);
       }
-      if (this.imgPicker._results[0].file != this.imgPicker._results[0].firstSrc) {
-        this.api.updateBanner(this.eventId, loaderBan.file, loaderBan).subscribe();
+
+      if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() && this.imgPickerService.getImgResultBanner()) {
+        bodyImg.image = this.imgPickerService.getImgResultBanner();
+        console.log("SEND BANNER");
+        console.log(bodyImg.image);
+        this.api.sendEventBanner(this.eventId, bodyImg).subscribe();
+        this.viewCtrl.dismiss(undefined, true);
       }
-      this.viewCtrl.dismiss();
     }
 
     this.api.updateEvent(this.eventId, body).subscribe();
@@ -731,27 +756,25 @@ export class ChillDetail {
       this.viewCtrl.dismiss();
     } else {
       let startDate = new Date(currentEvent.date);
-      startDate = new Date(startDate.getTime());
-
-      // Prepare creating event reminder in phone calendar (Google by default)
+      let endDate = new Date(startDate.getTime() + 30*60000);
       let title = this.capitalizeFirstLetter(currentEvent.info.name);
       let notes = this.capitalizeFirstLetter(currentEvent.info.chiller) + this.transaltions['chill-box.invited-you'] + this.capitalizeFirstLetter(currentEvent.info.name);
-
       let calendarOptions = Calendar.getCalendarOptions();
+
       calendarOptions.firstReminderMinutes = 60;
+
       this.api.participateEvent(ind, this.event.id).subscribe();
 
-
       if (window.hasOwnProperty('cordova') && (ind == 0 || ind == 2)) {
-        Calendar.findEvent(title, "", notes, startDate, startDate).then((data) => {
+        Calendar.findEvent(title, "", notes, startDate, endDate).then((data) => {
           if (data.length > 0) {
-            Calendar.deleteEvent(title, "", notes, startDate, startDate).then((d) => {
+            Calendar.deleteEvent(title, "", notes, startDate, endDate).then((d) => {
               this.showToast(this.transaltions['chill-box.event-removed']);
             });
           }
         })
       } else if (window.hasOwnProperty('cordova') && ind == 1) {
-        Calendar.createEventWithOptions(title, "", notes, startDate, startDate, calendarOptions).then((d) => {
+        Calendar.createEventWithOptions(title, "", notes, startDate, endDate, calendarOptions).then((d) => {
           this.showToast(this.transaltions['chill-box.event-added']);
         });
       }
@@ -841,6 +864,33 @@ export class ChillDetail {
           this.viewCtrl.dismiss(2);
         }, 800);
       }
+    }
+  }
+
+  showMoreFriendsPage() {
+    let modal = this.mod.create(MoreFriendsPage, { friends: this.friends, eventCreated: true, chillCreatorId: this.chillCreatorId, idProfile: this.idProfile });
+
+    modal.onDidDismiss((data, idToDelete) => {
+
+      if (idToDelete) {
+        for (let id of idToDelete) {
+          this.deleteFriend(id);
+        }
+
+        this.sliceFriends();
+      }
+    });
+
+    modal.present();
+  }
+
+  sliceFriends() {
+    if (this.friends.length > 3) {
+      this.shownFriends = this.friends.slice(0, 3);
+      this.showMoreFriends = true;
+    } else {
+      this.shownFriends = this.friends;
+      this.showMoreFriends = false;
     }
   }
 

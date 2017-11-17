@@ -25,12 +25,12 @@ export class AskFriends {
   }
 
   onInput(searchbar: any) {
-    console.log(searchbar.target.value);
     if (searchbar.target.value == "" || searchbar.target.value == undefined) {
       searchbar.target.value = "";
       this.getFriends();
       return;
     }
+
     this.viewFriends = this.filteredFriends.filter((v) => {
       if (v.firstname.toLowerCase().indexOf(searchbar.target.value.toLowerCase()) > -1) {
         return true;
@@ -43,8 +43,6 @@ export class AskFriends {
   getFriends() {
     this.api.getFriends().subscribe(
       data => {
-        console.log(data);
-        console.log(this.friendsList);
 
         if (data) {
           this.friends = data;
@@ -55,8 +53,6 @@ export class AskFriends {
             for (let f of this.friendsList) {
               filterList.push(f.id);
             }
-
-            console.log(filterList);
 
             this.filteredFriends = this.friends.filter((v) => {
               if (filterList.indexOf(v.id) == -1) {
@@ -87,7 +83,7 @@ export class AskFriends {
     for (var prop in this.arrayTmp) {
       this.arrayFriends.push(this.arrayTmp[prop]);
     }
-    console.log(this.arrayFriends)
+
     this.close(friend);
   }
   addToArray(id, e) {
