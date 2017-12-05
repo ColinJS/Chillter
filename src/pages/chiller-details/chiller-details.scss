@@ -1,8 +1,12 @@
 chiller-details {
   overflow: hidden;
 
-  .nav-title {
-    height: 130px;
+  ion-navbar {
+    min-height: 75px !important;
+
+    img {
+      height: 47px;
+    }
   }
 
   .chiller-details-content {
@@ -22,6 +26,7 @@ chiller-details {
           img {
             border-radius: 50%;
             border: 2px solid $chillter-col;
+            padding: 2px;
             max-width: 10rem;
             max-height: 10rem;
             height: 28vw;
@@ -39,6 +44,7 @@ chiller-details {
             margin-top: 5px;
             font-size: 5vw;
             line-height: 25%;
+            color: #4c4c4c;
           }
 
           .contact-chiller-container {
@@ -51,7 +57,7 @@ chiller-details {
             }
 
             h2 {
-              font-size: 4.5vw;
+              font-size: 4vw;
               line-height: 10%;
               color: grey;
               display: inline-block;
@@ -76,7 +82,7 @@ chiller-details {
           }
 
           .contact-chiller {
-            font-size: 2.3em;
+            font-size: 1.5em;
             margin-left: 1rem;
             color: #56a5ff;
             font-weight: bold;
@@ -142,14 +148,33 @@ chiller-details {
         float: left;
       }
 
+      .orange-border {
+        border: 1px solid $chillter-col;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        margin-bottom: 5px;
+        line-height: 0;
+        min-width: unset;
+        min-height: unset;
+        img {
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          padding: 2px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          position: relative;
+          top: 0;
+          width: 52px;
+          height: 52px;
+        }
+      }
+
       ion-scroll {
         display: flex;
         height: calc(70vmax - 115px);
-        .orange-border {
-          box-sizing: content-box;
-          border: 2px solid $chillter-col;
-          border-radius: 100%;
-        }
 
         h2 {
           font-size: 2rem;
@@ -159,6 +184,9 @@ chiller-details {
 
         p {
           font-size: 1.3rem;
+        }
+
+        .chiller-name {
           font-weight: bold;
         }
 
@@ -203,7 +231,6 @@ chiller-details {
 
           .soon {
             vertical-align: 40%;
-            font-weight: bold;
           }
 
           .today {
@@ -214,6 +241,7 @@ chiller-details {
             display: block;
             margin-top: -10px;
             text-align: right;
+            font-weight: bold;
           }
         }
 
@@ -227,6 +255,26 @@ chiller-details {
       }
     }
   }
+
+  .back-button {
+    border: 0;
+    background: transparent;
+    ion-icon.back-button-icon {
+      font-size: 0;
+      &:before {
+        content: '';
+        display: block;
+        width: 25px;
+        height: 40px;
+        background-image: url("../assets/images/back-arrow.svg");
+        background-size: 22px auto;
+        background-repeat: no-repeat;
+        top: 3px;
+        position: relative;
+      }
+    }
+  }
+
   /* Override rules for screen with width > 768px (iPad...) */
   @media screen and (min-width: 768px) {
     .toolbar-ios {

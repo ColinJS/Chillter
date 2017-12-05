@@ -17,7 +17,7 @@
       <ion-list>
         <!-- List of previous events -->
         <ion-item *ngFor="let event of previousEvents" (tap)="showDetailEvent(event.info.id)">
-          <ion-avatar item-left class="orange-border">
+          <ion-avatar item-left class="{{event.type != 'custom' ? '' : 'orange-border'}}">
             <div *ngIf="event.info.logo || event.info.chill.logo">
               <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" class="logo-chill" image-cache>
             </div>

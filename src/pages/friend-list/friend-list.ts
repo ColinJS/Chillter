@@ -185,6 +185,7 @@ export class FriendList {
         if (this.contactPermState) {
           this.friends = [];
           this.contacts.resetAll();
+          this.getSentInvitation();
           this.getPendingFriends();
           setTimeout(() => {
             this.notif.publish("notif:update");
@@ -196,6 +197,7 @@ export class FriendList {
         } else {
           this.getPendingFriends()
           this.getFriends()
+          this.getSentInvitation();
           this.filterFriends()
         }
       },
@@ -408,6 +410,7 @@ export class FriendList {
       return;
     }
     this.api.addFriend(notFriendId).subscribe();
+    this.getSentInvitation();
     this.getNotFriends();
   }
 

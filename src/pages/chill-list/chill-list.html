@@ -1,13 +1,24 @@
 <ion-header no-border>
   <ion-navbar>
-    <ion-title class="main-title">Chills</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="chill-list">
+  
+  <div padding>
+    <ion-segment [(ngModel)]="chillListDisplay">
+      <ion-segment-button value="chills">
+        Chills
+      </ion-segment-button>
+      <ion-segment-button value="customChills">
+        {{'chill-list.customize-chill' | translate}}
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 
-  <ion-slides pager loop="false" autoplay="false" color="primary" (ionSlideDidChange)="slideChanged()">
-    <ion-slide>
+
+  <div [ngSwitch]="chillListDisplay">
+    <div *ngSwitchCase="'chills'">
       <ion-item no-lines class="top-space" (tap)="addPersonalized()">
         <ion-avatar item-left>
           <img src="assets/images/chill-plus.svg" image-cache>
@@ -48,18 +59,24 @@
           <ion-list-header>
             {{cat.name}}
           </ion-list-header>
-
-          <ion-item *ngFor="let chill of cat.chills" (tap)="close(chill)">
-            <ion-avatar item-left>
-              <img src="{{ baseUrl + '/api/images/chills/' + chill.info.logo + '.svg' }}" image-cache>
-            </ion-avatar>
-            <h2>{{chill.info.name}}</h2>
-          </ion-item>
+          <ion-item-sliding *ngFor="let chill of cat.chills; trackBy: trackByChills" >
+            <ion-item (tap)="close(chill)">
+              <ion-avatar item-left>
+                <img src="{{ baseUrl + '/api/images/chills/' + chill.info.logo + '.svg' }}" image-cache>
+              </ion-avatar>
+              <h2>{{chill.info.name}}</h2>
+            </ion-item>
+            <ion-item-options side="right">
+              <button ion-button (tap)="homeSwitcher(chill)" clear>
+                <ion-icon name="star" [isActive]="chill.homeState" ></ion-icon>
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-list>
       </div>
-    </ion-slide>
+    </div>
 
-    <ion-slide>
+    <div *ngSwitchCase="'customChills'">
       <ion-item no-lines class="top-space" (tap)="addPersonalized()">
         <ion-avatar item-left>
           <img src="assets/images/chill-plus.svg" image-cache>
@@ -71,15 +88,29 @@
         <ion-list-header>
           {{ 'chill-list.customize-chill' | translate }}
         </ion-list-header>
-
-        <ion-item *ngFor="let customChill of customChills" (tap)="close(customChill)">
-          <ion-avatar item-left class="orange-border">
-            <img src="{{ customChill.logo ? customChill.logo : placeholderLogo }}" image-cache>
-          </ion-avatar>
-          <h2>{{ customChill.name }}</h2>
-        </ion-item>
+        <ion-item-sliding *ngFor="let customChill of customChills">
+          <ion-item (tap)="close(customChill)">
+            <ion-avatar item-left class="orange-border">
+              <img src="{{ customChill.logo ? customChill.logo : placeholderLogo }}" image-cache>
+            </ion-avatar>
+            <h2>{{ customChill.name }}</h2>
+          </ion-item>
+          <ion-item-options side="left">
+            <button ion-button (tap)="deleteCustomChill(ustomChill)" clear>
+              <ion-icon name="close"></ion-icon>
+            </button>
+          </ion-item-options>
+          <ion-item-options side="right">
+            <button ion-button (tap)="homeSwitcher(customChill)" clear>
+              <ion-icon name="star" [isActive]="customChill.homeState"></ion-icon>
+            </button>
+            <button ion-button (tap)="editCustomChill(customChill)" clear>
+              <ion-icon name="construct"></ion-icon>
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
       </ion-list>
-    </ion-slide>
-  </ion-slides>
+    </div>
+  </div>
 
 </ion-content>

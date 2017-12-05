@@ -1,8 +1,6 @@
 {
   "name": "Chillter",
   "app_id": "6ba6f684",
-  "v2": true,
-  "typescript": true,
   "proxies": [
     {
       "path": "/api",
@@ -14,7 +12,11 @@
     },
     {
       "path": "/api",
-      "proxyUrl": "http://chillter"
+      "proxyUrl": "http://chillter.fr"
     }
-  ]
+  ],
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
 }

@@ -35,7 +35,7 @@
 
     <ion-item-sliding *ngFor="let event of viewEvents">
       <ion-item (tap)="showDetailEvent(event.info.id)">
-        <ion-avatar class="orange-border" item-left>
+        <ion-avatar class="{{event.type != 'custom' ? '' : 'orange-border'}}" item-left>
           <div *ngIf="event.info.logo || event.info.chill.logo">
             <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" class="logo-chill" image-cache>
           </div>
@@ -56,10 +56,10 @@
           <p class="soon chill-hours">{{event.date | date: 'H'}}</p>
           <p class="exp chill-exp">h</p>
           <p class="soon chill-minutes">{{event.date | date: 'mm'}}</p>
-          <p *ngIf="(event.date | date:'yyMMdd') >= (timeNow | date:'yyMMdd') + 1" class="soon chill-date">{{event.date | date:'dd/MM/yy'}}</p>
+          <p *ngIf="(event.date | date:'yyMMdd') > (timeTomorrow | date:'yyMMdd')" class="soon chill-date">{{event.date | date:'dd/MM/yy'}}</p>
           <p *ngIf="(event.date | date:'yyMMddHHmm') <= (timeNow | date:'yyMMddHHmm')" class="ongoing soon chill-date">{{ 'chiller-details.is-ongoing' | translate }}</p>
           <p *ngIf="(event.date | date:'yyMMdd') == (timeNow | date:'yyMMdd') && !((event.date | date:'HHMM') <= (timeNow | date:'HHMM'))  " class="today soon chill-date">{{ 'chiller-details.is-today' | translate }}</p>
-          <p *ngIf="(event.date | date:'yyMMdd') == (timeNow | date:'yyMMdd') + 1" class="soon chill-date">{{ 'chiller-details.is-tomorrow' | translate }}</p>
+          <p *ngIf="(event.date | date:'yyMMdd') == (timeTomorrow | date:'yyMMdd')" class="soon chill-date">{{ 'chiller-details.is-tomorrow' | translate }}</p>
         </div>
       </ion-item>
 

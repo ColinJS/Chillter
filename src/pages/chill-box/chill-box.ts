@@ -21,6 +21,7 @@ export class ChillBox {
   viewEvents: any[] = [];
   searchWord: string = "";
   timeNow: Date = new Date();
+  timeTomorrow: Date = new Date();
   profileId: number;
 
   slides: any[] = [];
@@ -179,6 +180,10 @@ export class ChillBox {
 
   getEvents(ref: any = false) {
     this.timeNow = new Date();
+
+    this.timeTomorrow = new Date();
+    this.timeTomorrow.setDate(this.timeNow.getDate() + 1);
+
     this.noEvent = false;
     this.noEventSoon = false;
 
@@ -187,12 +192,13 @@ export class ChillBox {
         if (data) {
           this.events = data.filter((d) => {
             let now = new Date();
-            let tmpDate = new Date(d.date);
+            // Could be simplified later when all events will have coherent ending_date
+            let tmpDate = new Date(d.ending_date) >= new Date(d.date) ? new Date(d.ending_date) : new Date(d.date);
             if (isNaN(tmpDate.getTime())) {
               return false;
             }
 
-            let time = tmpDate.getTime() + (12 * 3600 * 1000) - now.getTime();
+            let time = tmpDate.getTime() - now.getTime();
             return time > 0;
           });
 
@@ -201,6 +207,9 @@ export class ChillBox {
             let nowPlusOne = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 24);
             let d = new Date(index.date);
 
+            index.info.logo ? index.type = "custom" : null;
+            index.info.chill.logo ? index.type = "regular" : null;
+            !index.info.chill.logo && !index.info.logo || index.info.chill.logo && index.info.logo ? index.type = "custom" : null;
 
             index.soon = (d < nowPlusOne ? "today" : "later");
             index.soon = (d < now ? "ongoing" : index.soon);

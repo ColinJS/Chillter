@@ -90,10 +90,10 @@
       </div>
 
       <div class="invite-com" text-justify (tap)="openChat()">
-        <ion-scroll scrollY="true" *ngIf="punchline">
+        <ion-scroll scrollY="true" *ngIf="punchline" [style.color]="'#'+color">
           {{ punchline }}
         </ion-scroll>
-        <div *ngIf="noPunchline == true">{{ 'chill-detail.no-chat-message' | translate }}</div>
+        <div *ngIf="noPunchline == true" [style.color]="'#'+color">{{ 'chill-detail.no-chat-message' | translate }}</div>
       </div>
 
       <div class="invite-utils">

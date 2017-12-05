@@ -260,6 +260,7 @@ export class ChillDetail {
     this.api.getEvent(this.eventId).subscribe(
       data => {
         if (data) {
+          console.log(data);
           this.chillCreatorId = data.chillerid;
           this.event = data;
           this.id = data.id;
@@ -538,16 +539,12 @@ export class ChillDetail {
     if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() || this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo()) {
       if (this.imgPickerService.getImgResultLogo() != this.imgPickerService.getFirstImgSrcLogo()  && this.imgPickerService.getFirstImgSrcLogo() != "default-profil.svg") {
         bodyImg.image = this.imgPickerService.getImgResultLogo();
-        console.log("SEND LOGO");
-        console.log(bodyImg.image);
         bodyImg.image ? this.api.sendEventLogo(this.eventId, bodyImg).subscribe() : null;
         this.viewCtrl.dismiss(undefined, true);
       }
 
       if (this.imgPickerService.getImgResultBanner() != this.imgPickerService.getFirstImgSrcBanner() && this.imgPickerService.getImgResultBanner()) {
         bodyImg.image = this.imgPickerService.getImgResultBanner();
-        console.log("SEND BANNER");
-        console.log(bodyImg.image);
         this.api.sendEventBanner(this.eventId, bodyImg).subscribe();
         this.viewCtrl.dismiss(undefined, true);
       }

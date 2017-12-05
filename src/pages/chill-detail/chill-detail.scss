@@ -204,45 +204,30 @@ chill-detail {
     top: 20px;
     left: 10px;
     width: auto;
-    font-size: 1.7rem;
     z-index: 200;
-    border-radius: 4px;
-    font-weight: bold;
-    color: #ff862a;
-    background: #fff;
-    padding: 0 10px 0 10px;
-    border: 1px solid #ff862a;
     min-height: 3.2rem;
     line-height: 1.7;
-    font-weight: 300;
+    margin-left: 5px;
     &:before {
-      content: "\f3cf";
-      font-family: "Ionicons";
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-      font-style: normal;
-      font-variant: normal;
-      font-weight: normal;
-      line-height: 1;
-      text-rendering: auto;
-      text-transform: none;
-      speak: none;
-      font-size: 2.8rem;
-      top: 4px;
-      position: relative;
-      padding-right: 3px;
+      content: '';
+      display: block;
+      width: 25px;
+      height: 40px;
+      background-image: url("../assets/images/back-arrow.svg");
+      background-size: 22px auto;
+      background-repeat: no-repeat;
     }
   }
   .chills-header {
     width: 100%;
-    height: 12rem;
+    height: 11.5rem;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
   .ch-background {
     width: 100%;
-    height: 12rem;
+    height: 11.5rem;
     position: absolute;
     background-color: white;
     border-bottom: 3px solid $chillter-col;
@@ -257,7 +242,7 @@ chill-detail {
   .ch-logo {
     width: 150px;
     height: 150px;
-    top: 20%;
+    top: 15%;
     left: calc((100% - 150px) / 2);
     border-radius: 100%;
     display: inline-block;
@@ -322,7 +307,7 @@ chill-detail {
   }
   .invite-geo {
     height: 10vh;
-    min-height: 7rem;
+    min-height: 8rem;
     border: 2px solid $chillter-col;
     border-radius: 2.7rem;
     overflow: hidden;
@@ -332,14 +317,13 @@ chill-detail {
     flex-direction: column;
   }
   .invite-geo h1 {
-    font-family: MyBold!important;
+    font-family: MyBold !important;
     margin: 0px;
   }
   .invite-geo h2 {
-    /*margin: 0px;*/
     font-size: 2.2rem;
     opacity: 0.6;
-    font-family: MyMedium;
+    font-family: MyBold !important;
   }
   .invite-geo .no-decoration a {
     text-decoration: none;
@@ -362,7 +346,7 @@ chill-detail {
   }
   .invite-time-left {
     position: relative;
-    padding: 3px;
+    padding: 10px 3px;
   }
   .invite-time-right {
     float: right;
@@ -391,23 +375,23 @@ chill-detail {
   }
   .invite-day,
   .invite-day-number {
-    font-size: 24px;
+    font-size: 3.4rem;
     font-family: MyBold;
   }
   .invite-day-number {
     opacity: 0.7;
   }
   .invite-hours {
-    font-size: 52px;
-    font-family: MyMedium;
+    font-size: 40px;
+    font-family: MyBold !important;
   }
   .invite-minutes {
-    font-size: 42px;
-    font-family: MyMedium;
+    font-size: 40px;
+    font-family: MyBold !important;
     opacity: 0.7;
   }
   .exp {
-    margin-left: 3px;
+    margin-left: -5px;
     font-size: 1.2rem;
     vertical-align: top;
   }
@@ -424,7 +408,7 @@ chill-detail {
   }
   .invite-utils {
     margin: 0;
-    height: 7vmax;
+    height: 8.5vmax;
   }
   .invite-utils img {
     height: 100%;
@@ -435,7 +419,7 @@ chill-detail {
     text-align: left;
   }
   .invite-friends {
-    margin: 3px 3px 3px 0;
+    margin: 6px 3px 3px 0;
     width: auto;
     display: flex;
     flex-direction: row;
@@ -453,19 +437,22 @@ chill-detail {
   }
   .show-more-friends {
     line-height: 6.5rem;
+    top: -5px;
   }
   .invite-friends img {
-    height: 6.5rem;
-    width: 6.5rem;
+    height: 5.5rem;
+    width: 5.5rem;
     border-radius: 50%;
     vertical-align: middle;
   }
   .delete-friend {
     position: absolute;
-    top: 5px;
-    left: 4.5rem;
+    top: 0;
+    right: 0;
     height: 20px;
+    width: 20px;
     vertical-align: top;
+    z-index: 999;
   }
   .delete-friend img {
     height: 100%;

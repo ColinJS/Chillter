@@ -7,6 +7,7 @@ import {
   ViewController,
   ToastController,
   NavParams,
+  ModalController,
   Events
 } from 'ionic-angular';
 import { SyncService } from '../../providers/sync';
@@ -15,27 +16,31 @@ import { Home } from '../home/home';
 import { TranslateService } from 'ng2-translate';
 
 @Component({
+  selector: 'chill-list',
   templateUrl: 'chill-list.html',
 })
 export class ChillList {
   @ViewChild(Content) content: Content;
 
   placeholderLogo: string = "assets/images/default-profil.svg";
-  fakeArray4: any = new Array(2); // Used for content placeholder
-  fakeArray5: any = new Array(3); // Used for content placeholder
+  fakeArray4: any = new Array(6); // Used for content placeholder
+  fakeArray5: any = new Array(8); // Used for content placeholder
+  chillListDisplay: string = "chills"; // First segment selected
 
   private transaltions: any;
+  private homeChills: any = [];
   private chills: any = [];
-  private slides: any[] = [];
   private customChills: any;
   private baseUrl: string;
   private myProfile: Object = {};
+  private fromHomePage: boolean;
 
   constructor(
     private navCtrl: NavController,
     private notif: Events,
     private viewCtrl: ViewController,
     private navParams: NavParams,
+    private modal: ModalController,
     private api: ApiService,
     private sync: SyncService,
     private toastCtrl: ToastController,
@@ -53,127 +58,132 @@ export class ChillList {
       });
   }
 
-  ionViewDidEnter() {
-    // setTimeout used to force page load all Chill after a delay to avoid big lag.
-    setTimeout(() => {
-      this.getAllChills();
-      this.getHome();
-    }, 400)
+  ngOnInit(){
+    this.getAllChills();
+    this.fromHomePage = this.navCtrl.getPrevious().name == "Home" ? true : false;
   }
 
   getAllChills() {
-    this.api.getAllChills().subscribe((data) => this.addChills(data));
-    this.api.getCustomChills().subscribe(
+
+    this.api.getAllChills().subscribe(
       (data) => {
-        console.log(data);
-        this.customChills = data;
-      });
-  }
-
-  addChills(chills: any) {
-    this.chills = chills;
-    let idList = this.navParams.get('idList');
-
-    for (let c in this.chills) {
-      this.chills[c].chills = this.chills[c].chills.filter((v) => {
-        for (let i in idList) {
-          if (v.info.id == idList[i]) {
-            return false;
+        this.chills = data;
+        for(let i = 0; i < this.chills.length; i++){
+          for(let j = 0; j < this.chills[i].chills.length; j++){
+            this.chills[i].chills[j].homeState = false;
           }
         }
-        return true;
+        console.log(this.chills);
       });
-    }
-    this.chills = this.chills.filter((v) => {
-      if (v.chills.length == 0) {
-        return false;
-      } else {
-        return true;
-      }
-    })
-  }
 
-  getHome() {
+    this.api.getCustomChills().subscribe(
+      (data) => {
+        this.customChills = [].concat(data);
+        for(let i = 0; i < this.customChills.length; i++){
+          this.customChills[i].homeState = false;
+        }
+        console.log(this.customChills);
+      });
+
     this.api.getHome().subscribe(
       data => {
-        this.slides = data;
-        this.changeSlides(data)
+
+        this.homeChills = data;
+        for(let i = 0; i < this.homeChills.length; i++){
+
+          homeLoop:{
+            for(let j = 0; j < this.chills.length; j++){
+              for(let k = 0; k < this.chills[j].chills.length; k++){
+                if(this.chills[j].chills[k].info.id == this.homeChills[i].chill_id){
+                  this.chills[j].chills[k].homeState = true;
+                  break homeLoop;
+                }
+              }
+            }
+            for(let j = 0; j < this.customChills.length; j++){
+              if(this.customChills[j].id == this.homeChills[i].chill_id){
+                console.log("I'm in");
+                this.customChills[j].homeState = true;
+                break homeLoop;
+              }
+            }
+          }
+        }
+        //I don't know why but this log is needed to make the homeState change effective
+        console.log(this.customChills);
+      });
+  }
+
+  homeSwitcher(chill: any){
+    if(chill.homeState){
+      this.deleteChill(chill);
+    }else{
+      this.addChill(chill);
+    }
+  }
+
+  deleteCustomChill(chill: any){
+    this.api.deleteCustomChill(chill.id).subscribe(
+      data=>{
+        this.getAllChills();
       }
     )
   }
 
-  changeSlides(home: any) {
-    let chillPlus = {
-      "info": {
-        "logo": "plus",
-        "name": "plus",
-        "id": "plus"
-      },
-      "link": {
-        "plus": true
-      }
-    };
+  editCustomChill(chill){
 
-    let pageCount = 0;
-    let chillCount = 0;
-    let sortHome = [chillPlus];
+    chill.chill_id = chill.id;
+    chill.type = "custom";
 
-    this.slides = [[]];
+    let modal = this.modal.create(EditChills, { chill: chill, edit:true });
 
-    for (let h in home) {
-      sortHome[parseInt(home[h].pos)] = home[h];
-    }
+    modal.onDidDismiss(() => {
+      this.getAllChills();
+    });
+    modal.present()
 
-    for (let i = 0; i < sortHome.length; i++) {
-
-      if (chillCount > 11) {
-        chillCount = 0;
-        pageCount++;
-        this.slides[pageCount] = [];
-      }
-      this.slides[pageCount][chillCount] = sortHome[i];
-      chillCount++
-    }
   }
 
   addChill(chill: any) {
+
     let custom = !!chill.id;
+    let currentId = custom ? chill.id : chill.info.id;
 
-    let lgt = this.slides.length;
-    let inLgt = this.slides[lgt - 1].length;
-
-    if (inLgt > 12) {
-      lgt++;
-      inLgt = 1;
-      this.slides.push([chill]);
-    } else {
-      inLgt++;
-    }
-
-    this.api.addChill(custom ? chill.id : chill.info.id, custom ? 'custom' : 'chill').subscribe(
+    this.api.addChill(currentId, custom ? 'custom' : 'chill').subscribe(
       data => {
-        this.viewCtrl.dismiss().then(() => {
-          /*
-          * If view = undefined (from chiller-details -> Send a Chill) do nothing
-          * else, if = to ChillList return to Homepage with the selected Chill added to Homepage and set Tabs to 0 (Chills), this from when add Chill from Chillbox
-          */
-          if (this.navCtrl.getActive() == undefined) {
-            return;
-          } else {
-            let currentView = this.navCtrl.getActive().name;
-
-            if (currentView == "ChillBox" || currentView == undefined) {
-              // This wil generate an error, like cannot read property 'then' of undefined, and it's normal. This is the only solution to set tab and reload selected tab view.
-              this.navCtrl.parent.select(0).then(() => {
-                console.log('Regular error');
-              })
-
-            }
-          }
-        });
+        chill.homeState = !chill.homeState;
       },
       err => { console.log(err) }
     )
+  }
+
+  deleteChill(chill: any) {
+
+    let custom = !!chill.id;
+    let tmpId = custom ? chill.id : chill.info.id;
+    let currentId = 0;
+
+    for(let i = 0; i < this.homeChills.length; i++){
+      if(tmpId == this.homeChills[i].chill_id){
+        currentId = this.homeChills[i].id;
+      }
+    }
+
+    this.sync.status ? null : this.showToast(1);
+    this.api.deleteChill(currentId).subscribe(
+      data=>{
+        chill.homeState = !chill.homeState;
+      }
+    );
+
+  }
+
+  trackByChills(index,item){
+    return item.info.id;
+  }
+
+  trackByCustomChills(index,item){
+    return item.id;
   }
 
   close(chill: any = undefined) {
@@ -181,14 +191,7 @@ export class ChillList {
     * If current view is ChillList add the Chill to Homepage (from Chillbox)
     * else (from Chiller-details -> Send a Chill), dismiss ChilllList and open chill-edit with choosen friends
     */
-    if (this.navCtrl.getActive().name == "ChillList") {
-      if (chill) {
-        this.sync.status ? null : this.showToast(2);
-        this.addChill(chill);
-      } else {
-        this.viewCtrl.dismiss(chill);
-      }
-    } else {
+    if (!this.fromHomePage) {
       this.viewCtrl.dismiss(chill);
     }
   }
@@ -198,7 +201,14 @@ export class ChillList {
       this.showToast(1);
       return;
     }
-    this.navCtrl.push(EditChills, { chill: null }, { animate: true, direction: 'back' });
+    let modal = this.modal.create(EditChills, { chill: null });
+
+    modal.onDidDismiss(() => {
+      this.getAllChills();
+    });
+    modal.present()
+
+    //this.navCtrl.push(EditChills, { chill: null }, { animate: true, direction: 'back' });
   }
 
   // Set text for back button (navbar)

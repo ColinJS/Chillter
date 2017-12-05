@@ -12,8 +12,8 @@
 
   <ion-list>
     <ion-item *ngFor="let friend of viewFriends" >
-      <ion-avatar item-left><img class="orange-border" src="{{friend.picture || 'assets/images/default-profil.svg'}}" image-cache/></ion-avatar>
-      <ion-label>{{friend.firstname}} {{friend.lastname}}</ion-label>
+      <ion-avatar class="orange-border" item-left><img src="{{friend.picture || 'assets/images/default-profil.svg'}}" image-cache/></ion-avatar>
+      <ion-label>{{friend.firstname}} <div class="in-bold">{{friend.lastname}}</div></ion-label>
       <ion-checkbox  (ionChange)="addToArray(friend, $event)" item-right></ion-checkbox>
     </ion-item>
   </ion-list>

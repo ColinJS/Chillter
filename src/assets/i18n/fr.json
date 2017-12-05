@@ -152,6 +152,7 @@
     "not-sended": "Le Chill doit être envoyé avant !",
     "no-exp-info": "Le nom et le prix doivent être spécifiés !",
     "no-exp-inheriter": "Au moins une personne doit être séléctionner !",
+    "over-10-seats": "Une voiture ne peut avoir plus de 9 places",
     "input-add-element": {
       "title": "Ajouter un élément",
       "placeholder": "Quelque chose..."
@@ -188,6 +189,8 @@
     "remove": "Supprimer",
     "send": "Envoyer",
     "save": "Sauvegarder",
+    "update": "Sauvegarder",
+    "updateSend": "Sauvegarder et envoyer",
     "not-sended": "Le Chill doit être envoyé avant !",
     "more-friends": "plus",
     "punchline-title": "Punchline !",

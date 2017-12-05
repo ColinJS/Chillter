@@ -1,6 +1,15 @@
 history {
   overflow: hidden;
 
+  .toolbar-title-ios {
+    font-size: 2.2rem;
+    color: $chillter-col;
+  }
+
+  ion-content {
+    margin-top: 0px !important;
+  }
+
   .no-events {
     margin-top: 2rem;
     text-align: center;
@@ -15,15 +24,37 @@ history {
       border-bottom: 0;
     }
 
+    ion-avatar {
+      margin: 8px 16px 8px 0;
+    }
+
+    .orange-border {
+      border: 1px solid $chillter-col;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      margin-bottom: 5px;
+      line-height: 0;
+      min-width: unset;
+      min-height: unset;
+      img {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        padding: 2px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+        top: 0;
+        width: 52px;
+        height: 52px;
+      }
+    }
+
     ion-scroll {
       display: flex;
       height: calc(70vmax - 10px);
-
-      .orange-border {
-        box-sizing: content-box;
-        border: 2px solid $chillter-col;
-        border-radius: 100%;
-      }
 
       .global-infos {
         display: inline-block;
@@ -105,6 +136,25 @@ history {
     }
   }
 
+  .back-button {
+    border: 0;
+    background: transparent;
+    ion-icon.back-button-icon {
+      font-size: 0;
+      &:before {
+        content: '';
+        display: block;
+        width: 25px;
+        height: 40px;
+        background-image: url("../assets/images/back-arrow.svg");
+        background-size: 22px auto;
+        background-repeat: no-repeat;
+        top: 3px;
+        position: relative;
+      }
+    }
+  }
+
   /* Removing the last bottom border on the list */
   .list-ios>.item-block:last-child,
   .list-ios>.item-wrapper:last-child .item-block {
@@ -136,12 +186,6 @@ history {
 
     .details-events {
       ion-avatar {
-        .orange-border {
-          box-sizing: content-box;
-          border: 3px solid $chillter-col;
-          border-radius: 100%;
-        }
-
         .logo-chill {
           height: 10vw;
           width: 10vw;

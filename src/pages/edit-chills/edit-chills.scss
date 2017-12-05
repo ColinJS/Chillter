@@ -64,38 +64,34 @@ edit-chills {
     background-position: center 40%;
     background-color: rgba(255, 255, 255, 0.7);
   }
+
+  .overlay-chill-detail {
+    z-index: 300;
+    position: fixed;
+    top: 0px;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center 40%;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+
   .floating-close-button {
     position: absolute;
     top: 20px;
     left: 10px;
     width: auto;
-    font-size: 1.7rem;
     z-index: 200;
-    border-radius: 4px;
-    font-weight: bold;
-    color: #ff862a;
-    background: #fff;
-    padding: 0 10px 0 10px;
-    border: 1px solid #ff862a;
     min-height: 3.2rem;
     line-height: 1.7;
-    font-weight: 300;
+    margin-left: 5px;
     &:before {
-      content: "\f3cf";
-      font-family: "Ionicons";
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-      font-style: normal;
-      font-variant: normal;
-      font-weight: normal;
-      line-height: 1;
-      text-rendering: auto;
-      text-transform: none;
-      speak: none;
-      font-size: 2.8rem;
-      top: 4px;
-      position: relative;
-      padding-right: 3px;
+      content: '';
+      display: block;
+      width: 25px;
+      height: 40px;
+      background-image: url("../assets/images/back-arrow.svg");
+      background-size: 22px auto;
+      background-repeat: no-repeat;
     }
   }
   .scroll-content {
@@ -103,14 +99,14 @@ edit-chills {
   }
   .chills-header {
     width: 100%;
-    height: 12rem;
+    height: 11.5rem;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
   .ch-background {
     width: 100%;
-    height: 12rem;
+    height: 11.5rem;
     position: absolute;
     background-color: white;
     border-bottom: 3px solid $chillter-col;
@@ -128,7 +124,7 @@ edit-chills {
   .ch-logo {
     width: 150px;
     height: 150px;
-    top: 20%;
+    top: 15%;
     left: calc((100% - 150px) / 2);
     border-radius: 100%;
     display: inline-block;
@@ -192,24 +188,25 @@ edit-chills {
   }
   .invite-geo {
     height: 10vh;
-    min-height: 7rem;
+    min-height: 8rem;
     border: 2px solid $chillter-col;
     border-radius: 2.7rem;
     overflow: hidden;
-    font: bold;
     display: flex;
     justify-content: initial;
     flex-direction: column;
   }
-  .invite-geo h1 {
-    font-family: MyBold!important;
-    margin: 0px;
+  .invite-geo .h1 {
+    font-family: MyBold !important;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: -10px;
   }
-  .invite-geo h2 {
-    margin: 0px;
+  .invite-geo .h2 {
     font-size: 2.2rem;
     opacity: 0.6;
-    font-family: MyMedium;
+    width: 98%;
+    font-family: MyBold !important;
   }
   .invite-time {
     margin: 1vmax 0px;
@@ -229,7 +226,7 @@ edit-chills {
   }
   .invite-time-left {
     position: relative;
-    padding: 3px;
+    padding: 10px 3px;
   }
   .invite-time-right {
     float: right;
@@ -258,19 +255,19 @@ edit-chills {
   }
   .invite-day,
   .invite-day-number {
-    font-size: 24px;
+    font-size: 3.3rem;
     font-family: MyBold;
   }
   .invite-day-number {
     opacity: 0.7;
   }
   .invite-hours {
-    font-size: 52px;
-    font-family: MyMedium;
+    font-size: 38px;
+    font-family: MyBold !important;
   }
   .invite-minutes {
-    font-size: 42px;
-    font-family: MyMedium;
+    font-size: 38px;
+    font-family: MyBold !important;
     opacity: 0.7;
   }
   .exp {
@@ -289,7 +286,7 @@ edit-chills {
   }
   .invite-utils {
     margin: 0;
-    height: 7vmax;
+    height: 8.5vmax;
   }
   .invite-utils img {
     height: 100%;
@@ -300,7 +297,7 @@ edit-chills {
     text-align: left;
   }
   .invite-friends {
-    margin: 3px 3px 3px 0;
+    margin: 6px 3px 3px 0;
     width: auto;
     display: flex;
     flex-direction: row;
@@ -316,10 +313,10 @@ edit-chills {
     line-height: 6.5rem;
   }
   .invite-friends img {
-    height: 6.5rem;
-    width: 6.5rem;
     border-radius: 50%;
     vertical-align: middle;
+    width: 55px;
+    height: 55px;
   }
   .ion-scroll-friends {
     height: 6.8rem;
@@ -416,6 +413,44 @@ edit-chills {
       }
     }
   }
+  .invite-editing-custom {
+    border-top: 1px solid rgb(180, 180, 180);
+    padding: 10px 20px;
+    text-align: center;
+    position: relative;
+    background: white;
+    .text-editing {
+      vertical-align: middle;
+      display: inline-block;
+      color: gray;
+    }
+    ion-icon {
+      font-weight: bold;
+      font-size: 2em;
+      vertical-align: middle;
+    }
+    .invite-editing-remove {
+      position: absolute;
+      left: 20px;
+      bottom: 3px;
+      ion-icon {
+        color: #ff7477;
+        padding-left: 5px;
+      }
+    }
+    .invite-editing-save {
+      display: inline-block;
+    }
+    .invite-editing-send {
+      position: absolute;
+      right: 20px;
+      bottom: 3px;
+      ion-icon {
+        color: #69cc34;
+        padding-right: 5px;
+      }
+    }
+  }
 
   /* Override rules for screen with width > 768px (iPad...) */
   @media screen and (min-width: 768px) {
@@ -432,16 +467,4 @@ edit-chills {
     }
   }
 
-  /* Reduce friends image size at < 325px */
-  @media screen and (max-width: 325px) {
-    .invite-friends .friend-picture,
-    .invite-friends .show-more-friends {
-      height: 5.8rem;
-      width: 5.8rem;
-    }
-    .invite-friends .show-more-friends {
-      line-height: 5.8rem;
-      width: 4rem;
-    }
-  }
 }

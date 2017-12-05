@@ -117,20 +117,22 @@ home {
 
   .rounded-chill-image {
     border: 2px solid #f8973a;
+    margin: 3px;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
     margin-bottom: 5px;
+    line-height: 0;
     img {
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
       border-radius: 50%;
-      padding: 3px 4px;
+      padding: 3px;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       position: relative;
-      top: 1px;
+      top: 0;
     }
   }
 

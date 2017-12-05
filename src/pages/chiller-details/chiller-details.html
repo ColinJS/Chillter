@@ -60,7 +60,7 @@
             {{ 'chiller-details.coming-soon' | translate }}
           </ion-list-header>
           <ion-item *ngFor="let event of comingEvents" (tap)="showDetailEvent(event.info.id)">
-            <ion-avatar item-left class="orange-border">
+            <ion-avatar item-left class="{{event.type != 'custom' ? '' : 'orange-border'}}">
               <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" image-cache>
             </ion-avatar>
             <div class="global-infos">
@@ -85,7 +85,7 @@
             {{ 'chiller-details.history' | translate }}
           </ion-list-header>
           <ion-item *ngFor="let event of historyEvents" (tap)="showDetailEvent(event.info.id)">
-            <ion-avatar item-left class="orange-border">
+            <ion-avatar item-left class="{{event.type != 'custom' ? '' : 'orange-border'}}">
               <img [src]="event.info.logo ? event.info.logo : event.info.chill.logo" image-cache>
             </ion-avatar>
             <div class="global-infos">

@@ -1,6 +1,10 @@
 chill-set {
-  .nav-title {
-    height: 130px;
+  ion-navbar {
+    min-height: 75px !important;
+
+    img {
+      height: 47px;
+    }
   }
 
   .toast-alert .toast-wrapper {
@@ -26,6 +30,10 @@ chill-set {
         display: inline-block;
         height: 125px;
         width: 125px;
+        img {
+          padding: 2px;
+          border-radius: 100%;
+        }
       }
     }
 

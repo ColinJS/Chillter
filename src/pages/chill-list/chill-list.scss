@@ -1,4 +1,4 @@
-.chill-list {
+chill-list {
   ion-slides {
     height: initial;
 
@@ -22,9 +22,57 @@
   .orange-border {
     border: 1px solid $chillter-col;
     border-radius: 100%;
-
+    min-width: unset;
+    min-height: unset;
+    width: 53px;
+    height: 53px;
     img {
-      padding: 2%;
+      padding: 1px;
     }
   }
+
+  .back-button {
+    border: 0;
+    background: transparent;
+    ion-icon.back-button-icon {
+      font-size: 0;
+      &:before {
+        content: '';
+        display: block;
+        width: 25px;
+        height: 40px;
+        background-image: url("../assets/images/back-arrow.svg");
+        background-size: 22px auto;
+        background-repeat: no-repeat;
+        top: 3px;
+        position: relative;
+      }
+    }
+  }
+
+  /* Rewrite padding rules for the ion-list */
+  .list-ios {
+    margin-top: -15px;
+  }
+
+  /* Rewrite some rules about navbar */
+  .toolbar-title-ios {
+    font-size: 2.2rem;
+    color: $chillter-col;
+    margin-top: -15px;
+  }
+
+  .back-button.show-back-button {
+    margin-top: -5px;
+  }
+
+  ion-navbar {
+    min-height: 70px !important;
+  }
+
+  .scroll-content {
+    margin-top: 70px !important;
+  }
+
+  /* End of navbar rewrite */
 }

@@ -304,12 +304,6 @@ export class Home {
             }
             this.moveChill(evt);
           }
-        }),
-        onMove: ((evt)=>{
-          if (evt.related)
-          {
-              return !evt.related.classList.contains('chill_plus');
-          }
         })
       };
     }

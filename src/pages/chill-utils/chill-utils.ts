@@ -86,6 +86,7 @@ export class ChillUtils {
       'chill-utils.already-in-car1',
       'chill-utils.already-in-car2',
       'chill-utils.already-in-car2',
+      'chill-utils.over-10-seats',
       'offline.blocked',
       'global.add',
       'global.cancel',
@@ -304,7 +305,7 @@ export class ChillUtils {
 
   addCar(seats: number) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     if (!seats) {
@@ -348,7 +349,7 @@ export class ChillUtils {
 
   deleteCar(carId: any) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     if (this.newMode) {
@@ -377,7 +378,7 @@ export class ChillUtils {
 
   passengerTap(carId, profileId) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     if (this.newMode) {
@@ -470,7 +471,7 @@ export class ChillUtils {
 
   addElement(element: string) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     if (!element) {
@@ -519,7 +520,7 @@ export class ChillUtils {
 
   deleteElement(elemId) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     if (this.newMode) {
@@ -545,7 +546,7 @@ export class ChillUtils {
 
   elementTap(elemId: string, firstName: string, takerId: number) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     if (this.newMode) {
@@ -572,7 +573,7 @@ export class ChillUtils {
 
   takeElement(elemId: string) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     let evtId = this.navParams.get("eventId");
@@ -593,7 +594,7 @@ export class ChillUtils {
 
   leaveElement(elemId: string) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     let evtId = this.navParams.get("eventId");
@@ -633,7 +634,7 @@ export class ChillUtils {
 
   addElementPrompt() {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     let prompt = this.alertCtrl.create({
@@ -662,7 +663,7 @@ export class ChillUtils {
 
   addCarPrompt() {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     let profileId = this.creatorId;
@@ -687,7 +688,7 @@ export class ChillUtils {
       title: this.transaltions['chill-utils.input-add-car.title'],
       inputs: [
         {
-          name: 'Seats',
+          name: 'seats',
           placeholder: this.transaltions['chill-utils.input-add-car.placeholder'],
           type: 'number'
 
@@ -700,7 +701,8 @@ export class ChillUtils {
         {
           text: this.transaltions['global.add'],
           handler: data => {
-            this.addCar(parseInt(data.Seats) + 1);
+            this.addCarBool = false;
+            data.seats < 9 ? this.addCar(parseInt(data.seats) + 1) : this.showToast(2);
           }
         }
       ]
@@ -710,7 +712,7 @@ export class ChillUtils {
 
   addExpensePrompt() {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     let prompt = this.alertCtrl.create();
@@ -768,16 +770,7 @@ export class ChillUtils {
 
     this.creator.id = this.creatorId;
     this.creator.have_chillter = true;
-    friends.push(this.creator);
-
-    /*for (let friend in friends) {
-      for (let f of friend) {
-        if (friends[f].id == this.creatorId) {
-          let indexOf = friends.indexOf(friends[f]);
-          friends.splice(indexOf, 1);
-        }
-      }
-    }*/
+    friends.unshift(this.creator);
 
     prompt.setTitle(this.transaltions['chill-utils.add-inheriter']);
 
@@ -827,7 +820,7 @@ export class ChillUtils {
 
   addExpense(element: string, price: string, inheriters: any[]) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     if (element == "" || price == "") {
@@ -941,7 +934,7 @@ export class ChillUtils {
 
   deleteExp(expId, expPrice, expExpense) {
     if (!this.sync.status) {
-      this.showOfflineToast(1);
+      this.showToast(1);
       return;
     }
     let expsDel = this.exps;
@@ -1012,10 +1005,18 @@ export class ChillUtils {
     this.viewCtrl.dismiss(this.utilsObj);
   }
 
-  showOfflineToast(type) {
+  showToast(type) {
     if (type == 1) {
       const toast = this.toastCtrl.create({
         message: this.transaltions['offline.blocked'],
+        duration: 3000
+      });
+      toast.present();
+    }
+
+    if (type == 2) {
+      const toast = this.toastCtrl.create({
+        message: this.transaltions['chill-utils.over-10-seats'],
         duration: 3000
       });
       toast.present();

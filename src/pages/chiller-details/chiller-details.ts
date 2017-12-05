@@ -125,6 +125,10 @@ export class ChillerDetails {
 
     for (let i = 0; i < this.events.length; i++) {
 
+      this.events[i].info.logo ? this.events[i].type = "custom" : null;
+      this.events[i].info.chill.logo ? this.events[i].type = "regular" : null;
+      !this.events[i].info.chill.logo && !this.events[i].info.logo || this.events[i].info.chill.logo && this.events[i].info.logo ? this.events[i].type = "custom" : null;
+
       let tmpDate = new Date(this.events[i].date);
       if (tmpDate.getTime() > (now.getTime() + now.getTimezoneOffset())) {
         this.comingEvents.push(this.events[i]);

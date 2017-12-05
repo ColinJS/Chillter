@@ -2,10 +2,13 @@ import { Injectable, isDevMode } from '@angular/core';
 
 @Injectable()
 export class ConfigService {
-  devMode: boolean = false;
 
+  devMode: boolean = false;
+  localMode: boolean = true;
+  masterUrl: string = 'http://chillter-app.publish-it.fr';
   constructor() {
     if (isDevMode()) { this.devMode = true; }
+    this.masterUrl = this.localMode ? 'http://chillter' : this.masterUrl;
   }
 
   getBaseUrl(): string {
@@ -18,7 +21,7 @@ export class ConfigService {
     //return this.devMode ? '/api-dev' : '/api';
 
     // Fixed URL while not on chillter.fr
-    return 'http://chillter'; // old : http://chillter-app.publish-it.fr
+    return this.masterUrl;
   }
 
   getApiUrl(): string {
@@ -32,7 +35,7 @@ export class ConfigService {
   }
 
   getUrl(): string {
-    return 'http://chillter';
+    return this.masterUrl;
   }
 
   getWeatherApiUrl(): string {

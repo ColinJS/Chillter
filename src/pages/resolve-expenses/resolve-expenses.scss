@@ -1,8 +1,13 @@
 resolve-expenses {
+  .toolbar-title-ios {
+    font-size: 2.2rem;
+    color: $chillter-col;
+  }
+
   ion-header {
     .subtitle {
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       color: grey;
     }
   }
@@ -25,8 +30,10 @@ resolve-expenses {
         font-weight: bold;
 
         ion-icon {
-          color: rgba(0, 0, 0, 0.7);
+          vertical-align: middle;
+          color: #4c4c4c;
           font-weight: bold;
+          font-size: 2.3rem;
         }
 
         .from {
@@ -45,6 +52,24 @@ resolve-expenses {
         color: rgba(0, 0, 0, 0.7);
         font-size: 1.5rem;
         font-weight: bold;
+      }
+    }
+  }
+  .back-button {
+    border: 0;
+    background: transparent;
+    ion-icon.back-button-icon {
+      font-size: 0;
+      &:before {
+        content: '';
+        display: block;
+        width: 25px;
+        height: 40px;
+        background-image: url("../assets/images/back-arrow.svg");
+        background-size: 22px auto;
+        background-repeat: no-repeat;
+        top: 3px;
+        position: relative;
       }
     }
   }

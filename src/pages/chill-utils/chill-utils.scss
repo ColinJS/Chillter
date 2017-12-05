@@ -5,36 +5,21 @@ chill-utils {
 
   .floating-close-button {
     position: absolute;
-    top: 20px;
+    top: 30px;
     left: 10px;
     width: auto;
-    font-size: 1.7rem;
     z-index: 200;
-    border-radius: 4px;
-    font-weight: bold;
-    color: #ff862a;
-    background: #fff;
-    padding: 0 10px 0 10px;
-    border: 1px solid #ff862a;
     min-height: 3.2rem;
     line-height: 1.7;
-    font-weight: 300;
+    margin-left: 5px;
     &:before {
-      content: "\f3cf";
-      font-family: "Ionicons";
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-      font-style: normal;
-      font-variant: normal;
-      font-weight: normal;
-      line-height: 1;
-      text-rendering: auto;
-      text-transform: none;
-      speak: none;
-      font-size: 2.8rem;
-      top: 4px;
-      position: relative;
-      padding-right: 3px;
+      content: '';
+      display: block;
+      width: 25px;
+      height: 40px;
+      background-image: url("../assets/images/back-arrow.svg");
+      background-size: 22px auto;
+      background-repeat: no-repeat;
     }
   }
 
@@ -49,14 +34,15 @@ chill-utils {
 
   .toolbar-title-ios {
     color: $chillter-col;
-    font-size: 1.7rem;
+    font-size: 2.2rem;
+    font-weight: bold;
   }
 
   .slide-car {
     margin-top: 0;
 
     .subtitle-car {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       color: grey; //position: fixed;
     }
 
@@ -66,8 +52,6 @@ chill-utils {
 
     .car-class {
       position: relative;
-      height: 20rem;
-      margin: 1rem;
       background-color: white;
       color: $chillter-col;
 
@@ -77,19 +61,21 @@ chill-utils {
         right: 0px;
         height: 2rem;
       }
-
-      .seats-left {
-        color: grey;
-        font-size: 1.5rem;
-      }
     }
+  }
+
+  .seats-left {
+    color: grey;
+    font-size: 1.5rem;
+    width: 100%;
+    margin-bottom: 15px;
   }
 
   .slide-list {
     margin-top: 0;
 
     .subtitle-list {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       color: grey;
     }
 
@@ -147,7 +133,7 @@ chill-utils {
     margin-top: 0;
 
     .subtitle-expense {
-      font-size: 1.5rem;
+      font-size: 1.7rem;
       color: grey;
     }
 
@@ -166,7 +152,7 @@ chill-utils {
       }
 
       .exps-name {
-        margin-left: -1.5rem;
+        //margin-left: -1.5rem;
       }
 
       .exp {
@@ -253,531 +239,98 @@ chill-utils {
         height: 100%;
       }
     }
-  } // iphone5
-  @media only screen and (min-device-width:320px) {
-    .place-av-driver {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -138px;
-      margin-left: 210px;
+  }
 
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-        position: relative;
-        top: 2px;
-      }
+  .car-class {
+    display: flex;
+    flex-wrap: wrap;
+    width: 360px;
+    height: 180px;
+    margin: 0 auto 15px;
+    padding: 15px;
+    >img {
+      width: 100%;
+      max-width: unset;
+      height: unset;
+      max-height: unset;
+      position: absolute;
+      left: 0;
+      top: 0;
     }
-
-    .place-av-passenger {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -78px;
-      margin-left: 210px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
+    >div.passangers-block {
+      width: 25%;
+      align-self: center;
+      &:nth-of-type(1) {
+        order: 4;
       }
-    }
-
-    .place-ar-one {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -138px;
-      margin-left: 145px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
+      &:nth-of-type(2) {
+        order: 8;
       }
-    }
-
-    .place-ar-two {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -78px;
-      margin-left: 145px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
+      &:nth-of-type(3) {
+        order: 3;
       }
-    }
-
-    .place-ar-three {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -138px;
-      margin-left: 85px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
+      &:nth-of-type(4) {
+        order: 7;
       }
-    }
-
-    .place-ar-four {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -78px;
-      margin-left: 85px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
+      &:nth-of-type(5) {
+        order: 2;
       }
-    }
-
-    .place-ar-five {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -138px;
-      margin-left: 20px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
+      &:nth-of-type(6) {
+        order: 6;
       }
-    }
-
-    .place-ar-six {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 55px;
-      height: 55px;
-      position: absolute;
-      margin-top: -78px;
-      margin-left: 20px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
+      &:nth-of-type(7) {
+        order: 1;
+      }
+      &:nth-of-type(8) {
+        order: 5;
       }
     }
   }
+  .place-av-driver,
+  .place-av-passenger,
+  .place-ar-one,
+  .place-ar-two,
+  .place-ar-three,
+  .place-ar-four,
+  .place-ar-five,
+  .place-ar-six {
+    border: 1px solid #dfdfdf;
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 2px;
+    }
+  }
+
+  @media(max-width: 400px) {
+    .car-class {
+      width: 300px;
+      height: 150px;
+      .place-av-driver,
+      .place-av-passenger,
+      .place-ar-one,
+      .place-ar-two,
+      .place-ar-three,
+      .place-ar-four,
+      .place-ar-five,
+      .place-ar-six {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+
   .swiper-wrapper {
     -webkit-transform: none;
     transform: none;
     .swiper-slide {
       -webkit-transform: none;
       transform: none;
-    }
-  } // 360 x 640
-  @media only screen and (min-device-width:360px) {
-    .place-av-driver {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 230px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-av-passenger {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -90px;
-      margin-left: 230px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-one {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 160px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-two {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -90px;
-      margin-left: 160px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-three {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 90px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-four {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -90px;
-      margin-left: 90px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-five {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 20px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-six {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -89px;
-      margin-left: 20px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-  } // iphone 6
-  @media only screen and (min-device-width:375px) {
-    .place-av-driver {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 230px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-av-passenger {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -90px;
-      margin-left: 230px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-one {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 160px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-two {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -90px;
-      margin-left: 160px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-three {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 90px;
-      img {
-
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-four {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -90px;
-      margin-left: 90px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-five {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -155px;
-      margin-left: 20px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-six {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 60px;
-      height: 60px;
-      position: absolute;
-      margin-top: -89px;
-      margin-left: 20px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-  } //iphone 6 plus
-  @media (min-device-width: 410px) {
-    .place-av-driver {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -170px;
-      margin-left: 245px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-av-passenger {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -95px;
-      margin-left: 245px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-one {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -170px;
-      margin-left: 175px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-two {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -95px;
-      margin-left: 175px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-three {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -170px;
-      margin-left: 105px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-four {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -95px;
-      margin-left: 105px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-five {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -170px;
-      margin-left: 35px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
-    }
-
-    .place-ar-six {
-      border: 1px solid gray;
-      border-radius: 100%;
-      width: 65px;
-      height: 65px;
-      position: absolute;
-      margin-top: -95px;
-      margin-left: 35px;
-
-      img {
-        width: 15vw;
-        height: 15vw;
-        border-radius: 50%;
-      }
     }
   }
 }

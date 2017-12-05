@@ -86,6 +86,12 @@ export class History {
         } else {
           this.previousEvents.push(this.events[i]);
         }
+
+        for (let event of this.previousEvents) {
+          event.info.logo ? event.type = "custom" : null;
+          event.info.chill.logo ? event.type = "regular" : null;
+          !event.info.chill.logo && !event.info.logo || event.info.chill.logo && event.info.logo ? event.type = "custom" : null;
+        }
       }
       // Reverse previousEvents to show events from the most recent to the old one
       // unsortedEvents is used for the search function, to avoid modify previousEvents

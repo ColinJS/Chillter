@@ -1,10 +1,18 @@
 chill-box {
-  .nav-title {
-    height: 130px;
+  ion-navbar {
+    min-height: 70px !important;
+
+    img {
+      height: 47px;
+    }
+  }
+
+  .scroll-content {
+    margin-top: 80px !important;
   }
 
   .history-button {
-    margin: 8% 2%;
+    margin: 6% 2%;
     float: left;
     color: $chillter-col;
   }
@@ -34,9 +42,28 @@ chill-box {
   }
 
   .orange-border {
-    box-sizing: content-box;
-    border: 2px solid $chillter-col;
-    border-radius: 100%;
+    border: 1px solid $chillter-col;
+    margin: 3px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    line-height: 0;
+    min-width: unset;
+    min-height: unset;
+    img {
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      padding: 2px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      position: relative;
+      top: 0;
+      width: 52px;
+      height: 52px;
+    }
   }
 
   .chill-box {
@@ -123,7 +150,6 @@ chill-box {
       .chill-exp {
         font-style: normal;
         color: #666666;
-        font-weight: bold;
         display: inline-block;
       }
 
@@ -142,13 +168,12 @@ chill-box {
 
       .soon {
         vertical-align: 40%;
-        font-weight: bold;
       }
 
       .today {
         color: $chillter-col !important;
       }
-      
+
       .ongoing {
         color: #43a1eb !important;
       }
@@ -157,6 +182,7 @@ chill-box {
         display: block;
         margin-top: -10px;
         text-align: right;
+        font-weight: bold;
       }
 
       img {
@@ -184,12 +210,6 @@ chill-box {
     }
 
     ion-avatar {
-      .orange-border {
-        box-sizing: content-box;
-        border: 3px solid $chillter-col;
-        border-radius: 100%;
-      }
-
       .logo-chill {
         height: 10vw;
         width: 10vw;

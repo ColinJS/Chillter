@@ -1,6 +1,10 @@
 friend-list {
-  .nav-title {
-    height: 130px;
+  ion-navbar {
+    min-height: 75px !important;
+
+    img {
+      height: 47px;
+    }
   }
 
   .friend-list {
@@ -87,6 +91,7 @@ friend-list {
     ion-avatar {
       img {
         border: 1px solid $chillter-col;
+        padding: 1px;
       }
     }
 

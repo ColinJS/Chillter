@@ -16,7 +16,7 @@
           <h1>{{ car.driver.firstname }}</h1>
           <div class="car-class">
             <img src="assets/images/car.svg"  image-cache />
-            <div *ngFor="let seat of arraySeats; let i=index">
+            <div *ngFor="let seat of arraySeats; let i=index" class="passangers-block">
               <div *ngIf="i < car.seats" class="{{ seat }}" (tap)="passengerTap(car.id, profileId)">
                 <img *ngIf="car.passengers[i]" src="{{ car.passengers[i].picture }}" />
                 <img *ngIf="seat == 'place-av-driver' && newMode" src="{{ car.driver.picture }}" />
@@ -28,10 +28,10 @@
             <div class="suppr-car" *ngIf="!newMode && car.driver.id == profileId" (tap)="deleteCar(car.id)">
               <img src="assets/images/close-filled.png" image-cache/>
             </div>
-            <div class="seats-left">
-              <div *ngIf="newMode">{{ car.seats - 1 }} {{ 'chill-utils.seats-left' | translate }}</div>
-              <div *ngIf="!newMode">{{ car.seats_left }} {{ 'chill-utils.seats-left' | translate }}</div>
-            </div>
+          </div>
+          <div class="seats-left">
+            <div *ngIf="newMode">{{ car.seats - 1 }} {{ 'chill-utils.seats-left' | translate }}</div>
+            <div *ngIf="!newMode">{{ car.seats_left }} {{ 'chill-utils.seats-left' | translate }}</div>
           </div>
         </div>
       </div>

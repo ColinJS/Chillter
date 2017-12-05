@@ -117,7 +117,7 @@
     "maybe": "Maybe",
     "no-place": "No place has be defined",
     "no-chat-message": "No message has been published",
-    "edited-chill": "You chill have been edtied !",
+    "edited-chill": "You chill have been edited !",
     "place": "Place",
     "address": "Address"
   },
@@ -152,6 +152,7 @@
     "not-sended": "You need to send the Chill first !",
     "no-exp-info": "The name and the price need to be specified !",
     "no-exp-inheriter": "At least one person need to be selected !",
+    "over-10-seats": "A car cannot have more than 9 seats",
     "input-add-element": {
       "title": "Add an element",
       "placeholder": "Something..."
@@ -188,6 +189,8 @@
     "remove": "Remove",
     "send": "Send",
     "save": "Save",
+    "update": "Update",
+    "updateSave": "Update and send",
     "not-sended": "You need to send the Chill first !",
     "more-friends": "more",
     "punchline-title": "Punchline !",

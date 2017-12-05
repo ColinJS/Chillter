@@ -917,6 +917,31 @@ export class ApiService {
     });
   }
 
+
+/**
+ * 
+ * @param custom Chill id
+ * @param body object
+ * Update a custom chill
+ */
+  updateCustomChill(customChillId, body: {name: string, address: string }): Observable<any> {
+    return this.storage.getValue('id').switchMap(id => {
+      return this.http.put(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId, body);
+    });
+  }
+
+/**
+ * 
+ * @param custom Chill id
+ * Delete a custom chill
+ */
+  deleteCustomChill(customChillId): Observable<any> {
+    return this.storage.getValue('id').switchMap(id => {
+      return this.http.delete(this.baseUrl + '/chillers/' + id + '/custom_chills/' + customChillId);
+    });
+  }
+
+
   /**
    * Get all custom chills, used in chilllist
    */
